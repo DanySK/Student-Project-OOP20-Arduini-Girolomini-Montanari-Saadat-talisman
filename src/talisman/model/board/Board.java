@@ -14,7 +14,9 @@ public interface Board <S extends BoardSection<C>, C extends BoardCell> {
 	 * @param index the cell's index
 	 * @return the cell instance
 	 */
-	C getCell(int section, int index);
+	default C getCell(int section, int index) {
+		return this.getSection(section).getCell(index);
+	}
 	/**
 	 * Gets the section at the specified index
 	 * @param index the section's index

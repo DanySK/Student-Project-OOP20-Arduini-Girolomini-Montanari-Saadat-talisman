@@ -22,5 +22,13 @@ public interface PopulatedBoard<S extends BoardSection<C>, C extends BoardCell, 
 	 * @param cell the cell in the new section
 	 */
 	void changePawnSection(final int playerIndex, final int section, final int cell);
+	/**
+	 * Moves the pawn of the specified player's index at the first cell of the specified section
+	 * @param playerIndex the pawn's player index
+	 * @param section the new section
+	 */
+	default void changePawnSection(int playerIndex, int section) {
+		this.changePawnSection(playerIndex, section, 0);
+	}
 	P getPawn(final int playerIndex);
 }
