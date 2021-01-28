@@ -22,5 +22,4 @@ public class TalismanBoardPawn implements BoardPawn {
 	public String getImagePath() {
 		return this.imagePath;
 	}
-
 }
