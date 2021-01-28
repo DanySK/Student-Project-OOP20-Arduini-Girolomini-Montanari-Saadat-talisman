@@ -1,6 +1,12 @@
 package talisman.model.board;
 
+/**
+ * Implements a board for talisman
+ * 
+ * @author Alberto Arduini
+ */
 public class TalismanBoard implements PopulatedBoard<TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
+
 	@Override
 	public TalismanBoardCell getCell(int section, int index) {
 		// TODO Auto-generated method stub
