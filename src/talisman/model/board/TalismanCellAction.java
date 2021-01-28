@@ -19,5 +19,5 @@ public interface TalismanCellAction extends Serializable {
 	 * Applies the action to the specified player
 	 * @param player the player on which the action will execute
 	 */
-	void applyTo(int player);
+	void applyTo(final int player);
 }

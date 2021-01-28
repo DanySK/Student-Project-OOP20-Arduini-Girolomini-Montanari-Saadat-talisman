@@ -24,12 +24,24 @@ public final class TalismanBoardCell extends BoardCellImpl {
 		this.type = type;
 		this.actions = Set.copyOf(actions);
 	}
+	/**
+	 * Gets the cell's type
+	 * @return The cell's type
+	 */
 	public TalismanCellType getType() {
 		return this.type;
 	}
+	/**
+	 * Gets the cell's actions
+	 * @return The cell's actions
+	 */
 	public Set<TalismanCellAction> getActions() {
 		return this.actions;
 	}
+	/**
+	 * Applies all the actions of this cell the the specified player
+	 * @param player The index of the player to which the actions will apply
+	 */
 	public void applyActionsTo(final int player) {
 		this.getActions().stream().forEach(a -> a.applyTo(player));
 	}
