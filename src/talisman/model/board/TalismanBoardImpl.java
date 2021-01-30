@@ -10,7 +10,7 @@ import talisman.util.*;
  * 
  * @author Alberto Arduini
  */
-public class TalismanBoardImpl implements PopulatedBoard<TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
+public class TalismanBoardImpl implements TalismanBoard {
     private final List<TalismanBoardSection> sections;
     private final List<TalismanBoardPawn> characterPawns;
     private final Map<TalismanBoardPawn, Pair<Integer, Integer>> pawnPositions;
