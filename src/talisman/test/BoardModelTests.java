@@ -7,6 +7,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import talisman.model.board.TalismanBoardImpl;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
@@ -56,13 +57,13 @@ public class BoardModelTests {
             cells.add(new TalismanBoardCell("", "Cell " + i, TalismanCellType.BIOME, Set.of()));
         }
         final List<TalismanBoardSection> sections = new ArrayList<>();
-        for (int i = 0; i < cellsCount; i++) {
+        for (int i = 0; i < sectionsCount; i++) {
             sections.add(new TalismanBoardSection(List.copyOf(cells)));
         }
         final List<TalismanBoardPawn> pawns = new ArrayList<>();
         for (int i = 0; i < pawnsCount; i++) {
             pawns.add(new TalismanBoardPawn(""));
         }
-        return new TalismanBoard(sections, pawns);
+        return new TalismanBoardImpl(sections, pawns);
     }
 }
