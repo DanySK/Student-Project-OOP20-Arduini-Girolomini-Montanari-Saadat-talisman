@@ -8,7 +8,7 @@ import java.util.*;
  * @author Alberto Arduini
  *
  */
-public class TalismanBoardSectionImpl implements BoardSection<TalismanBoardCell> {
+public class TalismanBoardSectionImpl implements TalismanBoardSection {
     private final List<TalismanBoardCell> cells;
 
     /**
