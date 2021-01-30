@@ -8,7 +8,7 @@ import java.util.*;
  * @author Alberto Arduini
  *
  */
-public class TalismanBoardSection implements BoardSection<TalismanBoardCell> {
+public class TalismanBoardSectionImpl implements BoardSection<TalismanBoardCell> {
     private final List<TalismanBoardCell> cells;
 
     /**
@@ -16,7 +16,7 @@ public class TalismanBoardSection implements BoardSection<TalismanBoardCell> {
      * 
      * @param cells the section's cells
      */
-    public TalismanBoardSection(final List<TalismanBoardCell> cells) {
+    public TalismanBoardSectionImpl(final List<TalismanBoardCell> cells) {
         this.cells = List.copyOf(cells);
     }
 

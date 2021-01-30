@@ -11,7 +11,7 @@ import talisman.model.board.TalismanBoardImpl;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
-import talisman.model.board.TalismanBoardSection;
+import talisman.model.board.TalismanBoardSectionImpl;
 import talisman.model.board.TalismanCellType;
 
 /**
@@ -56,9 +56,9 @@ public class BoardModelTests {
         for (int i = 0; i < cellsCount; i++) {
             cells.add(new TalismanBoardCell("", "Cell " + i, TalismanCellType.BIOME, Set.of()));
         }
-        final List<TalismanBoardSection> sections = new ArrayList<>();
+        final List<TalismanBoardSectionImpl> sections = new ArrayList<>();
         for (int i = 0; i < sectionsCount; i++) {
-            sections.add(new TalismanBoardSection(List.copyOf(cells)));
+            sections.add(new TalismanBoardSectionImpl(List.copyOf(cells)));
         }
         final List<TalismanBoardPawn> pawns = new ArrayList<>();
         for (int i = 0; i < pawnsCount; i++) {
