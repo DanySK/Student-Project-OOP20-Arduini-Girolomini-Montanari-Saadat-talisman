@@ -60,4 +60,18 @@ public class TalismanBoard implements PopulatedBoard<TalismanBoardSection, Talis
     public TalismanBoardPawn getPawn(final int playerIndex) {
         return this.characterPawns.get(playerIndex);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getPawnSectionIndex(final int playerIndex) {
+        return this.pawnPositions.get(this.getPawn(playerIndex)).getX();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public int getPawnCellIndex(final int playerIndex) {
+        return this.pawnPositions.get(this.getPawn(playerIndex)).getY();
+    }
 }

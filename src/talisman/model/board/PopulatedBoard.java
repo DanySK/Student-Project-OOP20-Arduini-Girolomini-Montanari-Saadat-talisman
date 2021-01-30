@@ -41,5 +41,27 @@ public interface PopulatedBoard<S extends BoardSection<C>, C extends BoardCell, 
         this.changePawnSection(playerIndex, section, 0);
     }
 
+    /**
+     * Obtains the pawn associated with the player with the specified index.
+     * 
+     * @param playerIndex the player index
+     * @return the player's pawn
+     */
     P getPawn(int playerIndex);
+
+    /**
+     * Obtains the section on witch a pawn is on.
+     * 
+     * @param playerIndex the pawn's player index
+     * @return the section index
+     */
+    int getPawnSectionIndex(int playerIndex);
+
+    /**
+     * Obtains the cell on witch a pawn is on.
+     * 
+     * @param playerIndex the pawn's player index
+     * @return the section index
+     */
+    int getPawnCellIndex(int playerIndex);
 }
