@@ -11,7 +11,7 @@ import talisman.util.*;
  * @author Alberto Arduini
  */
 public class TalismanBoardImpl implements TalismanBoard {
-    private final List<TalismanBoardSectionImpl> sections;
+    private final List<TalismanBoardSection> sections;
     private final List<TalismanBoardPawn> characterPawns;
     private final Map<TalismanBoardPawn, Pair<Integer, Integer>> pawnPositions;
 
@@ -21,7 +21,7 @@ public class TalismanBoardImpl implements TalismanBoard {
      * @param sections       the sections that the board contains
      * @param characterPawns the player pawns
      */
-    public TalismanBoardImpl(final List<TalismanBoardSectionImpl> sections, final List<TalismanBoardPawn> characterPawns) {
+    public TalismanBoardImpl(final List<TalismanBoardSection> sections, final List<TalismanBoardPawn> characterPawns) {
         super();
         this.sections = sections;
         this.characterPawns = characterPawns;
@@ -32,7 +32,7 @@ public class TalismanBoardImpl implements TalismanBoard {
      * {@inheritDoc}
      */
     @Override
-    public TalismanBoardSectionImpl getSection(final int index) {
+    public TalismanBoardSection getSection(final int index) {
         return this.sections.get(index);
     }
 

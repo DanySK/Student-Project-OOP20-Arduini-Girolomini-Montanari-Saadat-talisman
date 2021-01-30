@@ -1,4 +1,4 @@
 package talisman.model.board;
 
-public interface TalismanBoard extends PopulatedBoard<TalismanBoardSectionImpl, TalismanBoardCell, TalismanBoardPawn> {
+public interface TalismanBoard extends PopulatedBoard<TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
 }
