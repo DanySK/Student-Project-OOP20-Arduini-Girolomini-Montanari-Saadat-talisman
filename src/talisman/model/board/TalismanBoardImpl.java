@@ -10,7 +10,7 @@ import talisman.util.*;
  * 
  * @author Alberto Arduini
  */
-public class TalismanBoard implements PopulatedBoard<TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
+public class TalismanBoardImpl implements PopulatedBoard<TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
     private final List<TalismanBoardSection> sections;
     private final List<TalismanBoardPawn> characterPawns;
     private final Map<TalismanBoardPawn, Pair<Integer, Integer>> pawnPositions;
@@ -21,7 +21,7 @@ public class TalismanBoard implements PopulatedBoard<TalismanBoardSection, Talis
      * @param sections       the sections that the board contains
      * @param characterPawns the player pawns
      */
-    public TalismanBoard(final List<TalismanBoardSection> sections, final List<TalismanBoardPawn> characterPawns) {
+    public TalismanBoardImpl(final List<TalismanBoardSection> sections, final List<TalismanBoardPawn> characterPawns) {
         super();
         this.sections = sections;
         this.characterPawns = characterPawns;
