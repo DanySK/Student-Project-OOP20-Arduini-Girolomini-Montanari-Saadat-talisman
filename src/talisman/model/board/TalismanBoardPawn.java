@@ -25,4 +25,14 @@ public class TalismanBoardPawn implements BoardPawn {
     public String getImagePath() {
         return this.imagePath;
     }
+
+    /**
+     * Constructs a new pawn.
+     * 
+     * @param imagePath the path to the pawn's image
+     * @return the created pawn
+     */
+    public static TalismanBoardPawn createPawn(final String imagePath) {
+        return new TalismanBoardPawn(imagePath);
+    }
 }
