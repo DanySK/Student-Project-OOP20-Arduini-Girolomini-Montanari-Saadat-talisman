@@ -1,21 +1,17 @@
 package talisman.model.battle;
 
 /**
- * Inteface that models battles.
+ * Interface that models battles.
  * 
  * @author Alice Girolomini
  *
  */
 public interface BattleModel {
     /**
-     * Calculates the dice roll of the first player.
+     * Checks if one of the players decides to evade the battle.
+     * @return true if one of them evades
      */
-    void firstDiceRoll();
-
-    /**
-     * Calculates the dice roll of the second player.
-     */
-    void secondDiceRoll();
+    boolean checkEvade(); 
 
     /**
      * Compares the scores of the players.
