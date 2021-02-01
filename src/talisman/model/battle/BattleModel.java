@@ -8,18 +8,19 @@ package talisman.model.battle;
  */
 public interface BattleModel {
     /**
-     * Calculates the dice roll.
-     * 
-     * @return the result
+     * Calculates the dice roll of the first player.
      */
-    int diceRoll();
+    void firstDiceRoll();
+
+    /**
+     * Calculates the dice roll of the second player.
+     */
+    void secondDiceRoll();
 
     /**
      * Compares the scores of the players.
-     * 
-     * @return void
      */
-    int compareScore();
+    void compareScore();
 
     /**
      * Checks whether the battle is ended or not.
@@ -30,8 +31,13 @@ public interface BattleModel {
 
     /**
      * Adds the dice result to the initial score of the player.
-     * 
-     * @return void
      */
     void addScore();
+
+    /**
+     * Gets the current state of the battle.
+     * 
+     * @return the current BattleState
+     */
+    BattleState getState();
 }
