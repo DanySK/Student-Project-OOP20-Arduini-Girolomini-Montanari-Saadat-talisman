@@ -56,6 +56,19 @@ public class BattleModelImpl implements BattleModel {
     }
 
     /**
+     * Checks if one of the players decides to evade the battle.
+     * @return true if one of them evades
+     */
+    public boolean checkEvade() {
+        if (this.firstCharScore == 0 || this.secondCharScore == 0) {
+            this.currentState = BattleState.EVADE;
+            this.end = true;
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Compares the scores of the players.
      */
     public void compareScore() {
@@ -63,8 +76,6 @@ public class BattleModelImpl implements BattleModel {
             this.currentState = BattleState.FIRST;
         } else if (this.firstCharScore < this.secondCharScore) {
             this.currentState = BattleState.SECOND;
-        } else if (this.firstCharScore == 0) {
-            this.currentState = BattleState.EVADE;
         } else if (this.firstCharScore == this.secondCharScore) {
             this.currentState = BattleState.STAND_OFF;
         }
@@ -97,4 +108,39 @@ public class BattleModelImpl implements BattleModel {
         return this.currentState;
     }
 
+    /**
+     * Gets the current score of the first player.
+     * 
+     * @return the value
+     */
+    public int getFirstScore() {
+        return this.firstCharScore;
+    }
+
+    /**
+     * Gets the current score of the second player.
+     * 
+     * @return the value
+     */
+    public int getSecondScore() {
+        return this.secondCharScore;
+    }
+
+    /**
+     * Gets the value of the last die roll of the first player.
+     * 
+     * @return the value
+     */
+    public int getFirstDice() {
+        return this.firstDice;
+    }
+
+    /**
+     * Gets the value of the last die roll of the second player.
+     * 
+     * @return the value
+     */
+    public int getSecondDice() {
+        return this.secondDice;
+    }
 }
