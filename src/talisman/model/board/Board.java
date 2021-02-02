@@ -9,6 +9,14 @@ package talisman.model.board;
  * @param <C> The board cells type
  */
 public interface Board<S extends BoardSection<C>, C extends BoardCell> {
+
+    /**
+     * Gets the number of sections in this board.
+     * 
+     * @return the sections count
+     */
+    int getSectionCount();
+
     /**
      * Gets the cell instance at the specified section and cell indexes.
      * 

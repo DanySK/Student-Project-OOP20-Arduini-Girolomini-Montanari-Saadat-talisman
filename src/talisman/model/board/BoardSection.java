@@ -9,6 +9,13 @@ package talisman.model.board;
  */
 public interface BoardSection<C extends BoardCell> {
     /**
+     * Gets the number of cells.
+     * 
+     * @return the cells count
+     */
+    int getCellCount();
+    
+    /**
      * Gets the cells at the specified index.
      * 
      * @param index the cell's index

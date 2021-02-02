@@ -21,9 +21,15 @@ public class TalismanBoardSectionImpl implements TalismanBoardSection {
     }
 
     /**
-     * Gets the cell at the specified index.
-     * 
-     * @param index the cell's index
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCellCount() {
+        return this.cells.size();
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public TalismanBoardCell getCell(final int index) {
@@ -31,9 +37,7 @@ public class TalismanBoardSectionImpl implements TalismanBoardSection {
     }
 
     /**
-     * Gets the index of the specified cell.
-     * 
-     * @param cell the cell
+     * {@inheritDoc}
      */
     @Override
     public int getCellPosition(final TalismanBoardCell cell) {

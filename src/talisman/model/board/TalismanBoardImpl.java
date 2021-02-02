@@ -33,6 +33,14 @@ public class TalismanBoardImpl implements TalismanBoard {
      * {@inheritDoc}
      */
     @Override
+    public int getSectionCount() {
+        return this.sections.size();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public TalismanBoardSection getSection(final int index) {
         return this.sections.get(index);
     }
