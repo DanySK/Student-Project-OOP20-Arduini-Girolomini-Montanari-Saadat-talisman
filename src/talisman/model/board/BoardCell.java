@@ -2,6 +2,8 @@ package talisman.model.board;
 
 import java.io.Serializable;
 
+import talisman.util.CellType;
+
 /**
  * Inteface that modela a cell on a board.
  * 
@@ -22,4 +24,11 @@ public interface BoardCell extends Serializable {
      * @return the cell's text
      */
     String getText();
+
+    /**
+     * Get the type/orientation of the cell.
+     * 
+     * @return the cell's text
+     */
+    CellType getCellType();
 }

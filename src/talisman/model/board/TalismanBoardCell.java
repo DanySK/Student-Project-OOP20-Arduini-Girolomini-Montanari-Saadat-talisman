@@ -1,7 +1,8 @@
 package talisman.model.board;
 
 import java.util.*;
-import java.util.stream.*;
+
+import talisman.util.CellType;
 
 /**
  * A cell of the talisman board.
@@ -16,24 +17,25 @@ public final class TalismanBoardCell extends BoardCellImpl {
     /**
      * Constructs a new talisman board cell.
      * 
-     * @param imagePath the path to the cell's image
-     * @param text      the cell's text
-     * @param type      the cell's type
-     * @param actions   a collection of the cell's actions
+     * @param imagePath   the path to the cell's image
+     * @param text        the cell's text
+     * @param orientation the cell's orientation
+     * @param type        the cell's type
+     * @param actions     a collection of the cell's actions
      */
-    public TalismanBoardCell(final String imagePath, final String text, final TalismanCellType type,
-            final Collection<TalismanCellAction> actions) {
-        super(imagePath, text);
+    public TalismanBoardCell(final String imagePath, final String text, final CellType orientation,
+            final TalismanCellType type, final Collection<TalismanCellAction> actions) {
+        super(imagePath, text, orientation);
         this.type = type;
         this.actions = Set.copyOf(actions);
     }
 
     /**
-     * Gets the cell's type.
+     * Gets the talisman cell's type.
      * 
      * @return The cell's type
      */
-    public TalismanCellType getType() {
+    public TalismanCellType getTalismanType() {
         return this.type;
     }
 
@@ -58,14 +60,15 @@ public final class TalismanBoardCell extends BoardCellImpl {
     /**
      * Constructs a new cell.
      * 
-     * @param imagePath the path to the cell's image
-     * @param text      the cell's text
-     * @param type      the cell's type
-     * @param actions   a collection of the cell's actions
+     * @param imagePath   the path to the cell's image
+     * @param text        the cell's text
+     * @param orientation the cell's orientation
+     * @param type        the cell's type
+     * @param actions     a collection of the cell's actions
      * @return the created cell
      */
-    public static TalismanBoardCell createCell(final String imagePath, final String text, final TalismanCellType type,
-            final Collection<TalismanCellAction> actions) {
-        return new TalismanBoardCell(imagePath, text, type, actions);
+    public static TalismanBoardCell createCell(final String imagePath, final String text, final CellType orientation,
+            final TalismanCellType type, final Collection<TalismanCellAction> actions) {
+        return new TalismanBoardCell(imagePath, text, orientation, type, actions);
     }
 }
