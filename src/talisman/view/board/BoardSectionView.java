@@ -10,6 +10,13 @@ import java.util.List;
  */
 public interface BoardSectionView {
     /**
+     * Gets the child cells count.
+     * 
+     * @return the cells count
+     */
+    int getCellCount();
+    
+    /**
      * Gets the cell at the given index.
      * 
      * @param cellIndex the cell index
@@ -32,6 +39,13 @@ public interface BoardSectionView {
      * @return the y position
      */
     int getCellPositionY(int cellIndex);
+
+    /**
+     * Sets another section as contained into this one.
+     * 
+     * @param section the section to insert
+     */
+    void setContainedSection(BoardSectionView section);
 
     /**
      * Creates a new section from the given cell list.
