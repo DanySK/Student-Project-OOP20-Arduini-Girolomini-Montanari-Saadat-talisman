@@ -11,7 +11,7 @@ import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
-
+import talisman.util.CellType;
 import talisman.view.board.BoardView;
 
 public final class BoardTestUtils {
@@ -29,7 +29,7 @@ public final class BoardTestUtils {
     public static TalismanBoard createBoard(final int sectionsCount, final int cellsCount, final int pawnsCount) {
         final List<TalismanBoardCell> cells = new ArrayList<>();
         for (int i = 0; i < cellsCount; i++) {
-            cells.add(TalismanBoardCell.createCell("", "Cell " + i, TalismanCellType.BIOME, Set.of()));
+            cells.add(TalismanBoardCell.createCell("", "Cell " + i, CellType.DOWN, TalismanCellType.BIOME, Set.of()));
         }
         final List<TalismanBoardSection> sections = new ArrayList<>();
         for (int i = 0; i < sectionsCount; i++) {
@@ -53,6 +53,6 @@ public final class BoardTestUtils {
     public static TalismanBoardController createController(final int sectionsCount, final int cellsCount, final int pawnsCount) {
         final TalismanBoard board = BoardTestUtils.createBoard(sectionsCount, cellsCount, pawnsCount);
         // I don't care about testing the view, so I create an empty one
-        return TalismanBoardController.create(board, BoardView.create(List.of()));
+        return TalismanBoardController.create(board, BoardView.create(List.of(), 0));
     }
 }
