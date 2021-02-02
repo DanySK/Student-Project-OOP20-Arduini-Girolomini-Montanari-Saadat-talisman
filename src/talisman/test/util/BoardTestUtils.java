@@ -12,6 +12,8 @@ import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
 
+import talisman.view.board.BoardView;
+
 public final class BoardTestUtils {
     private BoardTestUtils() {
     }
@@ -50,6 +52,7 @@ public final class BoardTestUtils {
      */
     public static TalismanBoardController createController(final int sectionsCount, final int cellsCount, final int pawnsCount) {
         final TalismanBoard board = BoardTestUtils.createBoard(sectionsCount, cellsCount, pawnsCount);
-        return TalismanBoardController.createFromBoard(board);
+        // I don't care about testing the view, so I create an empty one
+        return TalismanBoardController.create(board, BoardView.create(List.of()));
     }
 }
