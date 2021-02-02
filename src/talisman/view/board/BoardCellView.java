@@ -1,15 +1,14 @@
 package talisman.view.board;
 
+import talisman.util.CellType;
+
 public interface BoardCellView {
     /**
-     * Specifies which edges of the cell is on the outside.
+     * Gets the cell's orientation.
      * 
-     * @author Alberto Arduini
-     *
+     * @return the cell's orientation type
      */
-    enum CellType {
-        LEFT, RIGHT, UP, DOWN, UP_LEFT, UP_RIGHT, DOWN_LEFT, DOWN_RIGHT,
-    }
+    CellType getCellType();
 
     /**
      * Get the cell x position.
@@ -28,9 +27,9 @@ public interface BoardCellView {
     /**
      * Creates a new cell.
      * 
-     * @param imagePath   the path to the background image
-     * @param text        the text on the cell
-     * @param type the orientation of the cell
+     * @param imagePath the path to the background image
+     * @param text      the text on the cell
+     * @param type      the orientation of the cell
      * @return the created cell
      */
     static BoardCellView create(final String imagePath, final String text, final CellType type) {
