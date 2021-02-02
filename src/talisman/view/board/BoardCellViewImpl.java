@@ -20,6 +20,7 @@ import talisman.util.ViewUtils;
  * * @author Alberto Arduini
  *
  */
+// getX and getY do not get overridden since they are already define in JComponent
 public class BoardCellViewImpl extends JPanel implements BoardCellView {
     private final JLabel textLabel;
     private final JPanel textBackground;
@@ -54,6 +55,7 @@ public class BoardCellViewImpl extends JPanel implements BoardCellView {
         this.textLabel.setText(text);
         this.textLabel.setForeground(Color.WHITE);
         this.add(this.textLabel);
+        // TODO: Size cell to fit type
     }
 
     /**
