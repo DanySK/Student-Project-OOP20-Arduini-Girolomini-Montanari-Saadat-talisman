@@ -1,5 +1,7 @@
 package talisman.controller.board;
 
+import talisman.view.board.BoardView;
+
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanBoardCell;
@@ -15,10 +17,11 @@ public interface TalismanBoardController extends PopulatedBoardController<Talism
     /**
      * Creates a talisman board controller from a given board model.
      * 
-     * @param board the board model instance
+     * @param board the board model to control
+     * @param view  the board view
      * @return the controller
      */
-    static TalismanBoardController createFromBoard(final TalismanBoard board) {
-        return new TalismanBoardControllerImpl(board);
+    static TalismanBoardController create(final TalismanBoard board, final BoardView view) {
+        return new TalismanBoardControllerImpl(board, view);
     }
 }

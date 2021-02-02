@@ -1,6 +1,7 @@
 package talisman.controller.board;
 
 import talisman.model.board.Board;
+import talisman.view.board.BoardView;
 
 /**
  * A MVC controller for a board.
@@ -16,4 +17,10 @@ public interface BoardController<B extends Board<?, ?>> {
      * @return the board
      */
     B getBoard();
+    /**
+     * Gets the controllerd board view.
+     * 
+     * @return the board view
+     */
+    BoardView getView();
 }

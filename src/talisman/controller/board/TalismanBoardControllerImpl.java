@@ -3,6 +3,7 @@ package talisman.controller.board;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardSection;
+import talisman.view.board.BoardView;
 import talisman.model.board.TalismanBoardPawn;
 
 /**
@@ -13,14 +14,17 @@ import talisman.model.board.TalismanBoardPawn;
  */
 public final class TalismanBoardControllerImpl implements TalismanBoardController {
     private final TalismanBoard board;
+    private final BoardView view;
 
     /**
      * Creates a new controller.
      * 
      * @param board the board model to control
+     * @param view  the board view
      */
-    public TalismanBoardControllerImpl(final TalismanBoard board) {
+    public TalismanBoardControllerImpl(final TalismanBoard board, final BoardView view) {
         this.board = board;
+        this.view = view;
     }
 
     /**
@@ -81,4 +85,11 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
         return this.board;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public BoardView getView() {
+        return this.view;
+    }
 }
