@@ -1,9 +1,10 @@
 package talisman.model.board;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
-import talisman.util.*;
+import talisman.util.Pair;
 
 /**
  * Implements a board for talisman.
@@ -41,7 +42,7 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     @Override
     public void movePawnTo(final int playerIndex, final int cell) {
-        Pair<Integer, Integer> oldPosition = this.pawnPositions.get(this.getPawn(playerIndex));
+        final Pair<Integer, Integer> oldPosition = this.pawnPositions.get(this.getPawn(playerIndex));
         this.pawnPositions.replace(this.getPawn(playerIndex), new Pair<>(oldPosition.getX(), cell));
     }
 
@@ -64,6 +65,7 @@ public class TalismanBoardImpl implements TalismanBoard {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getPawnSectionIndex(final int playerIndex) {
         return this.pawnPositions.get(this.getPawn(playerIndex)).getX();
     }
@@ -71,6 +73,7 @@ public class TalismanBoardImpl implements TalismanBoard {
     /**
      * {@inheritDoc}
      */
+    @Override
     public int getPawnCellIndex(final int playerIndex) {
         return this.pawnPositions.get(this.getPawn(playerIndex)).getY();
     }

@@ -13,8 +13,9 @@ import talisman.model.board.BoardPawn;
  * @param <B> The board type
  * @param <S> The section type
  * @param <C> The cell type
+ * @param <P> The pawn type
  */
-public interface PopulatedBoardController<B extends PopulatedBoard<S, C, ?>, S extends BoardSection<C>, C extends BoardCell>
+public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S extends BoardSection<C>, C extends BoardCell, P extends BoardPawn>
         extends BoardController<B> {
     /**
      * Moves the character of the specified player in the specified cell.
@@ -58,6 +59,14 @@ public interface PopulatedBoardController<B extends PopulatedBoard<S, C, ?>, S e
      * @return the cell
      */
     C getCharacterCell(int player);
+
+    /**
+     * Gets the pawn of  the character of the specified player.
+     * 
+     * @param player the player's index
+     * @return the pawn
+     */
+    P getCharacterPawn(int player);
 
     /**
      * Applies the actions of the cell on which the specified player is.
