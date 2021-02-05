@@ -9,6 +9,8 @@ import java.util.*;
  *
  */
 public class TalismanBoardSectionImpl implements TalismanBoardSection {
+    private static final long serialVersionUID = 8566807701232979858L;
+
     private final List<TalismanBoardCell> cells;
 
     /**

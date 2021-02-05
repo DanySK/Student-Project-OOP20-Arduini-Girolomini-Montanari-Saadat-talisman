@@ -1,12 +1,14 @@
 package talisman.model.board;
 
+import java.io.Serializable;
+
 /**
  * The type of ambient a cell has.
  * 
  * @author Alberto Arduini
  *
  */
-public enum TalismanCellType {
+public enum TalismanCellType implements Serializable {
     /**
      * The cell contains a monster.
      */

@@ -12,8 +12,10 @@ import talisman.util.Pair;
  * @author Alberto Arduini
  */
 public class TalismanBoardImpl implements TalismanBoard {
+    private static final long serialVersionUID = 2554535334083673195L;
+
     private final List<TalismanBoardSection> sections;
-    private final List<TalismanBoardPawn> characterPawns;
+    private final transient List<TalismanBoardPawn> characterPawns;
 
     /**
      * Creates a new talisman board.
