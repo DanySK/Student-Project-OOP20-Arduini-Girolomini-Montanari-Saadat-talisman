@@ -1,10 +1,8 @@
 package talisman.model.board;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import talisman.util.Pair;
 
 /**
  * Implements a board for talisman.
@@ -15,18 +13,18 @@ public class TalismanBoardImpl implements TalismanBoard {
     private static final long serialVersionUID = 2554535334083673195L;
 
     private final List<TalismanBoardSection> sections;
-    private final transient List<TalismanBoardPawn> characterPawns;
+    private transient List<TalismanBoardPawn> characterPawns;
 
     /**
      * Creates a new talisman board.
      * 
      * @param sections       the sections that the board contains
-     * @param characterPawns the player pawns
+     * @param characterPawns the starting player pawns
      */
     public TalismanBoardImpl(final List<TalismanBoardSection> sections, final List<TalismanBoardPawn> characterPawns) {
         super();
         this.sections = List.copyOf(sections);
-        this.characterPawns = List.copyOf(characterPawns);
+        this.characterPawns = new ArrayList<>(characterPawns);
     }
 
     /**
@@ -82,6 +80,26 @@ public class TalismanBoardImpl implements TalismanBoard {
      * {@inheritDoc}
      */
     @Override
+    public void addPawn(final int playerIndex, final TalismanBoardPawn pawn) {
+        if (this.characterPawns.size() == playerIndex) {
+            this.characterPawns.add(pawn);
+        } else {
+            this.characterPawns.set(playerIndex, pawn);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePawn(final int playerIndex) {
+        this.characterPawns.set(playerIndex, null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getPawnSectionIndex(final int playerIndex) {
         return this.getPawn(playerIndex).getPositionSection();
     }
@@ -92,5 +110,11 @@ public class TalismanBoardImpl implements TalismanBoard {
     @Override
     public int getPawnCellIndex(final int playerIndex) {
         return this.getPawn(playerIndex).getPositionCell();
+    }
+
+    private void readObject(final java.io.ObjectInputStream in)
+        throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        this.characterPawns = new ArrayList<>();
     }
 }

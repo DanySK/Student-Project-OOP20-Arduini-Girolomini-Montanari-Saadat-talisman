@@ -31,16 +31,6 @@ public class TalismanBoardPawn implements BoardPawn {
     }
 
     /**
-     * Constructs a new pawn.
-     * 
-     * @param imagePath the path to the pawn's image
-     * @return the created pawn
-     */
-    public static TalismanBoardPawn createPawn(final String imagePath) {
-        return new TalismanBoardPawn(imagePath);
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
@@ -62,5 +52,15 @@ public class TalismanBoardPawn implements BoardPawn {
     @Override
     public void setPosition(final int section, final int cell) {
         this.position = new Pair<>(section, cell);
+    }
+
+    /**
+     * Constructs a new pawn.
+     * 
+     * @param imagePath the path to the pawn's image
+     * @return the created pawn
+     */
+    public static TalismanBoardPawn createPawn(final String imagePath) {
+        return new TalismanBoardPawn(imagePath);
     }
 }

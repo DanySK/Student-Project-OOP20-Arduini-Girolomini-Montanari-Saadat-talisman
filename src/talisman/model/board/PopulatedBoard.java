@@ -57,6 +57,22 @@ public interface PopulatedBoard<S extends BoardSection<C>, C extends BoardCell, 
     P getPawn(int playerIndex);
 
     /**
+     * Add a new pawn for the given player. If the player already has a pawn it will
+     * be substituted.
+     * 
+     * @param playerIndex the player's index
+     * @param pawn        the pawn
+     */
+    void addPawn(int playerIndex, P pawn);
+
+    /**
+     * Removes the pawn for the given player.
+     * 
+     * @param playerIndex the player's index
+     */
+    void removePawn(int playerIndex);
+
+    /**
      * Obtains the section on witch a pawn is on.
      * 
      * @param playerIndex the pawn's player index
