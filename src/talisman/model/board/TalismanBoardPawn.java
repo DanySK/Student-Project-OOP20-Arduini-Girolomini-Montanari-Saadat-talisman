@@ -19,6 +19,7 @@ public class TalismanBoardPawn implements BoardPawn {
      */
     public TalismanBoardPawn(final String imagePath) {
         this.imagePath = imagePath;
+        this.position = new Pair<>(0, 0);
     }
 
     /**
