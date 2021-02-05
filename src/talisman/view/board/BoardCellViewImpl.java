@@ -42,7 +42,12 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.textLabel.setText(text);
         this.textLabel.setForeground(Color.WHITE);
         this.textBackground.add(this.textLabel);
-        this.setMinimumSize(new Dimension(100, 100));
+        Dimension textSize = this.textLabel.getMinimumSize();
+        if (textSize == null) {
+            textSize = this.textLabel.getSize();
+        }
+        this.setMinimumSize(new Dimension((int) textSize.getWidth(), (int) textSize.getWidth()));
+        this.setPreferredSize(new Dimension((int) textSize.getWidth(), (int) textSize.getWidth()));
     }
 
     /**
