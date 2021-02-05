@@ -1,6 +1,7 @@
 package talisman.controller.board;
 
 import talisman.model.board.PopulatedBoard;
+import talisman.view.board.PopulatedBoardView;
 import talisman.model.board.BoardSection;
 import talisman.model.board.BoardCell;
 import talisman.model.board.BoardPawn;
@@ -17,6 +18,13 @@ import talisman.model.board.BoardPawn;
  */
 public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S extends BoardSection<C>, C extends BoardCell, P extends BoardPawn>
         extends BoardController<B> {
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    PopulatedBoardView getView();
+    
     /**
      * Moves the character of the specified player in the specified cell.
      * 

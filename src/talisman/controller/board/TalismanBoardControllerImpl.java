@@ -3,7 +3,7 @@ package talisman.controller.board;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardSection;
-import talisman.view.board.BoardView;
+import talisman.view.board.PopulatedBoardView;
 import talisman.model.board.TalismanBoardPawn;
 
 /**
@@ -14,7 +14,7 @@ import talisman.model.board.TalismanBoardPawn;
  */
 public final class TalismanBoardControllerImpl implements TalismanBoardController {
     private final TalismanBoard board;
-    private final BoardView view;
+    private final PopulatedBoardView view;
 
     /**
      * Creates a new controller.
@@ -22,9 +22,12 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      * @param board the board model to control
      * @param view  the board view
      */
-    public TalismanBoardControllerImpl(final TalismanBoard board, final BoardView view) {
+    public TalismanBoardControllerImpl(final TalismanBoard board, final PopulatedBoardView view) {
         this.board = board;
         this.view = view;
+        for (int i = 0; i < this.getBoard().getPawnCount(); i++) {
+            updatePawnViewPosition(i);
+        }
     }
 
     /**
@@ -33,6 +36,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
     @Override
     public void moveCharacterCell(final int player, final int cell) {
         this.getBoard().movePawnTo(player, cell);
+        this.updatePawnViewPosition(player);
     }
 
     /**
@@ -41,6 +45,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
     @Override
     public void moveCharacterSection(final int player, final int section, final int cell) {
         this.getBoard().changePawnSection(player, section, cell);
+        this.updatePawnViewPosition(player);
     }
 
     /**
@@ -89,7 +94,15 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      * {@inheritDoc}
      */
     @Override
-    public BoardView getView() {
+    public PopulatedBoardView getView() {
         return this.view;
+    }
+
+    private void updatePawnViewPosition(final int index) {
+        final int cell = this.getBoard().getPawnCellIndex(index);
+        final int section = this.getBoard().getPawnSectionIndex(index);
+        final int x = this.getView().getSection(section).getCellPositionX(cell);
+        final int y = this.getView().getSection(section).getCellPositionY(cell);
+        this.getView().getPawn(index).setPosition(x, y);
     }
 }
