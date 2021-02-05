@@ -3,7 +3,7 @@ package talisman.model.battle;
 import java.util.Random;
 
 /**
- * Basic implementation of battle model.
+ * Implementation of battle model.
  * 
  * @author Alice Girolomini
  *

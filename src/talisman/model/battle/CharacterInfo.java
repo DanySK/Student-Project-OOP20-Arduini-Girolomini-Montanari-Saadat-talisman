@@ -43,7 +43,7 @@ public interface CharacterInfo {
     void setCraft(int points);
 
     /**
-     * Sets Fate points value.
+     * Sets fate points value.
      * 
      @param coins - the value to be set
      */
