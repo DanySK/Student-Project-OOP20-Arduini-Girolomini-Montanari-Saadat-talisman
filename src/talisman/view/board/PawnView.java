@@ -35,7 +35,7 @@ public interface PawnView {
      * @param imagePath the path to the pawn's image
      * @return the created Pawn
      */
-    static PawnView create(String imagePath) {
-        return null;
+    static PawnView create(final String imagePath) {
+        return new PawnViewImpl(imagePath);
     }
 }

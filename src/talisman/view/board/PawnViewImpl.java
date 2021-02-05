@@ -11,6 +11,7 @@ import talisman.view.ImagePanel;
 public class PawnViewImpl extends ImagePanel implements PawnView {
     public PawnViewImpl(final String imagePath) {
         super(imagePath);
+        this.setSize(50, 50);
     }
     /**
      * {@inheritDoc}
