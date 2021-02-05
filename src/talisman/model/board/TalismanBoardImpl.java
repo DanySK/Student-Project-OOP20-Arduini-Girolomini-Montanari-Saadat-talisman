@@ -14,7 +14,6 @@ import talisman.util.Pair;
 public class TalismanBoardImpl implements TalismanBoard {
     private final List<TalismanBoardSection> sections;
     private final List<TalismanBoardPawn> characterPawns;
-    private final Map<TalismanBoardPawn, Pair<Integer, Integer>> pawnPositions;
 
     /**
      * Creates a new talisman board.
@@ -26,7 +25,6 @@ public class TalismanBoardImpl implements TalismanBoard {
         super();
         this.sections = sections;
         this.characterPawns = characterPawns;
-        this.pawnPositions = this.characterPawns.stream().collect(Collectors.toMap(p -> p, p -> new Pair<>(0, 0)));
     }
 
     /**
@@ -50,8 +48,8 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     @Override
     public void movePawnTo(final int playerIndex, final int cell) {
-        final Pair<Integer, Integer> oldPosition = this.pawnPositions.get(this.getPawn(playerIndex));
-        this.pawnPositions.replace(this.getPawn(playerIndex), new Pair<>(oldPosition.getX(), cell));
+        final int oldSection = this.getPawn(playerIndex).getPositionSection();
+        this.getPawn(playerIndex).setPosition(oldSection, cell);
     }
 
     /**
@@ -59,7 +57,7 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     @Override
     public void changePawnSection(final int playerIndex, final int section, final int cell) {
-        this.pawnPositions.replace(this.getPawn(playerIndex), new Pair<>(section, cell));
+        this.getPawn(playerIndex).setPosition(section, cell);
     }
 
     /**
@@ -75,7 +73,7 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     @Override
     public int getPawnSectionIndex(final int playerIndex) {
-        return this.pawnPositions.get(this.getPawn(playerIndex)).getX();
+        return this.getPawn(playerIndex).getPositionSection();
     }
 
     /**
@@ -83,6 +81,6 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     @Override
     public int getPawnCellIndex(final int playerIndex) {
-        return this.pawnPositions.get(this.getPawn(playerIndex)).getY();
+        return this.getPawn(playerIndex).getPositionCell();
     }
 }

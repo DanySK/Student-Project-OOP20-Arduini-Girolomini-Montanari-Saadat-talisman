@@ -1,5 +1,7 @@
 package talisman.model.board;
 
+import talisman.util.Pair;
+
 /**
  * A pawn on a talisman board.
  * 
@@ -8,6 +10,7 @@ package talisman.model.board;
  */
 public class TalismanBoardPawn implements BoardPawn {
     private final String imagePath;
+    private Pair<Integer, Integer> position;
 
     /**
      * Creates a new pawn.
@@ -34,5 +37,29 @@ public class TalismanBoardPawn implements BoardPawn {
      */
     public static TalismanBoardPawn createPawn(final String imagePath) {
         return new TalismanBoardPawn(imagePath);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPositionSection() {
+        return this.position.getX();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPositionCell() {
+        return this.position.getY();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPosition(final int section, final int cell) {
+        this.position = new Pair<>(section, cell);
     }
 }
