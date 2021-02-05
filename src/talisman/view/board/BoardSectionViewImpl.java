@@ -3,11 +3,12 @@ package talisman.view.board;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -20,6 +21,16 @@ import talisman.util.CellType;
  *
  */
 public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
+    /**
+     * Used to specify which orientation should a subsection have.
+     * 
+     * @author Alberto Arduini
+     *
+     */
+    private enum SubsectionOrientation {
+        VERTICAL, HORIZONTAL,
+    }
+
     private final List<BoardCellView> cells;
 
     /**
@@ -29,19 +40,19 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
      */
     public BoardSectionViewImpl(final List<BoardCellView> cells) {
         this.cells = List.copyOf(cells);
-        final LayoutManager layout = new BorderLayout();
+        final LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         final Map<CellType, JPanel> subsections = new HashMap<>();
         // I create the four containers for the subsections
-        subsections.put(CellType.UP, this.createSubsection(BoxLayout.X_AXIS));
-        subsections.put(CellType.DOWN, this.createSubsection(BoxLayout.X_AXIS));
-        subsections.put(CellType.LEFT, this.createSubsection(BoxLayout.Y_AXIS));
-        subsections.put(CellType.RIGHT, this.createSubsection(BoxLayout.Y_AXIS));
+        subsections.put(CellType.UP, this.createSubsection(SubsectionOrientation.HORIZONTAL));
+        subsections.put(CellType.DOWN, this.createSubsection(SubsectionOrientation.HORIZONTAL));
+        subsections.put(CellType.LEFT, this.createSubsection(SubsectionOrientation.VERTICAL));
+        subsections.put(CellType.RIGHT, this.createSubsection(SubsectionOrientation.VERTICAL));
         // I add all the subsections in the right part of the BorderLayout
-        this.add(subsections.get(CellType.UP), BorderLayout.PAGE_START);
-        this.add(subsections.get(CellType.DOWN), BorderLayout.PAGE_END);
-        this.add(subsections.get(CellType.LEFT), BorderLayout.LINE_START);
-        this.add(subsections.get(CellType.RIGHT), BorderLayout.LINE_END);
+        this.add(subsections.get(CellType.UP), this.createLayoutContraints(0, 0, 2));
+        this.add(subsections.get(CellType.DOWN), this.createLayoutContraints(0, 2, 2));
+        this.add(subsections.get(CellType.LEFT), this.createLayoutContraints(0, 1, 1));
+        this.add(subsections.get(CellType.RIGHT), this.createLayoutContraints(2, 1, 1));
         for (final BoardCellView cell : this.cells) {
             // I take as granted that the cells use the swing implementation
             // (Also we can't have a GUI with mixed frameworks, so if the section is using
@@ -52,7 +63,6 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
             final Component swingCell = (Component) cell;
             final JPanel subsection = subsections.get(cell.getCellType());
             subsection.add(swingCell);
-            subsection.add(Box.createGlue());
         }
     }
 
@@ -62,7 +72,7 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
     @Override
     public void setContainedSection(final BoardSectionView section) {
         // The same principle used for casting the cells applies here
-        this.add((Component) section, BorderLayout.CENTER);
+        this.add((Component) section, this.createLayoutContraints(1, 1, 1));
     }
 
     /**
@@ -103,11 +113,22 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
      * @param orientation
      * @return
      */
-    private JPanel createSubsection(final int orientation) {
+    private JPanel createSubsection(final SubsectionOrientation orientation) {
         final JPanel panel = new JPanel();
-        final LayoutManager layout = new BoxLayout(panel, orientation);
+        final int boxOrientation = orientation == SubsectionOrientation.HORIZONTAL ? BoxLayout.X_AXIS : BoxLayout.Y_AXIS;
+        final LayoutManager layout = new BoxLayout(panel, boxOrientation);
         panel.setLayout(layout);
-        panel.add(Box.createGlue());
         return panel;
+    }
+    
+    private GridBagConstraints createLayoutContraints(final int x, final int y, final int width) {
+        final GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = x;
+        constraints.gridy = y;
+        constraints.gridwidth = width;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.weightx = 1;
+        constraints.weighty = 1;
+        return constraints;
     }
 }
