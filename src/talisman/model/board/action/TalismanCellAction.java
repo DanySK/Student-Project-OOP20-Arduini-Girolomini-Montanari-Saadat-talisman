@@ -1,4 +1,4 @@
-package talisman.model.board;
+package talisman.model.board.action;
 
 import java.io.Serializable;
 

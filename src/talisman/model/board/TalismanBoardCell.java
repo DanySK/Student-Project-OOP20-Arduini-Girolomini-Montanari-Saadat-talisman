@@ -2,6 +2,7 @@ package talisman.model.board;
 
 import java.util.*;
 
+import talisman.model.board.action.TalismanCellAction;
 import talisman.util.CellType;
 
 /**
