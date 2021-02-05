@@ -15,7 +15,7 @@ public interface BoardSectionView {
      * @return the cells count
      */
     int getCellCount();
-    
+
     /**
      * Gets the cell at the given index.
      * 
