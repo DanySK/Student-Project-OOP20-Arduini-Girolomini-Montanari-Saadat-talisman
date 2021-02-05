@@ -3,6 +3,10 @@ package talisman.view.board;
 import java.util.LinkedList;
 import java.util.List;
 
+import talisman.model.board.Board;
+import talisman.model.board.BoardCell;
+import talisman.model.board.BoardSection;
+import talisman.model.board.TalismanBoardSection;
 import talisman.util.CellType;
 
 /**
@@ -91,6 +95,29 @@ public class BoardViewBuilder {
     }
 
     /**
+     * Imports a given model.
+     * 
+     * @param board the model from which the board will be created
+     * @return the builder
+     */
+    public BoardViewBuilder importModel(final Board<?, ?> board) {
+        this.checkNotBuilt();
+        for (int i = 0; i < board.getSectionCount(); i++) {
+            final BoardSection<?> section = board.getSection(i);
+            for (int j = 0; j < section.getCellCount(); j++) {
+                final BoardCell cell = section.getCell(j);
+                this.addCell(cell.getImagePath(), cell.getText(), cell.getCellType());
+            }
+            if (i == 0) {
+                this.setAsMainSection().finalizeSection();
+            } else {
+                this.finalizeSectionAndInsertInto(i - 1);
+            }
+        }
+        return this;
+    }
+
+    /**
      * Completes the view and returns it. After this call the builder will become
      * unusable.
      * 
@@ -100,6 +127,17 @@ public class BoardViewBuilder {
         this.checkNotBuilt();
         this.setBuilt(true);
         return BoardView.create(this.getSections(), this.getMainSection());
+    }
+
+    /**
+     * Creates a view from a given model. After this call the builder will become
+     * unusable.
+     * 
+     * @param board the model from which the board will be created
+     * @return the created view
+     */
+    public BoardView buildFromModel(final Board<?, ?> board) {
+        return this.importModel(board).build();
     }
 
     /**

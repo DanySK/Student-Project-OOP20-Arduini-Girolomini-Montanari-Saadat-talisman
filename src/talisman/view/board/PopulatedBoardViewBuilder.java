@@ -3,6 +3,8 @@ package talisman.view.board;
 import java.util.LinkedList;
 import java.util.List;
 
+import talisman.model.board.Board;
+import talisman.model.board.PopulatedBoard;
 import talisman.util.CellType;
 
 public class PopulatedBoardViewBuilder extends BoardViewBuilder {
@@ -67,14 +69,13 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
     }
 
     /**
-     * Adds a pawn to the board.
-     * 
-     * @param imagePath the path to the pawn's image
-     * @return the builder
+     * {@inheritDoc}
      */
-    public PopulatedBoardViewBuilder addPawn(final String imagePath) {
-        this.checkNotBuilt();
-        this.pawns.add(PawnView.create(imagePath));
+    public PopulatedBoardViewBuilder importModel(final PopulatedBoard<?, ?, ?> board) {
+        super.importModel(board);
+        for (int i = 0; i < board.getPawnCount(); i++) {
+            this.addPawn(board.getPawn(i).getImagePath());
+        }
         return this;
     }
 
@@ -86,5 +87,24 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
         this.checkNotBuilt();
         this.setBuilt(true);
         return PopulatedBoardView.create(this.getSections(), this.getMainSection(), this.pawns);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public PopulatedBoardView buildFromModel(final PopulatedBoard<?, ?, ?> board) {
+        return this.importModel(board).build();
+    }
+
+    /**
+     * Adds a pawn to the board.
+     * 
+     * @param imagePath the path to the pawn's image
+     * @return the builder
+     */
+    public PopulatedBoardViewBuilder addPawn(final String imagePath) {
+        this.checkNotBuilt();
+        this.pawns.add(PawnView.create(imagePath));
+        return this;
     }
 }
