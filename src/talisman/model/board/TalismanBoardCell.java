@@ -49,6 +49,18 @@ public final class TalismanBoardCell extends BoardCellImpl {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getText() {
+        String text = super.getText();
+        for (TalismanCellAction action : this.getActions()) {
+            text = text + System.lineSeparator() + action.getDescription();
+        }
+        return text;
+    }
+
+    /**
      * Applies all the actions of this cell the the specified player.
      * 
      * @param player The index of the player to which the actions will apply
