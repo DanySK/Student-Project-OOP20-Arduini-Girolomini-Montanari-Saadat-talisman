@@ -26,7 +26,7 @@ public class ImagePanel extends JPanel {
         File imageFile = new File(imagePath);
         // If the image doesn't exist, then I default to the "image not found" image
         if (!imageFile.exists() || !imageFile.isFile()) {
-            imageFile = new File(ViewUtils.PROJ_NO_IMAGE_PATH);
+            imageFile = new File(ViewUtils.RESOURCES_PATH + ViewUtils.NO_IMAGE_PATH);
         }
         Image loadedImage = null;
         try {

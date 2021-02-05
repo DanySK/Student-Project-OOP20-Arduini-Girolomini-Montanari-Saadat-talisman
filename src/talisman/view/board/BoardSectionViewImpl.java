@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -49,20 +48,19 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
         subsections.put(CellType.LEFT, this.createSubsection(SubsectionOrientation.VERTICAL));
         subsections.put(CellType.RIGHT, this.createSubsection(SubsectionOrientation.VERTICAL));
         // I add all the subsections in the right part of the BorderLayout
-        this.add(subsections.get(CellType.UP), this.createLayoutContraints(0, 0, 2));
-        this.add(subsections.get(CellType.DOWN), this.createLayoutContraints(0, 2, 2));
+        this.add(subsections.get(CellType.UP), this.createLayoutContraints(0, 0, 3));
+        this.add(subsections.get(CellType.DOWN), this.createLayoutContraints(0, 2, 3));
         this.add(subsections.get(CellType.LEFT), this.createLayoutContraints(0, 1, 1));
         this.add(subsections.get(CellType.RIGHT), this.createLayoutContraints(2, 1, 1));
         for (final BoardCellView cell : this.cells) {
+            final JPanel subsection = subsections.get(cell.getCellType());
             // I take as granted that the cells use the swing implementation
             // (Also we can't have a GUI with mixed frameworks, so if the section is using
             // swing then the cells must too)
             // Anyway i still cast to the most generic type possible, to retain some
             // abstraction
             // in case the implementation changes the type of component.
-            final Component swingCell = (Component) cell;
-            final JPanel subsection = subsections.get(cell.getCellType());
-            subsection.add(swingCell);
+            subsection.add((Component) cell);
         }
     }
 
@@ -120,7 +118,7 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
         panel.setLayout(layout);
         return panel;
     }
-    
+
     private GridBagConstraints createLayoutContraints(final int x, final int y, final int width) {
         final GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = x;

@@ -1,5 +1,6 @@
 package talisman.view.board;
 
+import java.awt.Component;
 import java.util.List;
 
 /**
@@ -21,7 +22,8 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
     public PopulatedBoardViewImpl(final List<BoardSectionView> sections, final int mainSection,
             final List<PawnView> pawns) {
         super(sections, mainSection);
-        this.pawns = pawns;
+        this.pawns = List.copyOf(pawns);
+        //this.pawns.stream().forEach(p -> this.add((Component) p));
     }
 
     /**
@@ -46,5 +48,4 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
     public PawnView getPawn(final int index) {
         return this.pawns.get(index);
     }
-
 }
