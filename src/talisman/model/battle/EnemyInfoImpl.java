@@ -1,33 +1,29 @@
 package talisman.model.battle;
 
 /**
- * Implementation of character's informations in the battle.
+ * Implementation of enemy's informations in the battle.
  * 
  * @author Alice Girolomini
  *
  */
-public class CharacterInfoImpl implements CharacterInfo {
+public class EnemyInfoImpl implements CharacterInfo {
     private int strength;
     private int craft;
-    private int gold;
     private int fate;
-    //deck[]
 
     /**
-     * Creates the character's informations.
+     * Creates the enemy's informations.
      * 
      * @param strength the initial strength value
      * @param craft the initial craft value
-     * @param gold the initial gold coin number
      * @param fate the initial fate coin number
      */
-    public CharacterInfoImpl(final int strength, final int craft, final int gold, final int fate) {
+    public EnemyInfoImpl(final int strength, final int craft, final int fate) {
         this.strength = strength;
         this.craft = craft;
-        this.gold = gold;
         this.fate = fate;
     }
-
+    
     /**
      * Gets the number of strength points.
      * 
@@ -56,15 +52,6 @@ public class CharacterInfoImpl implements CharacterInfo {
     }
 
     /**
-     * Gets the number of gold coins.
-     * 
-     * @return the value
-     */
-    public int getGold() {
-        return this.gold;
-    }
-
-    /**
      * Sets strength points value.
      * 
      @param points - the value to be set
@@ -90,21 +77,4 @@ public class CharacterInfoImpl implements CharacterInfo {
     public void setFate(final int coins) {
         this.fate = coins;
     }
-
-    /**
-     * Sets gold coins number.
-     * 
-     @param coins - the value to be set
-     */
-    public void setGold(final int coins) {
-        this.gold = coins;
-    }
-    
-    /* Card public getCard() {
-        
-    }
-    public void addCards() {
-        
-    }*/
-
 }
