@@ -9,6 +9,8 @@ import talisman.util.CellType;
  *
  */
 public class BoardCellImpl implements BoardCell {
+    private static final long serialVersionUID = -242754665843262191L;
+
     private final String imagePath;
     private final String text;
     private final CellType type;

@@ -1,5 +1,7 @@
 package talisman.model.board;
 
+import java.io.Serializable;
+
 /**
  * A section of a board.
  * 
@@ -7,7 +9,7 @@ package talisman.model.board;
  *
  * @param <C> The type of cells
  */
-public interface BoardSection<C extends BoardCell> {
+public interface BoardSection<C extends BoardCell> extends Serializable {
     /**
      * Gets the number of cells.
      * 

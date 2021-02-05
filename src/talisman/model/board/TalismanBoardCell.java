@@ -12,6 +12,8 @@ import talisman.util.CellType;
  *
  */
 public final class TalismanBoardCell extends BoardCellImpl {
+    private static final long serialVersionUID = -242979810318405562L;
+
     private final TalismanCellType type;
     private final Set<TalismanCellAction> actions;
 
