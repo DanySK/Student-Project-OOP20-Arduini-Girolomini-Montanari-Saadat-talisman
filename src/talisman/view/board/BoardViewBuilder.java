@@ -11,7 +11,7 @@ import talisman.util.CellType;
  * @author Alberto Arduini
  *
  */
-public final class BoardViewBuilder {
+public class BoardViewBuilder {
     private final List<BoardCellView> cells;
     private final List<BoardSectionView> sections;
     private int mainSection;
@@ -46,10 +46,15 @@ public final class BoardViewBuilder {
      */
     public BoardViewBuilder addCell(final BoardCellView cell) {
         this.checkNotBuilt();
-        this.cells.add(cell);
+        this.getCells().add(cell);
         return this;
     }
-    
+
+    /**
+     * Sets the current section as main.
+     * 
+     * @return the builder
+     */
     public BoardViewBuilder setAsMainSection() {
         this.checkNotBuilt();
         this.mainSection = this.sections.size();
@@ -64,8 +69,8 @@ public final class BoardViewBuilder {
      */
     public BoardViewBuilder finalizeSection() {
         this.checkNotBuilt();
-        this.sections.add(BoardSectionView.create(cells));
-        this.cells.clear();
+        this.getSections().add(BoardSectionView.create(cells));
+        this.getCells().clear();
         return this;
     }
 
@@ -79,24 +84,64 @@ public final class BoardViewBuilder {
     public BoardViewBuilder finalizeSectionAndInsertInto(final int parentSectionIndex) {
         this.checkNotBuilt();
         final BoardSectionView section = BoardSectionView.create(cells);
-        this.sections.add(section);
-        this.cells.clear();
-        this.sections.get(parentSectionIndex).setContainedSection(section);
+        this.getSections().add(section);
+        this.getCells().clear();
+        this.getSections().get(parentSectionIndex).setContainedSection(section);
         return this;
     }
 
     /**
-     * Completes the view and returns it. After this call the builder will become unusable.
+     * Completes the view and returns it. After this call the builder will become
+     * unusable.
      * 
      * @return the created view
      */
     public BoardView build() {
         this.checkNotBuilt();
-        this.built = true;
-        return BoardView.create(this.sections, this.mainSection);
+        this.setBuilt(true);
+        return BoardView.create(this.getSections(), this.getMainSection());
     }
 
-    private void checkNotBuilt() {
+    /**
+     * Gets the current sections list.
+     * 
+     * @return the sections
+     */
+    protected List<BoardSectionView> getSections() {
+        return this.sections;
+    }
+
+    /**
+     * Gets the section current cell list.
+     * 
+     * @return the cells
+     */
+    protected List<BoardCellView> getCells() {
+        return this.cells;
+    }
+
+    /**
+     * Sets if the builder has built a board.
+     * 
+     * @param built the new build value
+     */
+    protected void setBuilt(final boolean built) {
+        this.built = built;
+    }
+
+    /**
+     * Gets the current main section index.
+     * 
+     * @return the main section index
+     */
+    protected int getMainSection() {
+        return this.mainSection;
+    }
+
+    /**
+     * Throws an exception if the builder has already build a board.
+     */
+    protected void checkNotBuilt() {
         if (this.built) {
             throw new IllegalStateException("Builder is aready finalized");
         }
