@@ -42,6 +42,13 @@ public interface PopulatedBoard<S extends BoardSection<C>, C extends BoardCell, 
     }
 
     /**
+     * Gets the amount of pawns on the board.
+     * 
+     * @return the pawn count
+     */
+    int getPawnCount();
+
+    /**
      * Obtains the pawn associated with the player with the specified index.
      * 
      * @param playerIndex the player index

@@ -23,8 +23,8 @@ public class TalismanBoardImpl implements TalismanBoard {
      */
     public TalismanBoardImpl(final List<TalismanBoardSection> sections, final List<TalismanBoardPawn> characterPawns) {
         super();
-        this.sections = sections;
-        this.characterPawns = characterPawns;
+        this.sections = List.copyOf(sections);
+        this.characterPawns = List.copyOf(characterPawns);
     }
 
     /**
@@ -58,6 +58,14 @@ public class TalismanBoardImpl implements TalismanBoard {
     @Override
     public void changePawnSection(final int playerIndex, final int section, final int cell) {
         this.getPawn(playerIndex).setPosition(section, cell);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPawnCount() {
+        return this.characterPawns.size();
     }
 
     /**
