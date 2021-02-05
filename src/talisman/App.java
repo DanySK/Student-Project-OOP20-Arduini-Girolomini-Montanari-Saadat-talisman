@@ -1,5 +1,6 @@
 package talisman;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.LayoutManager;
 
@@ -13,15 +14,13 @@ import javax.swing.WindowConstants;
 
 import talisman.controller.board.TalismanBoardController;
 
-import talisman.model.board.BoardCell;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
-
-import talisman.view.board.BoardViewBuilder;
-
+import talisman.view.board.PopulatedBoardView;
+import talisman.view.board.PopulatedBoardViewBuilder;
 import talisman.util.CellType;
 
 public final class App {
@@ -33,11 +32,13 @@ public final class App {
         final JFrame window = new JFrame();
         final LayoutManager layout = new GridLayout(1, 1);
         window.setLayout(layout);
-        final JPanel boardView = (JPanel) createBoard().getView();
-        window.getContentPane().add(boardView);
+        final PopulatedBoardView boardView = createBoard().getView();
+        window.getContentPane().add((JPanel) boardView);
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setSize(600, 600);
         window.setVisible(true);
+        
+        System.out.println(((Component) boardView.getSection(0).getCell(0)).getSize());
     }
 
     private TalismanBoardController createBoard() {
@@ -62,20 +63,8 @@ public final class App {
         pawns.add(TalismanBoardPawn.createPawn(""));
         final TalismanBoard board = TalismanBoard.createBoard(sections, pawns);
         // Create view based on model
-        final BoardViewBuilder viewBuilder = new BoardViewBuilder();
-        for (int i = 0; i < board.getSectionCount(); i++) {
-            final TalismanBoardSection section = board.getSection(i);
-            for (int j = 0; j < section.getCellCount(); j++) {
-                final BoardCell cell = section.getCell(j);
-                viewBuilder.addCell(cell.getImagePath(), cell.getText(), cell.getCellType());
-            }
-            if (i == 0) {
-                viewBuilder.setAsMainSection().finalizeSection();
-            } else {
-                viewBuilder.finalizeSectionAndInsertInto(i - 1);
-            }
-        }
-        return TalismanBoardController.create(board, viewBuilder.build());
+        final PopulatedBoardViewBuilder viewBuilder = new PopulatedBoardViewBuilder();
+        return TalismanBoardController.create(board, viewBuilder.buildFromModel(board));
     }
 
     public static void main(final String[] args) {
