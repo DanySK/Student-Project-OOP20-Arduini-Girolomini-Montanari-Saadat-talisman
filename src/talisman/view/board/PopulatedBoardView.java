@@ -35,6 +35,6 @@ public interface PopulatedBoardView extends BoardView {
      * @return the created board
      */
     static PopulatedBoardView create(List<BoardSectionView> sections, int mainSection, List<PawnView> pawns) {
-        return null;
+        return new PopulatedBoardViewImpl(sections, mainSection, pawns);
     }
 }
