@@ -12,8 +12,7 @@ import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
 import talisman.util.CellType;
-import talisman.view.board.BoardView;
-import talisman.view.board.BoardViewBuilder;
+import talisman.view.board.PopulatedBoardViewBuilder;
 
 public final class BoardTestUtils {
     private BoardTestUtils() {
@@ -53,10 +52,8 @@ public final class BoardTestUtils {
      */
     public static TalismanBoardController createController(final int sectionsCount, final int cellsCount, final int pawnsCount) {
         final TalismanBoard board = BoardTestUtils.createBoard(sectionsCount, cellsCount, pawnsCount);
-        // I don't care about testing the view, so I create an empty one
-        final BoardViewBuilder viewBuilder = new BoardViewBuilder();
-        viewBuilder.setAsMainSection();
-        viewBuilder.finalizeSection();
-        return TalismanBoardController.create(board, viewBuilder.build());
+        // I don't care about testing the view, so I create an basic, empty one
+        final PopulatedBoardViewBuilder viewBuilder = new PopulatedBoardViewBuilder();
+        return TalismanBoardController.create(board, viewBuilder.buildFromModel(board));
     }
 }
