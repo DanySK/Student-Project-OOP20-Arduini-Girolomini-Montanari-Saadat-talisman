@@ -71,7 +71,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      */
     @Override
     public void applyCharacterCellActions(final int player) {
-        this.getCharacterCell(player).applyActionsTo(player);
+        this.getCharacterCell(player).applyActionsTo(this.getCharacterPawn(player));
     }
 
     /**

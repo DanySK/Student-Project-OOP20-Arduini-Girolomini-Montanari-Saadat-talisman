@@ -5,6 +5,11 @@ public abstract class TalismanAmountAction implements TalismanCellAction {
 
     private final int amount;
 
+    /**
+     * Creates a new generic amount action.
+     * 
+     * @param amount the action amount
+     */
     public TalismanAmountAction(final int amount) {
         this.amount = amount;
     }
