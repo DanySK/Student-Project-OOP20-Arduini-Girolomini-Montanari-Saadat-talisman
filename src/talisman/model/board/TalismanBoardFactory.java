@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 import talisman.model.board.action.TalismanCellAction;
+import talisman.model.board.action.TalismanRollAction;
 import talisman.util.CellType;
 import talisman.util.ViewUtils;
 
@@ -36,49 +38,56 @@ public final class TalismanBoardFactory {
      * @return the create board model
      */
     public static TalismanBoard createDefaultBoardModel(final List<TalismanBoardPawn> startingPawns) {
-        TalismanBoard board;
         if (new File(BOARD_FILE_PATH).exists()) {
-            board = TalismanBoardFactory.loadBoard();
-            if (board == null) {
-                return null;
+            try {
+                final TalismanBoard board = TalismanBoardFactory.loadBoard();
+                if (board != null) {
+                    for (int i = 0; i < startingPawns.size(); i++) {
+                        board.addPawn(i, startingPawns.get(i));
+                    }
+                }
+                return board;
+            } catch (final InvalidClassException ex) {
+                System.out.println("Something has changed in the board classes, re-creating it...");
             }
-            for (int i = 0; i < startingPawns.size(); i++) {
-                board.addPawn(i, startingPawns.get(i));
-            }
-        } else {
-            // For now the values used are for testing
-            final List<TalismanBoardSection> sections = new ArrayList<>();
-            sections.add(TalismanBoardSection.createSection(List.of(
-                    TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME, Set.of())
-                    )));
-            sections.add(TalismanBoardSection.createSection(List.of(
-                    TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
-                            Set.of()))));
-            sections.add(TalismanBoardSection.createSection(List.of(
-                    TalismanBoardFactory.createCell("Field", "Plains of Peril", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Vampire's Tower", CellType.UP, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Crypt", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
-                    TalismanBoardFactory.createCell("DiceWithDeath", "Dice with Death", CellType.DOWN, TalismanCellType.MONSTER, Set.of()),
-                    TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER, Set.of()),
-                    TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE, Set.of()),
-                    TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME, Set.of())
-                    )));
-            sections.add(TalismanBoardSection.createSection(List.of(
-                    TalismanBoardFactory.createCell("Crown", "Crown", CellType.UP, TalismanCellType.ZONE, Set.of())
-                    )));
-            board = TalismanBoard.createBoard(sections, startingPawns);
         }
+        // For now the values used are for testing
+        final List<TalismanBoardSection> sections = new ArrayList<>();
+        sections.add(TalismanBoardSection.createSection(List.of(
+                TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
+                        Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
+                        Set.of()))));
+        sections.add(TalismanBoardSection.createSection(List.of(
+                TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
+                        Set.of()))));
+        sections.add(TalismanBoardSection.createSection(List.of(
+                TalismanBoardFactory.createCell("Field", "Plains of Peril", CellType.UP, TalismanCellType.BIOME,
+                        Set.of()),
+                TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Vampire's Tower", CellType.UP, TalismanCellType.BIOME,
+                        Set.of()),
+                TalismanBoardFactory.createCell("Field", "Crypt", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("DiceWithDeath", "Dice with Death", CellType.DOWN,
+                        TalismanCellType.MONSTER,
+                        Set.of(new TalismanRollAction(5, TalismanRollAction.RollStatistic.ABSOLUTE, null, null))),
+                TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
+                        Set.of()),
+                TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
+                        Set.of()),
+                TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME, Set.of()))));
+        sections.add(TalismanBoardSection.createSection(List
+                .of(TalismanBoardFactory.createCell("Crown", "Crown", CellType.UP, TalismanCellType.ZONE, Set.of()))));
+        final TalismanBoard board = TalismanBoard.createBoard(sections, startingPawns);
         TalismanBoardFactory.saveBoard(board);
         return board;
     }
@@ -95,7 +104,8 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final Collection<TalismanCellAction> actions) {
-        return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type, actions);
+        return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type,
+                actions);
     }
 
     private static void saveBoard(final TalismanBoard board) {
@@ -109,16 +119,16 @@ public final class TalismanBoardFactory {
         }
     }
 
-    private static TalismanBoard loadBoard() {
+    private static TalismanBoard loadBoard() throws InvalidClassException {
         try (FileInputStream fileOut = new FileInputStream(BOARD_FILE_PATH);
                 ObjectInputStream out = new ObjectInputStream(fileOut)) {
             final TalismanBoard board = (TalismanBoard) out.readObject();
             out.close();
             fileOut.close();
             return board;
-        } catch (final IOException ex) {
-            ex.printStackTrace();
-        } catch (final ClassNotFoundException ex) {
+        } catch (final InvalidClassException ex) {
+            throw ex;
+        } catch (final IOException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
         return null;
