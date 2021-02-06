@@ -5,8 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JTextArea;
 
 import talisman.util.CellType;
 import talisman.view.ImagePanel;
@@ -19,8 +19,7 @@ import talisman.view.ImagePanel;
  */
 // getX and getY do not get overridden since they are already define in JComponent
 public final class BoardCellViewImpl extends ImagePanel implements BoardCellView {
-    private final JLabel textLabel;
-    private final JPanel textBackground;
+    private final JTextArea text;
     private final CellType type;
 
     /**
@@ -35,14 +34,17 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.type = type;
         final LayoutManager layout = new BorderLayout();
         this.setLayout(layout);
-        this.textBackground = new JPanel();
-        this.textBackground.setBackground(Color.BLACK);
-        this.add(this.textBackground, BorderLayout.PAGE_END);
-        this.textLabel = new JLabel();
-        this.textLabel.setText(text);
-        this.textLabel.setForeground(Color.WHITE);
-        this.textBackground.add(this.textLabel);
-        final Dimension size = new Dimension(100, 100);
+        this.text = new JTextArea(1, 1);
+        this.text.setText(text);
+        this.text.setForeground(Color.WHITE);
+        this.text.setBackground(Color.BLACK);
+        this.text.setLineWrap(true);
+        this.text.setEditable(false);
+        this.text.setAlignmentX(CENTER_ALIGNMENT);
+        this.text.setAlignmentY(CENTER_ALIGNMENT);
+        this.text.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        this.add(this.text, BorderLayout.PAGE_END);
+        final Dimension size = new Dimension(225, 125);
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
