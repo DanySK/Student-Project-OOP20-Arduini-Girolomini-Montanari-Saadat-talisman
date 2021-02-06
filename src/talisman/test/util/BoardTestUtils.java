@@ -37,7 +37,7 @@ public final class BoardTestUtils {
         }
         final List<TalismanBoardPawn> pawns = new ArrayList<>();
         for (int i = 0; i < pawnsCount; i++) {
-            pawns.add(TalismanBoardPawn.createPawn(""));
+            pawns.add(TalismanBoardPawn.createPawn("", 0));
         }
         return TalismanBoard.createBoard(sections, pawns);
     }
