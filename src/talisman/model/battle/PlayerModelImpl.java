@@ -9,35 +9,82 @@ package talisman.model.battle;
 public class PlayerModelImpl implements PlayerModel {
     private int numPlayers;
     private int id;
-    private CharacterInfo currentCharacter;
+    private CharacterInfoImpl currentCharacter;
     private boolean crown;
 
     /**
      * Creates the enemy's informations.
      * 
-     * @param numPlayers the number of active players
-     * @param character the current character's information assigned to the player
+     * @param numPlayers - the number of active players
+     * @param id - the player's id
+     * @param character - the current character's information assigned to the player
      */
-    public PlayerModelImpl(final int numPlayers, final CharacterInfo character) {
+    public PlayerModelImpl(final int numPlayers, final int id, final CharacterInfoImpl character) {
         this.numPlayers = numPlayers;
         this.currentCharacter = character;
         this.crown = false;
     }
 
     /**
-     * Handles the death of a character.
+     * Gets the player's id.
+     * 
+     * @return the value
      */
-    public void death() {
-        
-        
+    public int getId() {
+        return this.id;
     }
 
     /**
-     * Handles the death of a character and its resurrection.
+     * Gets the count of all active players.
+     * 
+     * @return the value
      */
-    public void deathAndRes() {
-        // TODO Auto-generated method stub
-        
+    public int getNumPlayers() {
+        return this.numPlayers;
+    }
+
+    /**
+     * Gets the information of the current character assigned to the player.
+     * 
+     * @return the value
+     */
+    public CharacterInfoImpl getCurrentCharacter() {
+        return this.currentCharacter;
+    }
+
+    /**
+     * Sets id.
+     * 
+     @param id - the value to be set
+     */
+    public void setId(final int id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets the current number of active players.
+     * 
+     @param number - the value to be set
+     */
+    public void setNumPlayers(final int number) {
+        this.numPlayers = number;
+    }
+
+    /**
+     * Sets the current character assigned to the player.
+     * 
+     @param character - the character to be set
+     */
+    public void setCurrentCharacter(final CharacterInfoImpl character) {
+        this.currentCharacter = character;
+    }
+
+    /**
+     * Checks whether the players has the crown of command.
+     * @return true if the player has the crown
+     */
+    public boolean hasCrown() {
+        return this.crown;
     }
 
 }
