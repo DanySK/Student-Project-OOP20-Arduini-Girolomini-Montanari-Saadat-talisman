@@ -11,7 +11,7 @@ import talisman.util.Pair;
  */
 public class TalismanMoveAction implements TalismanCellAction {
     private static final long serialVersionUID = 4969624574046845867L;
-    private static final String DESCRIPTION_FORMAT = "Move to the %s section and cell %d";
+    private static final String DESCRIPTION_FORMAT = "Go cell %d in the %s section";
     private static final String[] SECTION_NAMES = new String[] { "outside", "middle", "inner", "crown" };
 
     private final Pair<Integer, Integer> position;
@@ -19,10 +19,10 @@ public class TalismanMoveAction implements TalismanCellAction {
     /**
      * Creates a new move action.
      * 
-     * @param cell    the destination cell index
      * @param section the destination section index
+     * @param cell    the destination cell index
      */
-    public TalismanMoveAction(final int cell, final int section) {
+    public TalismanMoveAction(final int section, final int cell) {
         this.position = new Pair<>(cell, section);
     }
 
@@ -31,8 +31,8 @@ public class TalismanMoveAction implements TalismanCellAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanMoveAction.DESCRIPTION_FORMAT, TalismanMoveAction.SECTION_NAMES[this.getSection()],
-                this.getCell());
+        return String.format(TalismanMoveAction.DESCRIPTION_FORMAT, this.getCell(),
+                TalismanMoveAction.SECTION_NAMES[this.getSection()]);
     }
 
     /**
@@ -40,7 +40,7 @@ public class TalismanMoveAction implements TalismanCellAction {
      */
     @Override
     public void applyTo(final BoardPawn playerPawn) {
-        playerPawn.setPosition(this.getCell(), this.getSection());
+        playerPawn.setPosition(this.getSection(), this.getCell());
     }
 
     /**

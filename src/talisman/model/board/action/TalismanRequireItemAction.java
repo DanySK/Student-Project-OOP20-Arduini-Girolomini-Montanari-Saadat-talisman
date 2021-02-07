@@ -36,7 +36,7 @@ public class TalismanRequireItemAction implements TalismanCellAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanRequireItemAction.DESCRIPTION_FORMAT,
+        return String.format(TalismanRequireItemAction.DESCRIPTION_FORMAT, this.getItem(),
                 this.getActionDescription(this.successAction), this.getActionDescription(this.failedAction));
     }
 
@@ -61,7 +61,7 @@ public class TalismanRequireItemAction implements TalismanCellAction {
     public int getItem() {
         return this.item;
     }
-    
+
     private String getActionDescription(final Optional<TalismanCellAction> action) {
         return action.isPresent() ? action.get().getDescription() : TalismanCellAction.NO_ACTION_DESCRIPTION;
     }
