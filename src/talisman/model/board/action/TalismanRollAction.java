@@ -20,10 +20,7 @@ public class TalismanRollAction extends TalismanAmountAction {
             + System.lineSeparator() + "- %s" + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
     private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then:"
             + System.lineSeparator() + "- %s" + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
-    private static final String NO_ACTION_DESCRIPTION = "Do nothing";
     private static final int DICE_MAX_VALUE = 6;
-    private static final int SERIALIZED_CONSEQUENCE_PRESENT = 1;
-    private static final int SERIALIZED_CONSEQUENCE_MISSING = 0;
 
     /**
      * Decides which statistic should be used when checking for a roll.
@@ -118,18 +115,18 @@ public class TalismanRollAction extends TalismanAmountAction {
     }
 
     private String getActionDescription(final Optional<TalismanCellAction> action) {
-        return action.isPresent() ? action.get().getDescription() : TalismanRollAction.NO_ACTION_DESCRIPTION;
+        return action.isPresent() ? action.get().getDescription() : TalismanCellAction.NO_ACTION_DESCRIPTION;
     }
 
     private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
         stream.defaultReadObject();
         // I use two bytes as flags to check for consequence actions
-        if (stream.read() == TalismanRollAction.SERIALIZED_CONSEQUENCE_PRESENT) {
+        if (stream.read() == TalismanCellAction.SERIALIZED_PRESENT) {
             this.successAction = Optional.ofNullable((TalismanCellAction) stream.readObject());
         } else {
             this.successAction = Optional.empty();
         }
-        if (stream.read() == TalismanRollAction.SERIALIZED_CONSEQUENCE_PRESENT) {
+        if (stream.read() == TalismanCellAction.SERIALIZED_PRESENT) {
             this.failedAction = Optional.ofNullable((TalismanCellAction) stream.readObject());
         } else {
             this.failedAction = Optional.empty();
@@ -140,16 +137,16 @@ public class TalismanRollAction extends TalismanAmountAction {
         stream.defaultWriteObject();
         // First i write the flag, then the action (if present)
         if (this.successAction.isPresent()) {
-            stream.write(TalismanRollAction.SERIALIZED_CONSEQUENCE_PRESENT);
+            stream.write(TalismanCellAction.SERIALIZED_PRESENT);
             stream.writeObject(this.successAction.get());
         } else {
-            stream.write(TalismanRollAction.SERIALIZED_CONSEQUENCE_MISSING);
+            stream.write(TalismanCellAction.SERIALIZED_MISSING);
         }
         if (this.failedAction.isPresent()) {
-            stream.write(TalismanRollAction.SERIALIZED_CONSEQUENCE_PRESENT);
+            stream.write(TalismanCellAction.SERIALIZED_PRESENT);
             stream.writeObject(this.failedAction.get());
         } else {
-            stream.write(TalismanRollAction.SERIALIZED_CONSEQUENCE_MISSING);
+            stream.write(TalismanCellAction.SERIALIZED_MISSING);
         }
     }
 }
