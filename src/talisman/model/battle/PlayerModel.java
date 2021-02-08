@@ -8,13 +8,51 @@ package talisman.model.battle;
  */
 public interface PlayerModel {
     /**
-     * Handles the death of a character.
+     * Gets the player's id.
+     * 
+     * @return the value
      */
-     void death();
+    int getId();
 
-     /**
-      * Handles the death of a character and its resurrection.
-      */
-     void deathAndRes();
+    /**
+     * Gets the count of all active players.
+     * 
+     * @return the value
+     */
+    int getNumPlayers();
+
+    /**
+     * Gets the information of the current character assigned to the player.
+     * 
+     * @return the value
+     */
+    CharacterInfoImpl getCurrentCharacter();
+
+    /**
+     * Sets id.
+     * 
+     @param id - the value to be set
+     */
+    void setId(int id);
+
+    /**
+     * Sets the current number of active players.
+     * 
+     @param number - the value to be set
+     */
+    void setNumPlayers(int number);
+
+    /**
+     * Sets the current character assigned to the player.
+     * 
+     @param character - the character to be set
+     */
+    void setCurrentCharacter(CharacterInfoImpl character);
+
+    /**
+     * Checks whether the players has the crown of command.
+     * @return true if the player has the crown
+     */
+    boolean hasCrown();
 
 }

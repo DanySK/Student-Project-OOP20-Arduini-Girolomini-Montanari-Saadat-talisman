@@ -7,6 +7,7 @@ package talisman.model.battle;
  *
  */
 public class CharacterInfoImpl implements CharacterInfo {
+    private int health;
     private int strength;
     private int craft;
     private int gold;
@@ -16,16 +17,27 @@ public class CharacterInfoImpl implements CharacterInfo {
     /**
      * Creates the character's informations.
      * 
-     * @param strength the initial strength value
-     * @param craft the initial craft value
-     * @param gold the initial gold coin number
-     * @param fate the initial fate coin number
+     * @param health - the initial health value
+     * @param strength - the initial strength value
+     * @param craft - the initial craft value
+     * @param gold - the initial gold coin number
+     * @param fate - the initial fate coin number
      */
-    public CharacterInfoImpl(final int strength, final int craft, final int gold, final int fate) {
+    public CharacterInfoImpl(final int health, final int strength, final int craft, final int gold, final int fate) {
+        this.health = health;
         this.strength = strength;
         this.craft = craft;
         this.gold = gold;
         this.fate = fate;
+    }
+
+    /**
+     * Gets the number of health points.
+     * 
+     * @return the value
+     */
+    public int getHealth() {
+        return this.health;
     }
 
     /**
@@ -62,6 +74,15 @@ public class CharacterInfoImpl implements CharacterInfo {
      */
     public int getGold() {
         return this.gold;
+    }
+
+    /**
+     * Sets health points value.
+     * 
+     @param points - the value to be set
+     */
+    public void setHealth(final int points) {
+        this.health = points;
     }
 
     /**
