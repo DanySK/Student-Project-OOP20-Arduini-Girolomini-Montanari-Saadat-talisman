@@ -1,6 +1,7 @@
 package talisman.model.board;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Set;
 
 import talisman.model.board.action.TalismanCellAction;
 import talisman.util.CellType;
@@ -66,10 +67,10 @@ public final class TalismanBoardCell extends BoardCellImpl {
     /**
      * Applies all the actions of this cell the the specified player.
      * 
-     * @param player The index of the player to which the actions will apply
+     * @param playerPawn The pawn of the player to which the actions will apply
      */
-    public void applyActionsTo(final int player) {
-        this.getActions().stream().forEach(a -> a.applyTo(player));
+    public void applyActionsTo(final BoardPawn playerPawn) {
+        this.getActions().stream().forEach(a -> a.applyTo(playerPawn));
     }
 
     /**

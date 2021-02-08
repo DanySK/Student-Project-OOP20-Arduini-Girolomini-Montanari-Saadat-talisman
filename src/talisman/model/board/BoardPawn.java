@@ -8,6 +8,13 @@ package talisman.model.board;
  */
 public interface BoardPawn {
     /**
+     * Gets the player controlling this pawn.
+     * 
+     * @return the player's index
+     */
+    int getPlayerIndex();
+
+    /**
      * Gets the path to the pawn's image.
      * 
      * @return the pawn's image

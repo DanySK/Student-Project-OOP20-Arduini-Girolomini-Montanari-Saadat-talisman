@@ -47,7 +47,7 @@ public final class App {
 
     private TalismanBoardController createBoard() {
         // TODO: change to models created from the menu
-        final List<TalismanBoardPawn> pawns = List.of(TalismanBoardPawn.createPawn(""));
+        final List<TalismanBoardPawn> pawns = List.of(TalismanBoardPawn.createPawn("", 0));
         final TalismanBoard board = TalismanBoardFactory.createDefaultBoardModel(pawns);
         final PopulatedBoardViewBuilder viewBuilder = new PopulatedBoardViewBuilder();
         return TalismanBoardController.create(board, viewBuilder.buildFromModel(board));

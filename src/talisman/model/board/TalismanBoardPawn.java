@@ -10,16 +10,27 @@ import talisman.util.Pair;
  */
 public class TalismanBoardPawn implements BoardPawn {
     private final String imagePath;
+    private final int player;
     private Pair<Integer, Integer> position;
 
     /**
      * Creates a new pawn.
      * 
      * @param imagePath the path to the pawn's image
+     * @param player the index of the player controlling the pawn
      */
-    public TalismanBoardPawn(final String imagePath) {
+    public TalismanBoardPawn(final String imagePath, final int player) {
         this.imagePath = imagePath;
         this.position = new Pair<>(0, 0);
+        this.player = player;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getPlayerIndex() {
+        return this.player;
     }
 
     /**
@@ -58,9 +69,10 @@ public class TalismanBoardPawn implements BoardPawn {
      * Constructs a new pawn.
      * 
      * @param imagePath the path to the pawn's image
+     * @param player the index of the player controlling the pawn
      * @return the created pawn
      */
-    public static TalismanBoardPawn createPawn(final String imagePath) {
-        return new TalismanBoardPawn(imagePath);
+    public static TalismanBoardPawn createPawn(final String imagePath, final int player) {
+        return new TalismanBoardPawn(imagePath, player);
     }
 }
