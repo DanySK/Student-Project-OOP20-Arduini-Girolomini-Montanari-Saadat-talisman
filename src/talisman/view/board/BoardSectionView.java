@@ -30,7 +30,9 @@ public interface BoardSectionView {
      * @param cellIndex the cell index
      * @return the x position
      */
-    int getCellPositionX(int cellIndex);
+    default int getCellPositionX(int cellIndex) {
+        return this.getCell(cellIndex).getCellY();
+    }
 
     /**
      * Gets the given cell y position.
@@ -38,7 +40,9 @@ public interface BoardSectionView {
      * @param cellIndex the cell index
      * @return the y position
      */
-    int getCellPositionY(int cellIndex);
+    default int getCellPositionY(int cellIndex) {
+        return this.getCell(cellIndex).getCellY();
+    }
 
     /**
      * Sets another section as contained into this one.
