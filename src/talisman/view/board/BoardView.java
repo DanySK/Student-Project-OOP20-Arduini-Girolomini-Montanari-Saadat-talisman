@@ -24,6 +24,13 @@ public interface BoardView {
     BoardSectionView getSection(int sectionIndex);
 
     /**
+     * Adds a listener for when the board view updates.
+     * 
+     * @param listener
+     */
+    void addUpdateListener(BoardListener listener);
+
+    /**
      * Creates a new view from a list of sections.
      * 
      * @param sections    the contained sections

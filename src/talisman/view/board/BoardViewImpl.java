@@ -1,12 +1,13 @@
 package talisman.view.board;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.LayoutManager;
-
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 
 /**
  * A swing implementation of a view for a board.
@@ -25,13 +26,23 @@ public class BoardViewImpl extends JPanel implements BoardView {
      */
     public BoardViewImpl(final List<BoardSectionView> sections, final int mainSection) {
         this.sections = List.copyOf(sections);
-        final LayoutManager layout = new BorderLayout();
+        // I use an OverlayLayout so i can layer things on top of the board
+        final LayoutManager layout = new OverlayLayout(this);
         this.setLayout(layout);
         // Like for the sections cells, I take as granted that the sections use the
         // swing implementation.
         // Still, the most generic type is used in case the actual type of component
         // changes.
-        this.add((Component) this.sections.get(mainSection), BorderLayout.CENTER);
+        this.add((Component) this.sections.get(mainSection), 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    // This is needed in order to properly render things on top of the cells
+    @Override
+    public boolean isOptimizedDrawingEnabled() {
+        return false;
     }
 
     /**
@@ -48,5 +59,18 @@ public class BoardViewImpl extends JPanel implements BoardView {
     @Override
     public BoardSectionView getSection(final int sectionIndex) {
         return this.sections.get(sectionIndex);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addUpdateListener(final BoardListener listener) {
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(final ComponentEvent e) {
+                listener.onViewUpdated();
+            }
+        });
     }
 }
