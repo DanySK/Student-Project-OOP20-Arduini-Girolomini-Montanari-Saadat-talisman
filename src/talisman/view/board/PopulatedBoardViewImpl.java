@@ -1,10 +1,13 @@
 package talisman.view.board;
 
 import java.awt.Component;
+import java.awt.Point;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 /**
- * A swing implementation for a MVC view for a populated board.
+ * A swing implementation for a populated board view.
  * 
  * @author Alberto Arduini
  *
@@ -23,15 +26,13 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
             final List<PawnView> pawns) {
         super(sections, mainSection);
         this.pawns = List.copyOf(pawns);
-        //this.pawns.stream().forEach(p -> this.add((Component) p));
+        this.pawns.forEach(p -> {
+            this.add((Component) p, 0);
+        });
     }
 
     /**
-     * Moves the given pawn to a new position.
-     * 
-     * @param index the pawn's index
-     * @param x     the new X position
-     * @param y     the new Y position
+     * {@inheritDoc}
      */
     @Override
     public void movePawnTo(final int index, final int x, final int y) {
@@ -39,10 +40,7 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
     }
 
     /**
-     * Gets the pawn view at the given index.
-     * 
-     * @param index the pawn's index
-     * @return the pawn view instance
+     * {@inheritDoc}
      */
     @Override
     public PawnView getPawn(final int index) {

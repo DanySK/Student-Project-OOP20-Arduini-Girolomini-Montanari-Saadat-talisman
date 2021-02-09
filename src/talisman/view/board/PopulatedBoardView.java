@@ -13,8 +13,8 @@ public interface PopulatedBoardView extends BoardView {
      * Moves a pawn to a specific location.
      * 
      * @param index the pawn's index
-     * @param x     the new X position
-     * @param y     the new Y position
+     * @param x     the new x position
+     * @param y     the new y position
      */
     void movePawnTo(int index, int x, int y);
 
