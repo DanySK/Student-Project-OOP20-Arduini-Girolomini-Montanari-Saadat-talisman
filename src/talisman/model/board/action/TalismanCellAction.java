@@ -38,4 +38,14 @@ public interface TalismanCellAction extends Serializable {
      * @param playerPawn the pawn of the player on which the action will execute
      */
     void applyTo(BoardPawn playerPawn);
+
+    /**
+     * Checks if the action can be applied to a player.
+     * 
+     * @param playerPawn the pawn of the player on which the action should be execute
+     * @return if the action can be applied
+     */
+    default boolean canBeApplied(final BoardPawn playerPawn) {
+        return true;
+    }
 }

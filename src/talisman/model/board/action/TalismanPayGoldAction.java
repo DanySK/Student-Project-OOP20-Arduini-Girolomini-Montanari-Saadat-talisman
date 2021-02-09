@@ -37,4 +37,13 @@ public class TalismanPayGoldAction extends TalismanAmountAction {
     public void applyTo(final BoardPawn playerPawn) {
         // TODO: Add or remove gold from player
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canBeApplied(final BoardPawn playerPawn) {
+        // TODO: Check gold
+        return false;
+    }
 }

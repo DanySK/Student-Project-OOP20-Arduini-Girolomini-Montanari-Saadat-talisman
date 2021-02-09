@@ -35,4 +35,13 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
     public void applyTo(final BoardPawn playerPawn) {
         // TODO: Draw cards
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canBeApplied(final BoardPawn playerPawn) {
+        // TODO: Check if cell is clear of cards
+        return false;
+    }
 }
