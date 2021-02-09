@@ -46,7 +46,7 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      * {@inheritDoc}
      */
     @Override
-    public int getCellX() {
+    public int getPawnX() {
         if (!SwingUtilities.getRoot(this).isVisible()) {
             return 0;
         }
@@ -57,7 +57,7 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      * {@inheritDoc}
      */
     @Override
-    public int getCellY() {
+    public int getPawnY() {
         if (!SwingUtilities.getRoot(this).isVisible()) {
             return 0;
         }
