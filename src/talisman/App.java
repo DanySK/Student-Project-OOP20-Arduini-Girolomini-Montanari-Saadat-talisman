@@ -15,6 +15,7 @@ import talisman.controller.board.TalismanBoardController;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
+import talisman.util.ViewUtils;
 import talisman.view.board.PopulatedBoardView;
 import talisman.view.board.PopulatedBoardViewBuilder;
 
@@ -42,12 +43,15 @@ public final class App {
         constraint.gridy = 0;
         constraint.fill = GridBagConstraints.NONE;
         window.getContentPane().add(swingBoardView, constraint);
+        window.pack();
+        window.setResizable(false);
         window.setVisible(true);
     }
 
     private TalismanBoardController createBoard() {
         // TODO: change to models created from the menu
-        final List<TalismanBoardPawn> pawns = List.of(TalismanBoardPawn.createPawn("", 0));
+        final List<TalismanBoardPawn> pawns = List
+                .of(TalismanBoardPawn.createPawn(ViewUtils.getDevImagePath(ViewUtils.DEV_PAWN_IMAGE_NAME, true), 0));
         final TalismanBoard board = TalismanBoardFactory.createDefaultBoardModel(pawns);
         final PopulatedBoardViewBuilder viewBuilder = new PopulatedBoardViewBuilder();
         return TalismanBoardController.create(board, viewBuilder.buildFromModel(board));
