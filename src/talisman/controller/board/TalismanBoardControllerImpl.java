@@ -25,9 +25,11 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
     public TalismanBoardControllerImpl(final TalismanBoard board, final PopulatedBoardView view) {
         this.board = board;
         this.view = view;
-        for (int i = 0; i < this.getBoard().getPawnCount(); i++) {
-            updatePawnViewPosition(i);
-        }
+        this.view.addUpdateListener(() -> {
+            for (int i = 0; i < this.getBoard().getPawnCount(); i++) {
+                updatePawnViewPosition(i);
+            }
+        });
     }
 
     /**
@@ -103,6 +105,6 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
         final int section = this.getBoard().getPawnSectionIndex(index);
         final int x = this.getView().getSection(section).getCellPositionX(cell);
         final int y = this.getView().getSection(section).getCellPositionY(cell);
-        this.getView().getPawn(index).setPosition(x, y);
+        this.getView().movePawnTo(index, x, y);
     }
 }
