@@ -5,7 +5,7 @@ import java.io.Serializable;
 import talisman.util.CellType;
 
 /**
- * Inteface that modela a cell on a board.
+ * Interface that models a cell on a board.
  * 
  * @author Alberto Arduini
  *
