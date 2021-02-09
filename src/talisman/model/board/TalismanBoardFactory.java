@@ -15,12 +15,15 @@ import java.util.Set;
 
 import talisman.model.board.action.TalismanCellAction;
 import talisman.model.board.action.TalismanDamageAction;
+import talisman.model.board.action.TalismanFightAction;
 import talisman.model.board.action.TalismanMoveAction;
 import talisman.model.board.action.TalismanRequireItemAction;
 import talisman.model.board.action.TalismanRollAction;
 
 import talisman.util.CellType;
 import talisman.util.ViewUtils;
+
+import static talisman.model.board.action.TalismanRollAction.RollStatistic;
 
 /**
  * Static class used to abstract the creation of the default game board.
@@ -77,21 +80,23 @@ public final class TalismanBoardFactory {
         sections.add(TalismanBoardSection.createSection(List.of(
                 TalismanBoardFactory.createCell("Field", "Plains of Peril", CellType.UP, TalismanCellType.BIOME,
                         Set.of()),
-                TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME, Set.of()),
+                TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME,
+                        Set.of(new TalismanRollAction(5, RollStatistic.CRAFT, null, new TalismanMoveAction(0, 19)))),
                 TalismanBoardFactory.createCell("Field", "Vampire's Tower", CellType.UP, TalismanCellType.BIOME,
-                        Set.of()),
+                        Set.of(new TalismanRollAction(4, RollStatistic.ABSOLUTE, new TalismanDamageAction(1),
+                                new TalismanDamageAction(3)))),
                 TalismanBoardFactory.createCell("Field", "Crypt", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("DiceWithDeath", "Dice with Death", CellType.DOWN,
                         TalismanCellType.MONSTER,
-                        Set.of(new TalismanRollAction(5, TalismanRollAction.RollStatistic.ABSOLUTE, null,
-                                new TalismanDamageAction(1)))),
+                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, null, new TalismanDamageAction(1)))),
                 TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
                         // TODO: set mininum to the werewolf's strength
-                        Set.of(new TalismanRollAction(5, TalismanRollAction.RollStatistic.ABSOLUTE, null,
-                                new TalismanDamageAction(1)))),
+                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, null, new TalismanDamageAction(1)))),
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
-                        Set.of(new TalismanRequireItemAction(0, new TalismanMoveAction(3, 0), null))),
-                TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME, Set.of()))));
+                        Set.of(new TalismanRequireItemAction(0, new TalismanMoveAction(0, 3), null))),
+                TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME,
+                        // TODO: set mininum to the pitfiend's strength
+                        Set.of(new TalismanFightAction(0))))));
         sections.add(TalismanBoardSection.createSection(List
                 .of(TalismanBoardFactory.createCell("Crown", "Crown", CellType.UP, TalismanCellType.ZONE, Set.of()))));
         final TalismanBoard board = TalismanBoard.createBoard(sections, startingPawns);
@@ -127,11 +132,11 @@ public final class TalismanBoardFactory {
     }
 
     private static TalismanBoard loadBoard() throws InvalidClassException {
-        try (FileInputStream fileOut = new FileInputStream(BOARD_FILE_PATH);
-                ObjectInputStream out = new ObjectInputStream(fileOut)) {
-            final TalismanBoard board = (TalismanBoard) out.readObject();
-            out.close();
-            fileOut.close();
+        try (FileInputStream fileIn = new FileInputStream(BOARD_FILE_PATH);
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            final TalismanBoard board = (TalismanBoard) in.readObject();
+            in.close();
+            fileIn.close();
             return board;
         } catch (final InvalidClassException ex) {
             throw ex;
