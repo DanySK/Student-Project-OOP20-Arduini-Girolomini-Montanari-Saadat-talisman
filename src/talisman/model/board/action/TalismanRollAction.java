@@ -77,7 +77,7 @@ public class TalismanRollAction extends TalismanAmountAction {
             return String.format(TalismanRollAction.ABSOLUTE_DESCRIPTION_FORMAT, this.getAmount(),
                     this.getActionDescription(successAction), this.getActionDescription(failedAction));
         } else {
-            return String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getAmount(), this.getStatistic(),
+            return String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic(), this.getAmount(),
                     this.getActionDescription(successAction), this.getActionDescription(failedAction));
         }
     }
