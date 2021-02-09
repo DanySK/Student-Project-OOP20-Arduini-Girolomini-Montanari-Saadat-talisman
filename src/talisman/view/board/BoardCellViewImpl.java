@@ -2,11 +2,14 @@ package talisman.view.board;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import talisman.util.CellType;
 import talisman.view.ImagePanel;
@@ -56,5 +59,27 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
     @Override
     public CellType getCellType() {
         return this.type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCellX() {
+        if (!SwingUtilities.getRoot(this).isVisible()) {
+            return 0;
+        }
+        return this.getLocationOnScreen().x;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCellY() {
+        if (!SwingUtilities.getRoot(this).isVisible()) {
+            return 0;
+        }
+        return this.getLocationOnScreen().y;
     }
 }

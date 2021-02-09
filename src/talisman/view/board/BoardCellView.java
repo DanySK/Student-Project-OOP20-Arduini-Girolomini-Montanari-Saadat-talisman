@@ -15,14 +15,14 @@ public interface BoardCellView {
      * 
      * @return the x position
      */
-    int getX();
+    int getCellX();
 
     /**
      * Get the cell y position.
      * 
      * @return the y position
      */
-    int getY();
+    int getCellY();
 
     /**
      * Creates a new cell.

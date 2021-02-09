@@ -20,14 +20,14 @@ public interface PawnView {
      * 
      * @return the X position
      */
-    int getX();
+    int getCellX();
 
     /**
      * Gets the pawn's X position.
      * 
      * @return the Y position
      */
-    int getY();
+    int getCellY();
 
     /**
      * Constructs a new pawn with the given image.

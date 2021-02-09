@@ -90,22 +90,6 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getCellPositionX(final int cellIndex) {
-        return this.getCell(cellIndex).getX();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getCellPositionY(final int cellIndex) {
-        return this.getCell(cellIndex).getY();
-    }
-
-    /**
      * Abstracts the creation for the container for a row/column of the section.
      * 
      * @param orientation
