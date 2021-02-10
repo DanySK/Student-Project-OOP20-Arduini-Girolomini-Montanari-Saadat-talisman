@@ -1,5 +1,6 @@
 package talisman.view.board;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
 
@@ -37,8 +38,7 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      */
     @Override
     public void setPosition(final int x, final int y) {
-        final Point position = new Point(x, y);
-        SwingUtilities.convertPointFromScreen(position, this.getParent());
+        final Point position = SwingUtilities.convertPoint(SwingUtilities.getRoot(this), x, y, this.getParent());
         SwingUtilities.invokeLater(() -> this.setLocation(position));
     }
 
@@ -47,10 +47,11 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      */
     @Override
     public int getPawnX() {
-        if (!SwingUtilities.getRoot(this).isVisible()) {
+        final Component root = SwingUtilities.getRoot(this);
+        if (!root.isVisible()) {
             return 0;
         }
-        return this.getLocationOnScreen().x;
+        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).x;
     }
 
     /**
@@ -58,9 +59,10 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      */
     @Override
     public int getPawnY() {
-        if (!SwingUtilities.getRoot(this).isVisible()) {
+        final Component root = SwingUtilities.getRoot(this);
+        if (!root.isVisible()) {
             return 0;
         }
-        return this.getLocationOnScreen().y;
+        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).y;
     }
 }

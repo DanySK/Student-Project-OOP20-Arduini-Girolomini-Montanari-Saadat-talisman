@@ -66,10 +66,11 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      */
     @Override
     public int getCellX() {
-        if (!SwingUtilities.getRoot(this).isVisible()) {
+        final Component root = SwingUtilities.getRoot(this);
+        if (!root.isVisible()) {
             return 0;
         }
-        return this.getLocationOnScreen().x;
+        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).x;
     }
 
     /**
@@ -77,9 +78,10 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      */
     @Override
     public int getCellY() {
-        if (!SwingUtilities.getRoot(this).isVisible()) {
+        final Component root = SwingUtilities.getRoot(this);
+        if (!root.isVisible()) {
             return 0;
         }
-        return this.getLocationOnScreen().y;
+        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).y;
     }
 }
