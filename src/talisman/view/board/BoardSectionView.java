@@ -31,7 +31,7 @@ public interface BoardSectionView {
      * @return the x position
      */
     default int getCellPositionX(int cellIndex) {
-        return this.getCell(cellIndex).getCellY();
+        return this.getCell(cellIndex).getCellX();
     }
 
     /**
