@@ -16,12 +16,15 @@ import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.util.ViewUtils;
+import talisman.view.DebugView;
 import talisman.view.board.PopulatedBoardView;
 import talisman.view.board.PopulatedBoardViewBuilder;
 
 public final class App {
     private static final int START_WINDOW_SIZE_X = 1280;
     private static final int START_WINDOW_SIZE_Y = 720;
+
+    private static final boolean SHOW_DEBUG = false;
 
     private App() {
     }
@@ -46,6 +49,11 @@ public final class App {
         window.pack();
         window.setResizable(false);
         window.setVisible(true);
+
+        if (App.SHOW_DEBUG) {
+            final DebugView debugView = new DebugView(boardController);
+            debugView.setVisible(true);
+        }
     }
 
     private TalismanBoardController createBoard() {
