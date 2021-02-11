@@ -3,7 +3,6 @@ package talisman.view.board;
 import java.util.LinkedList;
 import java.util.List;
 
-import talisman.model.board.Board;
 import talisman.model.board.PopulatedBoard;
 import talisman.util.CellType;
 
