@@ -54,7 +54,7 @@ public class TalismanChoiceAction implements TalismanCellAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
+    public void applyTo(final int player) {
         boolean applied = false;
         do {
             // TODO: Ask user
@@ -63,13 +63,42 @@ public class TalismanChoiceAction implements TalismanCellAction {
                 break;
             }
             final TalismanCellAction action = this.actions.get(reply);
-            if (action.canBeApplied(playerPawn)) {
-                action.applyTo(playerPawn);
+            if (action.canBeApplied(player)) {
+                action.applyTo(player);
                 applied = true;
             }
-            // I need a loop, since not all actions cuold be applied, so i need to check if
+            // I need a loop, since not all actions could be applied, so i need to check if
             // the chosen one is applied before continuing
         } while (!applied);
+    }
+
+    /**
+     * Does this choice action provide an empty option (where the player doens't do
+     * anything)?
+     * 
+     * @return if the option is available
+     */
+    public boolean hasNothing() {
+        return this.hasNothing;
+    }
+
+    /**
+     * Gets the action available at the current index.
+     * 
+     * @param index the action index
+     * @return the action instance
+     */
+    public TalismanCellAction getAction(final int index) {
+        return this.actions.get(index);
+    }
+
+    /**
+     * Gets the actions count, excluding the empty one.
+     * 
+     * @return the actions count
+     */
+    public int getActionCount() {
+        return this.actions.size();
     }
 
     private String getActionDescription(final Optional<TalismanCellAction> action) {
