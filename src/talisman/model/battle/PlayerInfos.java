@@ -39,4 +39,13 @@ public final class PlayerInfos {
         PlayerInfos.players.add(player);
         return PlayerInfos.players.indexOf(player);
     }
+
+    /**
+     * Gets the number of active players.
+     * 
+     * @return the value
+     */
+    public static int getPlayerCount() {
+        return PlayerInfos.players.size();
+    }
 }
