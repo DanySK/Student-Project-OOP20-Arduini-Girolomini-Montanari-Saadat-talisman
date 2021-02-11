@@ -1,5 +1,6 @@
 package talisman.model.board.action;
 
+import talisman.Controllers;
 import talisman.model.board.BoardPawn;
 import talisman.util.Pair;
 
@@ -39,8 +40,8 @@ public class TalismanMoveAction implements TalismanCellAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
-        playerPawn.setPosition(this.getSection(), this.getCell());
+    public void applyTo(final int player) {
+        Controllers.getBoardController().getCharacterPawn(player).setPosition(this.getSection(), this.getCell());
     }
 
     /**

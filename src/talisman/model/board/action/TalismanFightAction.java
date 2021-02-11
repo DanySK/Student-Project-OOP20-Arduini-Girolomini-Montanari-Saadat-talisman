@@ -33,7 +33,7 @@ public class TalismanFightAction implements TalismanCellAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
+    public void applyTo(final int player) {
         // TODO: Start fight
     }
 

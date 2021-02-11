@@ -44,10 +44,10 @@ public class TalismanRequireItemAction implements TalismanCellAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
+    public void applyTo(final int player) {
         // TODO: Check for item
         if (true) {
-            this.successAction.ifPresent(a -> a.applyTo(playerPawn));
+            this.successAction.ifPresent(a -> a.applyTo(player));
         } /*
            * else { this.failedAction.ifPresent(a -> a.applyTo(playerPawn)); }
            */

@@ -36,7 +36,7 @@ public class TalismanDamageAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
+    public void applyTo(final int player) {
         // TODO: Apply damage or heal
     }
 }
