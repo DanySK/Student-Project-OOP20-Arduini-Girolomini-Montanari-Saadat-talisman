@@ -1,5 +1,5 @@
 bin/
 doc/
-.class
-.log
-.tal
+*.class
+*.log
+*.tal
