@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import talisman.util.ViewUtils;
 
 public class ImagePanel extends JPanel {
+    private static final long serialVersionUID = -4187586139530880986L;
+
     private final Image backgroundImage;
 
     /**
@@ -63,8 +65,8 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         final int size = Math.min(this.getWidth(), this.getHeight());
         final Image scaledImage = this.backgroundImage.getScaledInstance(size, size, Image.SCALE_DEFAULT);
-        final int x = (this.getWidth() / 2) - (size / 2);
-        final int y = (this.getHeight() / 2) - (size / 2);
+        final int x = this.getWidth() / 2 - size / 2;
+        final int y = this.getHeight() / 2 - size / 2;
         g.drawImage(scaledImage, x, y, this);
     }
 }
