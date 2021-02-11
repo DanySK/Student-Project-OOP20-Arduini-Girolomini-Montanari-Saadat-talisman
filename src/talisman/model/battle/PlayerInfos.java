@@ -1,5 +1,6 @@
 package talisman.model.battle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,15 +11,10 @@ import java.util.List;
  */
 public final class PlayerInfos {
 
-    private static List<PlayerModel> players;
+    private static List<PlayerModel> players = new ArrayList<>();
 
-    /**
-     * Creates player's informations.
-     * 
-     * @param players - list of active players
-     */
-    private PlayerInfos(final List<PlayerModel> players) {
-        PlayerInfos.players = players;
+    private PlayerInfos() {
+
     }
 
     /**
@@ -28,7 +24,7 @@ public final class PlayerInfos {
      * 
      * @return the player
      */
-    static PlayerModel getPlayer(final int index) {
+    public static PlayerModel getPlayer(final int index) {
         return PlayerInfos.players.get(index);
     }
 
@@ -39,7 +35,7 @@ public final class PlayerInfos {
      * 
      * @return the index of the new player
      */
-    static int addPlayer(final PlayerModel player) {
+    public static int addPlayer(final PlayerModel player) {
         PlayerInfos.players.add(player);
         return PlayerInfos.players.indexOf(player);
     }
