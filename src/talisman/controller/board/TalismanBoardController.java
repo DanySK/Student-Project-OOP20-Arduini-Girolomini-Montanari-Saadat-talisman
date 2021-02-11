@@ -12,7 +12,8 @@ import talisman.model.board.TalismanBoardPawn;
  * @author Alberto Arduini
  *
  */
-public interface TalismanBoardController extends PopulatedBoardController<TalismanBoard, TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
+public interface TalismanBoardController
+        extends PopulatedBoardController<TalismanBoard, TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn> {
     /**
      * Creates a talisman board controller from a given board model.
      * 

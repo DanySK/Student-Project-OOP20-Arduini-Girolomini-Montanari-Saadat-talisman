@@ -26,9 +26,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
         this.board = board;
         this.view = view;
         this.view.addUpdateListener(() -> {
-            for (int i = 0; i < this.getBoard().getPawnCount(); i++) {
-                updatePawnViewPosition(i);
-            }
+            this.updatePawnsViewPosition();
         });
     }
 
@@ -73,7 +71,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      */
     @Override
     public void applyCharacterCellActions(final int player) {
-        this.getCharacterCell(player).applyActionsTo(this.getCharacterPawn(player));
+        this.getCharacterCell(player).applyActionsTo(player);
     }
 
     /**
@@ -100,11 +98,14 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
         return this.view;
     }
 
+    private void updatePawnsViewPosition() {
+        for (int i = 0; i < this.getBoard().getPawnCount(); i++) {
+            this.updatePawnViewPosition(i);
+        }
+    }
+
     private void updatePawnViewPosition(final int index) {
-        final int cell = this.getBoard().getPawnCellIndex(index);
-        final int section = this.getBoard().getPawnSectionIndex(index);
-        final int x = this.getView().getSection(section).getCellPositionX(cell);
-        final int y = this.getView().getSection(section).getCellPositionY(cell);
-        this.getView().movePawnTo(index, x, y);
+        final TalismanBoardPawn pawn = this.getCharacterPawn(index);
+        this.getView().movePawnToCell(index, pawn.getPositionSection(), pawn.getPositionCell());
     }
 }
