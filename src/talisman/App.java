@@ -17,6 +17,7 @@ import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.util.ViewUtils;
 import talisman.view.DebugView;
+import talisman.view.battle.BattleTopViewImpl;
 import talisman.view.board.PopulatedBoardView;
 import talisman.view.board.PopulatedBoardViewBuilder;
 
@@ -54,6 +55,21 @@ public final class App {
             final DebugView debugView = new DebugView(boardController);
             debugView.setVisible(true);
         }
+
+        //test battle view
+        final JFrame secondWindow = new JFrame();
+        final LayoutManager secondLayout = new GridBagLayout();
+        final GridBagConstraints secondConstraint = new GridBagConstraints();
+        secondConstraint.gridx = 0;
+        secondConstraint.gridy = 0;
+        secondConstraint.fill = GridBagConstraints.BOTH;
+        secondWindow.setLayout(secondLayout);
+        secondWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        final JPanel swingBattleView = new BattleTopViewImpl();
+        secondWindow.getContentPane().add(swingBattleView, secondConstraint);
+        secondWindow.pack();
+        secondWindow.setResizable(false);
+        secondWindow.setVisible(true);
     }
 
     private TalismanBoardController createBoard() {
