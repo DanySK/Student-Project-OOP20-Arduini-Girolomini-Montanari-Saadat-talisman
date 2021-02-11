@@ -6,7 +6,11 @@ import java.io.ObjectOutputStream;
 import java.util.Optional;
 import java.util.Random;
 
+import talisman.model.battle.CharacterInfo;
+import talisman.model.battle.PlayerInfos;
 import talisman.model.board.BoardPawn;
+import talisman.util.DiceType;
+import talisman.util.Utils;
 
 /**
  * Action for rolling a dice, based on a statistic if needed.
@@ -86,13 +90,30 @@ public class TalismanRollAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
-        this.lastResult = rng.nextInt(DICE_MAX_VALUE) + 1;
-        final int actualValue = this.lastResult; // TODO: Add statistic, once the players list is done
+    public void applyTo(final int player) {
+        this.lastResult = Utils.rollDice(DiceType.SEVEN);
+        int actualValue = this.getResult();
+        final CharacterInfo playerStatistics = PlayerInfos.getPlayer(player).getCurrentCharacter();
+        switch (this.getStatistic()) {
+        case CRAFT:
+            actualValue += playerStatistics.getCraft();
+            break;
+        case FAITH:
+            actualValue += playerStatistics.getFate();
+            break;
+        case HEALTH:
+            //actualValue += playerStatistics.getHealth();
+            break;
+        case STRENGTH:
+            actualValue += playerStatistics.getStrength();
+            break;
+        default:
+            break;
+        }
         if (actualValue >= this.getAmount()) {
-            this.successAction.ifPresent(a -> a.applyTo(playerPawn));
+            this.successAction.ifPresent(a -> a.applyTo(player));
         } else {
-            this.failedAction.ifPresent(a -> a.applyTo(playerPawn));
+            this.failedAction.ifPresent(a -> a.applyTo(player));
         }
     }
 
