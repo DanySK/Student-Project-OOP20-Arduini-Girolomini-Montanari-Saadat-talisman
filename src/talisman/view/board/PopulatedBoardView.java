@@ -19,6 +19,15 @@ public interface PopulatedBoardView extends BoardView {
     void movePawnTo(int index, int x, int y);
 
     /**
+     * Moves a pawn to a specific section and cell.
+     * 
+     * @param index   the pawn's index
+     * @param section the new section index
+     * @param cell    the new cell index
+     */
+    void movePawnToCell(int index, int section, int cell);
+
+    /**
      * Gets the pawn's view at the given index.
      * 
      * @param index the pawn's index

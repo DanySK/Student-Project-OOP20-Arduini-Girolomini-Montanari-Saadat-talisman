@@ -36,7 +36,18 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
      */
     @Override
     public void movePawnTo(final int index, final int x, final int y) {
-        this.getPawn(index).setPosition(x, y);
+        SwingUtilities.invokeLater(() -> {
+            this.getPawn(index).setPosition(x, y);
+        });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void movePawnToCell(final int index, final int section, final int cell) {
+        final BoardCellView cellInstance = this.getSection(section).getCell(cell);
+        this.movePawnTo(index, cellInstance.getCellX(), cellInstance.getCellY());
     }
 
     /**
@@ -45,5 +56,16 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
     @Override
     public PawnView getPawn(final int index) {
         return this.pawns.get(index);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setVisible(final boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            this.boardUpdated();
+        }
     }
 }
