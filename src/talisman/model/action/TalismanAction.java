@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import java.io.Serializable;
 
@@ -11,7 +11,7 @@ import talisman.model.board.BoardPawn;
  * @author Alberto Arduini
  *
  */
-public interface TalismanCellAction extends Serializable {
+public interface TalismanAction extends Serializable {
     /**
      * Gets what to show if no action is present.
      */

@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,18 +14,18 @@ import talisman.model.board.BoardPawn;
  * @author Alberto Arduini
  *
  */
-public class TalismanRequireItemAction implements TalismanCellAction {
+public class TalismanRequireItemAction implements TalismanAction {
     private static final String DESCRIPTION_FORMAT = "If you have a %s then:" + System.lineSeparator() + "- %s"
             + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
 
     private final int item;
     // Saved as optional, since it may only have a success or failure
     // consequence
-    private transient Optional<TalismanCellAction> successAction;
-    private transient Optional<TalismanCellAction> failedAction;
+    private transient Optional<TalismanAction> successAction;
+    private transient Optional<TalismanAction> failedAction;
 
-    public TalismanRequireItemAction(final int item, final TalismanCellAction successAction,
-            final TalismanCellAction failedAction) {
+    public TalismanRequireItemAction(final int item, final TalismanAction successAction,
+            final TalismanAction failedAction) {
         this.item = item;
         this.successAction = Optional.ofNullable(successAction);
         this.failedAction = Optional.ofNullable(failedAction);
@@ -62,20 +62,20 @@ public class TalismanRequireItemAction implements TalismanCellAction {
         return this.item;
     }
 
-    private String getActionDescription(final Optional<TalismanCellAction> action) {
-        return action.isPresent() ? action.get().getDescription() : TalismanCellAction.NO_ACTION_DESCRIPTION;
+    private String getActionDescription(final Optional<TalismanAction> action) {
+        return action.isPresent() ? action.get().getDescription() : TalismanAction.NO_ACTION_DESCRIPTION;
     }
 
     private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
         stream.defaultReadObject();
         // I use two bytes as flags to check for consequence actions
-        if (stream.read() == TalismanCellAction.SERIALIZED_PRESENT) {
-            this.successAction = Optional.ofNullable((TalismanCellAction) stream.readObject());
+        if (stream.read() == TalismanAction.SERIALIZED_PRESENT) {
+            this.successAction = Optional.ofNullable((TalismanAction) stream.readObject());
         } else {
             this.successAction = Optional.empty();
         }
-        if (stream.read() == TalismanCellAction.SERIALIZED_PRESENT) {
-            this.failedAction = Optional.ofNullable((TalismanCellAction) stream.readObject());
+        if (stream.read() == TalismanAction.SERIALIZED_PRESENT) {
+            this.failedAction = Optional.ofNullable((TalismanAction) stream.readObject());
         } else {
             this.failedAction = Optional.empty();
         }
@@ -85,16 +85,16 @@ public class TalismanRequireItemAction implements TalismanCellAction {
         stream.defaultWriteObject();
         // First i write the flag, then the action (if present)
         if (this.successAction.isPresent()) {
-            stream.write(TalismanCellAction.SERIALIZED_PRESENT);
+            stream.write(TalismanAction.SERIALIZED_PRESENT);
             stream.writeObject(this.successAction.get());
         } else {
-            stream.write(TalismanCellAction.SERIALIZED_MISSING);
+            stream.write(TalismanAction.SERIALIZED_MISSING);
         }
         if (this.failedAction.isPresent()) {
-            stream.write(TalismanCellAction.SERIALIZED_PRESENT);
+            stream.write(TalismanAction.SERIALIZED_PRESENT);
             stream.writeObject(this.failedAction.get());
         } else {
-            stream.write(TalismanCellAction.SERIALIZED_MISSING);
+            stream.write(TalismanAction.SERIALIZED_MISSING);
         }
     }
 }

@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import talisman.model.board.BoardPawn;
 
@@ -8,7 +8,7 @@ import talisman.model.board.BoardPawn;
  * @author Alberto Arduini
  *
  */
-public class TalismanFightAction implements TalismanCellAction {
+public class TalismanFightAction implements TalismanAction {
     private static final String DESCRIPTION_FORMAT = "You have to fight a %s";
     private final int enemy;
 

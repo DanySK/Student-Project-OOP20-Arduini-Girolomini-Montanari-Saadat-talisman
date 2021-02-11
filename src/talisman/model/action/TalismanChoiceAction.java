@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,12 +16,12 @@ import talisman.model.board.BoardPawn;
  * @author Alberto Arduini
  *
  */
-public class TalismanChoiceAction implements TalismanCellAction {
+public class TalismanChoiceAction implements TalismanAction {
     private static final long serialVersionUID = 4657209105775876617L;
     private static final String DESCRIPTION_FORMAT = "Choose between:";
     private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = System.lineSeparator() + "- %s";
 
-    private transient List<TalismanCellAction> actions;
+    private transient List<TalismanAction> actions;
     private final boolean hasNothing;
 
     /**
@@ -30,7 +30,7 @@ public class TalismanChoiceAction implements TalismanCellAction {
      * @param actions    the list of possible actions
      * @param hasNothing if there should be the choice of not doing anything
      */
-    public TalismanChoiceAction(final List<TalismanCellAction> actions, final boolean hasNothing) {
+    public TalismanChoiceAction(final List<TalismanAction> actions, final boolean hasNothing) {
         this.actions = List.copyOf(actions);
         this.hasNothing = hasNothing;
     }
@@ -44,7 +44,7 @@ public class TalismanChoiceAction implements TalismanCellAction {
         if (this.hasNothing) {
             description = description.concat(this.getActionDescription(Optional.empty()));
         }
-        for (final TalismanCellAction action : this.actions) {
+        for (final TalismanAction action : this.actions) {
             description = description.concat(this.getActionDescription(Optional.ofNullable(action)));
         }
         return description;
@@ -62,7 +62,7 @@ public class TalismanChoiceAction implements TalismanCellAction {
             if (reply == -1) {
                 break;
             }
-            final TalismanCellAction action = this.actions.get(reply);
+            final TalismanAction action = this.actions.get(reply);
             if (action.canBeApplied(player)) {
                 action.applyTo(player);
                 applied = true;
@@ -88,7 +88,7 @@ public class TalismanChoiceAction implements TalismanCellAction {
      * @param index the action index
      * @return the action instance
      */
-    public TalismanCellAction getAction(final int index) {
+    public TalismanAction getAction(final int index) {
         return this.actions.get(index);
     }
 
@@ -101,8 +101,8 @@ public class TalismanChoiceAction implements TalismanCellAction {
         return this.actions.size();
     }
 
-    private String getActionDescription(final Optional<TalismanCellAction> action) {
+    private String getActionDescription(final Optional<TalismanAction> action) {
         return String.format(TalismanChoiceAction.SINGLE_ACTION_DESCRIPTION_FORMAT,
-                action.isPresent() ? action.get().getDescription() : TalismanCellAction.NO_ACTION_DESCRIPTION);
+                action.isPresent() ? action.get().getDescription() : TalismanAction.NO_ACTION_DESCRIPTION);
     }
 }
