@@ -1,5 +1,6 @@
 package talisman.model.board.action;
 
+import talisman.Controllers;
 import talisman.model.board.BoardPawn;
 
 /**
@@ -32,7 +33,7 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final BoardPawn playerPawn) {
+    public void applyTo(final int player) {
         // TODO: Draw cards
     }
 
@@ -40,8 +41,7 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public boolean canBeApplied(final BoardPawn playerPawn) {
-        // TODO: Check if cell is clear of cards
-        return false;
+    public boolean canBeApplied(final int player) {
+        return !Controllers.getBoardController().getCharacterCell(player).getCard().isPresent();
     }
 }
