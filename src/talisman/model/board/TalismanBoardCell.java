@@ -1,9 +1,11 @@
 package talisman.model.board;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 import talisman.model.board.action.TalismanCellAction;
+import talisman.model.cards.Card;
 import talisman.util.CellType;
 
 /**
@@ -17,6 +19,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
 
     private final TalismanCellType type;
     private final Set<TalismanCellAction> actions;
+    private Optional<Card> card;
 
     /**
      * Constructs a new talisman board cell.
@@ -57,20 +60,32 @@ public final class TalismanBoardCell extends BoardCellImpl {
      */
     @Override
     public String getText() {
-        String text = super.getText();
-        for (TalismanCellAction action : this.getActions()) {
-            text = text + System.lineSeparator() + action.getDescription();
+        final StringBuilder text = new StringBuilder(super.getText());
+        for (final TalismanCellAction action : this.getActions()) {
+            text.append(System.lineSeparator() + action.getDescription());
         }
-        return text;
+        return text.toString();
+    }
+
+    public Optional<Card> getCard() {
+        return this.card;
     }
 
     /**
      * Applies all the actions of this cell the the specified player.
      * 
-     * @param playerPawn The pawn of the player to which the actions will apply
+     * @param player The player to which the actions will apply
      */
-    public void applyActionsTo(final BoardPawn playerPawn) {
-        this.getActions().stream().forEach(a -> a.applyTo(playerPawn));
+    public void applyActionsTo(final int player) {
+        this.getActions().stream().forEach(a -> a.applyTo(player));
+    }
+
+    public void setCard(final Card card) {
+        this.card = Optional.ofNullable(card);
+    }
+
+    public void clearCard() {
+        this.card = Optional.empty();
     }
 
     /**
