@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import talisman.Controllers;
 import talisman.model.board.BoardPawn;

@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
-import talisman.model.board.action.TalismanCellAction;
+import talisman.model.action.TalismanAction;
 import talisman.model.cards.Card;
 import talisman.util.CellType;
 
@@ -18,7 +18,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
     private static final long serialVersionUID = -242979810318405562L;
 
     private final TalismanCellType type;
-    private final Set<TalismanCellAction> actions;
+    private final Set<TalismanAction> actions;
     private Optional<Card> card;
 
     /**
@@ -31,7 +31,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
      * @param actions     a collection of the cell's actions
      */
     public TalismanBoardCell(final String imagePath, final String text, final CellType orientation,
-            final TalismanCellType type, final Collection<TalismanCellAction> actions) {
+            final TalismanCellType type, final Collection<TalismanAction> actions) {
         super(imagePath, text, orientation);
         this.type = type;
         this.actions = Set.copyOf(actions);
@@ -51,7 +51,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
      * 
      * @return The cell's actions
      */
-    public Set<TalismanCellAction> getActions() {
+    public Set<TalismanAction> getActions() {
         return this.actions;
     }
 
@@ -61,7 +61,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
     @Override
     public String getText() {
         final StringBuilder text = new StringBuilder(super.getText());
-        for (final TalismanCellAction action : this.getActions()) {
+        for (final TalismanAction action : this.getActions()) {
             text.append(System.lineSeparator() + action.getDescription());
         }
         return text.toString();
@@ -99,7 +99,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
      * @return the created cell
      */
     public static TalismanBoardCell createCell(final String imagePath, final String text, final CellType orientation,
-            final TalismanCellType type, final Collection<TalismanCellAction> actions) {
+            final TalismanCellType type, final Collection<TalismanAction> actions) {
         return new TalismanBoardCell(imagePath, text, orientation, type, actions);
     }
 }

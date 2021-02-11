@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 import talisman.Controllers;
 import talisman.model.board.BoardPawn;
@@ -10,7 +10,7 @@ import talisman.util.Pair;
  * @author Alberto Arduini
  *
  */
-public class TalismanMoveAction implements TalismanCellAction {
+public class TalismanMoveAction implements TalismanAction {
     private static final long serialVersionUID = 4969624574046845867L;
     private static final String DESCRIPTION_FORMAT = "Go cell %d in the %s section";
     private static final String[] SECTION_NAMES = new String[] { "outside", "middle", "inner", "crown" };

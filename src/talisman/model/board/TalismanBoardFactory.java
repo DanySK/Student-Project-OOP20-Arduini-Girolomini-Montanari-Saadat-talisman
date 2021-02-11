@@ -1,5 +1,7 @@
 package talisman.model.board;
 
+import static talisman.model.action.TalismanRollAction.RollStatistic;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,17 +15,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import talisman.model.board.action.TalismanCellAction;
-import talisman.model.board.action.TalismanDamageAction;
-import talisman.model.board.action.TalismanFightAction;
-import talisman.model.board.action.TalismanMoveAction;
-import talisman.model.board.action.TalismanRequireItemAction;
-import talisman.model.board.action.TalismanRollAction;
-
+import talisman.model.action.TalismanAction;
+import talisman.model.action.TalismanDamageAction;
+import talisman.model.action.TalismanFightAction;
+import talisman.model.action.TalismanMoveAction;
+import talisman.model.action.TalismanRequireItemAction;
+import talisman.model.action.TalismanRollAction;
 import talisman.util.CellType;
 import talisman.util.ViewUtils;
-
-import static talisman.model.board.action.TalismanRollAction.RollStatistic;
 
 /**
  * Static class used to abstract the creation of the default game board.
@@ -115,7 +114,7 @@ public final class TalismanBoardFactory {
      * @return the created cell
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
-            final TalismanCellType type, final Collection<TalismanCellAction> actions) {
+            final TalismanCellType type, final Collection<TalismanAction> actions) {
         return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type,
                 actions);
     }

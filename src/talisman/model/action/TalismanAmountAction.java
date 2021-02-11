@@ -1,4 +1,4 @@
-package talisman.model.board.action;
+package talisman.model.action;
 
 /**
  * A generic action that uses an amount (could be a max, min, ...).
@@ -6,7 +6,7 @@ package talisman.model.board.action;
  * @author Alberto Arduini
  *
  */
-public abstract class TalismanAmountAction implements TalismanCellAction {
+public abstract class TalismanAmountAction implements TalismanAction {
     private static final long serialVersionUID = 834721071654192282L;
 
     private final int amount;
