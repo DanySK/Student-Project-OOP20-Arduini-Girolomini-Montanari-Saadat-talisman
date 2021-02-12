@@ -7,7 +7,7 @@ public class DeckImpl implements Deck {
     private final List<Card> cards;
     private final DeckType type;
 
-    public DeckImpl(final DeckType type, final List<Card> cards) {
+    public DeckImpl(final DeckType type, final Queue<Card> cards) {
         this.type = type;
         this.cards = List.copyOf(cards);
     }

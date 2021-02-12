@@ -1,8 +1,8 @@
 package talisman.model.cards;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import talisman.model.action.*;
 
@@ -17,7 +17,7 @@ public final class TalismanDeckFactory {
     }
 
     public static Deck createDeck(final DeckType type) {
-        final List<Card> cards = new ArrayList<>();
+        final Queue<Card> cards = new LinkedList<>();
         switch (type) {
         case ADVENTURE:
             createAdventureDeck(cards);
@@ -39,19 +39,19 @@ public final class TalismanDeckFactory {
         //        List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
     }
 
-    private static List<Card> createSpellDeck(final List<Card> cards) {
+    private static Queue<Card> createSpellDeck(final Queue<Card> cards) {
         return cards;
     }
 
-    private static List<Card> createAdventureDeck(final List<Card> cards) {
+    private static Queue<Card> createAdventureDeck(final Queue<Card> cards) {
         return cards;
     }
 
-    private static List<Card> createShopDeck(final List<Card> cards) {
+    private static Queue<Card> createShopDeck(final Queue<Card> cards) {
         return cards;
     }
 
-    private static List<Card> createTalismanDeck(final List<Card> cards) {
+    private static Queue<Card> createTalismanDeck(final Queue<Card> cards) {
         return cards;
     }
 
