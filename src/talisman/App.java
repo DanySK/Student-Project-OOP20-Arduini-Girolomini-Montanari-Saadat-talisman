@@ -31,7 +31,7 @@ public final class App {
 
     private static final boolean SHOW_DEBUG = true;
 
-    private JFrame boardWindow;
+    private final JFrame boardWindow;
 
     private App() {
         this.createPlayers();
