@@ -1,6 +1,7 @@
 package talisman.util;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a pair of non-homogeneous items.
@@ -11,7 +12,7 @@ import java.io.Serializable;
  * @param <Y> type of the second item
  */
 public class Pair<X, Y> implements Serializable {
-    private static final long serialVersionUID = -5832869251083868792L;
+    private static final long serialVersionUID = 352634681550592861L;
 
     private final X x;
     private final Y y;
@@ -43,5 +44,39 @@ public class Pair<X, Y> implements Serializable {
      */
     public final Y getY() {
         return y;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pair<?, ?> other = (Pair<?, ?>) obj;
+        return Objects.equals(x, other.x) && Objects.equals(y, other.y);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String toString() {
+        return "Pair [x=" + x + ", y=" + y + "]";
     }
 }
