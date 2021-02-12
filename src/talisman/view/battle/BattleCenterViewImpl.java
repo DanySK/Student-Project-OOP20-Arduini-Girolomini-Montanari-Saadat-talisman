@@ -33,8 +33,11 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, 5, 1));
         this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
-        this.add(magicButton, this.setConstraints(20, 3, 1));
-        this.add(new JLabel("Magic"), this.setConstraints(20, 2, 1));
+        GridBagConstraints c = this.setConstraints(3, 2, 1);
+        c.anchor = GridBagConstraints.EAST;
+        this.add(magicButton, c);
+        c.gridy = 1;
+        this.add(new JLabel("Magic"), c);
         this.setBackground(Color.darkGray);
     }
     
@@ -45,6 +48,8 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         c.gridwidth = width;
         c.weightx = 1;
         c.weighty = 1;
+        c.anchor = GridBagConstraints.WEST;
+        c.insets = new Insets(5, 5, 5, 5);
         return c;
     }
 
