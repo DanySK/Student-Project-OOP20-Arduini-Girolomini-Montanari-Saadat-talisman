@@ -15,32 +15,42 @@ import talisman.model.action.*;
 public final class TalismanDeckFactory {
     private TalismanDeckFactory() {
     }
-    public static List<Card> createDeck(final DeckType type) {
+
+    public static Deck createDeck(final DeckType type) {
         final List<Card> cards = new ArrayList<>();
         switch (type) {
         case ADVENTURE:
-            return createAdventureDeck(cards);
+            createAdventureDeck(cards);
+            break;
         case SPELL:
-            return createSpellDeck(cards);
+            createSpellDeck(cards);
+            break;
         case SHOP:
-            return createShopDeck(cards);
+            createShopDeck(cards);
+            break;
         case TALISMAN:
-            return createTalismanDeck(cards);
+            createTalismanDeck(cards);
+            break;
         default:
             break;
         }
-        cards.add(TalismanDeckFactory.createCard("bag of gold", "get 1 gold", "", CardType.OBJECT, List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
-        return cards;
+        return new DeckImpl(type, cards);
+        //cards.add(TalismanDeckFactory.createCard("bag of gold", "get 1 gold", "", CardType.OBJECT,
+        //        List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
     }
+
     private static List<Card> createSpellDeck(final List<Card> cards) {
         return cards;
     }
+
     private static List<Card> createAdventureDeck(final List<Card> cards) {
         return cards;
     }
+
     private static List<Card> createShopDeck(final List<Card> cards) {
         return cards;
     }
+
     private static List<Card> createTalismanDeck(final List<Card> cards) {
         return cards;
     }
