@@ -17,6 +17,7 @@ import java.util.Set;
 
 import talisman.model.action.TalismanAction;
 import talisman.model.action.TalismanDamageAction;
+import talisman.model.action.TalismanEmptyAction;
 import talisman.model.action.TalismanFightAction;
 import talisman.model.action.TalismanMoveAction;
 import talisman.model.action.TalismanRequireItemAction;
@@ -80,19 +81,23 @@ public final class TalismanBoardFactory {
                 TalismanBoardFactory.createCell("Field", "Plains of Peril", CellType.UP, TalismanCellType.BIOME,
                         Set.of()),
                 TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME,
-                        Set.of(new TalismanRollAction(5, RollStatistic.CRAFT, null, new TalismanMoveAction(0, 19)))),
+                        Set.of(new TalismanRollAction(5, RollStatistic.CRAFT, new TalismanEmptyAction(),
+                                new TalismanMoveAction(0, 19)))),
                 TalismanBoardFactory.createCell("Field", "Vampire's Tower", CellType.UP, TalismanCellType.BIOME,
                         Set.of(new TalismanRollAction(4, RollStatistic.ABSOLUTE, new TalismanDamageAction(1),
                                 new TalismanDamageAction(3)))),
                 TalismanBoardFactory.createCell("Field", "Crypt", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("DiceWithDeath", "Dice with Death", CellType.DOWN,
                         TalismanCellType.MONSTER,
-                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, null, new TalismanDamageAction(1)))),
+                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, new TalismanEmptyAction(),
+                                new TalismanDamageAction(1)))),
                 TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
                         // TODO: set mininum to the werewolf's strength
-                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, null, new TalismanDamageAction(1)))),
+                        Set.of(new TalismanRollAction(5, RollStatistic.ABSOLUTE, new TalismanEmptyAction(),
+                                new TalismanDamageAction(1)))),
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
-                        Set.of(new TalismanRequireItemAction(0, new TalismanMoveAction(0, 3), null))),
+                        Set.of(new TalismanRequireItemAction(0, new TalismanMoveAction(0, 3),
+                                new TalismanEmptyAction()))),
                 TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME,
                         // TODO: set mininum to the pitfiend's strength
                         Set.of(new TalismanFightAction(0))))));
