@@ -3,6 +3,8 @@ package talisman.model.action;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -20,11 +22,15 @@ import talisman.util.Utils;
  */
 public class TalismanRollAction extends TalismanAmountAction {
     private static final long serialVersionUID = 4657209105775876617L;
+    private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
     private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice, if the result is at least %d then:"
-            + System.lineSeparator() + "- %s" + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT
+            + System.lineSeparator() + "otherwise:"
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
     private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then:"
-            + System.lineSeparator() + "- %s" + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
-    private static final int DICE_MAX_VALUE = 6;
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT
+            + System.lineSeparator() + "otherwise:"
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
 
     /**
      * Decides which statistic should be used when checking for a roll.
@@ -43,16 +49,13 @@ public class TalismanRollAction extends TalismanAmountAction {
          */
         @Override
         public String toString() {
-            return super.toString().toLowerCase();
+            return super.toString().toLowerCase(Locale.ENGLISH);
         }
     }
 
     private final RollStatistic statistic;
-    // Saved as optional, since a roll may only have a success or failure
-    // consequence
-    private transient Optional<TalismanAction> successAction;
-    private transient Optional<TalismanAction> failedAction;
-    private final Random rng;
+    private final TalismanAction successAction;
+    private final TalismanAction failedAction;
     private int lastResult;
 
     /**
@@ -67,9 +70,8 @@ public class TalismanRollAction extends TalismanAmountAction {
             final TalismanAction failedAction) {
         super(amount);
         this.statistic = statistic;
-        this.successAction = Optional.ofNullable(successAction);
-        this.failedAction = Optional.ofNullable(failedAction);
-        this.rng = new Random();
+        this.successAction = Objects.requireNonNull(successAction);
+        this.failedAction = Objects.requireNonNull(failedAction);
     }
 
     /**
@@ -79,10 +81,10 @@ public class TalismanRollAction extends TalismanAmountAction {
     public String getDescription() {
         if (this.getStatistic() == RollStatistic.ABSOLUTE) {
             return String.format(TalismanRollAction.ABSOLUTE_DESCRIPTION_FORMAT, this.getAmount(),
-                    this.getActionDescription(successAction), this.getActionDescription(failedAction));
+                    this.successAction.getDescription(), this.failedAction.getDescription());
         } else {
             return String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic(), this.getAmount(),
-                    this.getActionDescription(successAction), this.getActionDescription(failedAction));
+                    this.successAction.getDescription(), this.failedAction.getDescription());
         }
     }
 
@@ -102,7 +104,7 @@ public class TalismanRollAction extends TalismanAmountAction {
             actualValue += playerStatistics.getFate();
             break;
         case HEALTH:
-            //actualValue += playerStatistics.getHealth();
+            // actualValue += playerStatistics.getHealth();
             break;
         case STRENGTH:
             actualValue += playerStatistics.getStrength();
@@ -111,9 +113,9 @@ public class TalismanRollAction extends TalismanAmountAction {
             break;
         }
         if (actualValue >= this.getAmount()) {
-            this.successAction.ifPresent(a -> a.applyTo(player));
+            this.successAction.applyTo(player);
         } else {
-            this.failedAction.ifPresent(a -> a.applyTo(player));
+            this.failedAction.applyTo(player);
         }
     }
 
@@ -133,41 +135,5 @@ public class TalismanRollAction extends TalismanAmountAction {
      */
     public int getResult() {
         return this.lastResult;
-    }
-
-    private String getActionDescription(final Optional<TalismanAction> action) {
-        return action.isPresent() ? action.get().getDescription() : TalismanAction.NO_ACTION_DESCRIPTION;
-    }
-
-    private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
-        stream.defaultReadObject();
-        // I use two bytes as flags to check for consequence actions
-        if (stream.read() == TalismanAction.SERIALIZED_PRESENT) {
-            this.successAction = Optional.ofNullable((TalismanAction) stream.readObject());
-        } else {
-            this.successAction = Optional.empty();
-        }
-        if (stream.read() == TalismanAction.SERIALIZED_PRESENT) {
-            this.failedAction = Optional.ofNullable((TalismanAction) stream.readObject());
-        } else {
-            this.failedAction = Optional.empty();
-        }
-    }
-
-    private void writeObject(final ObjectOutputStream stream) throws IOException {
-        stream.defaultWriteObject();
-        // First i write the flag, then the action (if present)
-        if (this.successAction.isPresent()) {
-            stream.write(TalismanAction.SERIALIZED_PRESENT);
-            stream.writeObject(this.successAction.get());
-        } else {
-            stream.write(TalismanAction.SERIALIZED_MISSING);
-        }
-        if (this.failedAction.isPresent()) {
-            stream.write(TalismanAction.SERIALIZED_PRESENT);
-            stream.writeObject(this.failedAction.get());
-        } else {
-            stream.write(TalismanAction.SERIALIZED_MISSING);
-        }
     }
 }
