@@ -32,28 +32,7 @@ public class TalismanRollAction extends TalismanAmountAction {
             + System.lineSeparator() + "otherwise:"
             + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
 
-    /**
-     * Decides which statistic should be used when checking for a roll.
-     * 
-     * @author Alberto Arduini
-     *
-     */
-    public enum RollStatistic {
-        /**
-         * 
-         */
-        ABSOLUTE, HEALTH, FAITH, CRAFT, STRENGTH;
-
-        /**
-         * {@inheritDoc}
-         */
-        @Override
-        public String toString() {
-            return super.toString().toLowerCase(Locale.ENGLISH);
-        }
-    }
-
-    private final RollStatistic statistic;
+    private final TalismanActionStatistic statistic;
     private final TalismanAction successAction;
     private final TalismanAction failedAction;
     private int lastResult;
@@ -66,7 +45,7 @@ public class TalismanRollAction extends TalismanAmountAction {
      * @param successAction what to do on success
      * @param failedAction  what to do on failuer
      */
-    public TalismanRollAction(final int amount, final RollStatistic statistic, final TalismanAction successAction,
+    public TalismanRollAction(final int amount, final TalismanActionStatistic statistic, final TalismanAction successAction,
             final TalismanAction failedAction) {
         super(amount);
         this.statistic = statistic;
@@ -79,7 +58,7 @@ public class TalismanRollAction extends TalismanAmountAction {
      */
     @Override
     public String getDescription() {
-        if (this.getStatistic() == RollStatistic.ABSOLUTE) {
+        if (this.getStatistic() == TalismanActionStatistic.NONE) {
             return String.format(TalismanRollAction.ABSOLUTE_DESCRIPTION_FORMAT, this.getAmount(),
                     this.successAction.getDescription(), this.failedAction.getDescription());
         } else {
@@ -124,7 +103,7 @@ public class TalismanRollAction extends TalismanAmountAction {
      * 
      * @return the statistic
      */
-    public RollStatistic getStatistic() {
+    public TalismanActionStatistic getStatistic() {
         return this.statistic;
     }
 
