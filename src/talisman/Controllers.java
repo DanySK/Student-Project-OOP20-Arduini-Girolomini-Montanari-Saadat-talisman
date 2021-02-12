@@ -13,7 +13,7 @@ public final class Controllers {
     }
 
     public static void setBoardController(final TalismanBoardController controller) {
-        if (Controllers.boardController == null) {
+        if (Controllers.boardController != null) {
             throw new IllegalStateException("The controller was already assigned");
         }
         Controllers.boardController = controller;
