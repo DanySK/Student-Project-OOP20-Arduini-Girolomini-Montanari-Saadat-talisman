@@ -13,10 +13,6 @@ import talisman.model.board.BoardPawn;
  */
 public interface TalismanAction extends Serializable {
     /**
-     * Gets what to show if no action is present.
-     */
-    String NO_ACTION_DESCRIPTION = "Do nothing";
-    /**
      * The flag value in case an optional field is serialized.
      */
     int SERIALIZED_PRESENT = 1;
