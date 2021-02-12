@@ -60,6 +60,13 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
     public abstract String getChoiceDescription(int index);
 
     /**
+     * Gets the actions count, excluding the empty one.
+     * 
+     * @return the actions count
+     */
+    public abstract int getChoicesCount();
+
+    /**
      * Gets the format of the description.
      * 
      * @return the description format
@@ -75,11 +82,4 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
      * @return if the choice has been applied or not
      */
     protected abstract boolean applyChoice(int player, int choice);
-
-    /**
-     * Gets the actions count, excluding the empty one.
-     * 
-     * @return the actions count
-     */
-    public abstract int getChoicesCount();
 }
