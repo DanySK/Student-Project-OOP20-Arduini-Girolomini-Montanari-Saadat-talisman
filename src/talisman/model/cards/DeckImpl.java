@@ -1,20 +1,20 @@
 package talisman.model.cards;
 
-import java.util.List;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class DeckImpl implements Deck {
-    private final List<Card> cards;
+    private final Queue<Card> cards;
     private final DeckType type;
 
     public DeckImpl(final DeckType type, final Queue<Card> cards) {
         this.type = type;
-        this.cards = List.copyOf(cards);
+        this.cards = new LinkedList<>(cards);
     }
     /**
      * {@inheritDoc}
      */
-    public List<Card> getCards() {
+    public Queue<Card> getCards() {
         return this.cards;
     }
     /**
@@ -23,7 +23,7 @@ public class DeckImpl implements Deck {
     @Override
     public Card draw() {
         // TODO Auto-generated method stub
-        return null;
+        return cards.remove();
     }
     /**
      * {@inheritDoc}
