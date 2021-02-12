@@ -1,5 +1,6 @@
 package talisman.model.action;
 
+import talisman.model.battle.PlayerInfos;
 import talisman.model.board.BoardPawn;
 
 /**
@@ -35,7 +36,8 @@ public class TalismanPayGoldAction extends TalismanAmountAction {
      */
     @Override
     public void applyTo(final int player) {
-        // TODO: Add or remove gold from player
+        final int currentValue = this.getCurrentPlayerGold(player);
+        PlayerInfos.getPlayer(player).getCurrentCharacter().setGold(currentValue + this.getAmount());
     }
 
     /**
@@ -43,7 +45,10 @@ public class TalismanPayGoldAction extends TalismanAmountAction {
      */
     @Override
     public boolean canBeApplied(final int player) {
-        // TODO: Check gold
-        return false;
+        return this.getCurrentPlayerGold(player) + this.getAmount() >= 0;
+    }
+
+    private int getCurrentPlayerGold(final int player) {
+        return PlayerInfos.getPlayer(player).getCurrentCharacter().getGold();
     }
 }
