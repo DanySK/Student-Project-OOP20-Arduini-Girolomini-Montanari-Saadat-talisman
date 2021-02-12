@@ -21,6 +21,7 @@ public class PlayerModelImpl implements PlayerModel {
      */
     public PlayerModelImpl(final int numPlayers, final int id, final CharacterInfoImpl character) {
         this.numPlayers = numPlayers;
+        this.id = id;
         this.currentCharacter = character;
         this.crown = false;
     }
