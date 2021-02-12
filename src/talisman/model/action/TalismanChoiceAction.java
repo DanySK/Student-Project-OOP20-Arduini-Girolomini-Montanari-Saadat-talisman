@@ -1,54 +1,16 @@
 package talisman.model.action;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
-import java.util.List;
-import java.util.Optional;
-
-import talisman.model.board.BoardPawn;
-
 /**
  * Action that lets the user choose between sub-actions. It has the option to
  * have an empty action as the first one.
  * 
  * @author Alberto Arduini
+ * 
+ * @param <X> the type of item to be chosen
  *
  */
-public class TalismanChoiceAction implements TalismanAction {
-    private static final long serialVersionUID = 4657209105775876617L;
-    private static final String DESCRIPTION_FORMAT = "Choose between:";
-    private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = System.lineSeparator() + "- %s";
-
-    private transient List<TalismanAction> actions;
-    private final boolean hasNothing;
-
-    /**
-     * Creates a new choice actions.
-     * 
-     * @param actions    the list of possible actions
-     * @param hasNothing if there should be the choice of not doing anything
-     */
-    public TalismanChoiceAction(final List<TalismanAction> actions, final boolean hasNothing) {
-        this.actions = List.copyOf(actions);
-        this.hasNothing = hasNothing;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getDescription() {
-        String description = TalismanChoiceAction.DESCRIPTION_FORMAT;
-        if (this.hasNothing) {
-            description = description.concat(this.getActionDescription(Optional.empty()));
-        }
-        for (final TalismanAction action : this.actions) {
-            description = description.concat(this.getActionDescription(Optional.ofNullable(action)));
-        }
-        return description;
-    }
+public abstract class TalismanChoiceAction<X> implements TalismanAction {
+    private static final long serialVersionUID = 6981329627204017530L;
 
     /**
      * {@inheritDoc}
@@ -59,50 +21,65 @@ public class TalismanChoiceAction implements TalismanAction {
         do {
             // TODO: Ask user
             final int reply = 0;
-            if (reply == -1) {
-                break;
+            if (reply < 0 || reply >= this.getChoicesCount()) {
+                continue;
             }
-            final TalismanAction action = this.actions.get(reply);
-            if (action.canBeApplied(player)) {
-                action.applyTo(player);
-                applied = true;
-            }
-            // I need a loop, since not all actions could be applied, so i need to check if
-            // the chosen one is applied before continuing
+            applied = this.applyChoice(player, reply);
+            // The loop is used to check if the choice is valid and if it has been applied
         } while (!applied);
     }
 
     /**
-     * Does this choice action provide an empty option (where the player doens't do
-     * anything)?
-     * 
-     * @return if the option is available
+     * {@inheritDoc}
      */
-    public boolean hasNothing() {
-        return this.hasNothing;
+    @Override
+    public String getDescription() {
+        String description = this.getDescriptionFormat();
+        for (int i = 0; i < this.getChoicesCount(); i++) {
+            description = description.concat(System.lineSeparator() + this.getChoiceDescription(i));
+        }
+        return description;
     }
 
     /**
-     * Gets the action available at the current index.
+     * Gets the choice at the given index.
      * 
-     * @param index the action index
-     * @return the action instance
+     * @param index the choice index
+     * 
+     * @return the choice object
      */
-    public TalismanAction getAction(final int index) {
-        return this.actions.get(index);
-    }
+    public abstract X getChoice(int index);
+
+    /**
+     * Gets the description of the choice at the given index.
+     * 
+     * @param index the choice index
+     * 
+     * @return the choice object
+     */
+    public abstract String getChoiceDescription(int index);
+
+    /**
+     * Gets the format of the description.
+     * 
+     * @return the description format
+     */
+    protected abstract String getDescriptionFormat();
+
+    /**
+     * Applies the given choice on the given player index.
+     * 
+     * @param player the player index
+     * @param choice the choice index
+     * 
+     * @return if the choice has been applied or not
+     */
+    protected abstract boolean applyChoice(int player, int choice);
 
     /**
      * Gets the actions count, excluding the empty one.
      * 
      * @return the actions count
      */
-    public int getActionCount() {
-        return this.actions.size();
-    }
-
-    private String getActionDescription(final Optional<TalismanAction> action) {
-        return String.format(TalismanChoiceAction.SINGLE_ACTION_DESCRIPTION_FORMAT,
-                action.isPresent() ? action.get().getDescription() : TalismanAction.NO_ACTION_DESCRIPTION);
-    }
+    public abstract int getChoicesCount();
 }
