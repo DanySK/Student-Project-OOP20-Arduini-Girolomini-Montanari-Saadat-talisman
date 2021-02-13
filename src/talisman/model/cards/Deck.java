@@ -16,4 +16,5 @@ public interface Deck {
      * @return The number of cards in the deck.
      */
     int getNumberOfCards();
+    DeckType getType();
 }
