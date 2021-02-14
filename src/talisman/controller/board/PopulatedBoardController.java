@@ -77,9 +77,7 @@ public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S e
     P getCharacterPawn(int player);
 
     /**
-     * Applies the actions of the cell on which the specified player is.
-     * 
-     * @param player the index of the player to which the action will apply
+     * Applies the actions of the cell where the current player is.
      */
-    void applyCharacterCellActions(int player);
+    void applyCurrentPlayerCellActions();
 }
