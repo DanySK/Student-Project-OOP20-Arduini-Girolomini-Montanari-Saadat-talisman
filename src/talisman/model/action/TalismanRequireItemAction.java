@@ -1,12 +1,6 @@
 package talisman.model.action;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Objects;
-import java.util.Optional;
-
-import talisman.model.board.BoardPawn;
 
 /**
  * An action that checks if the player has a specific item.
@@ -43,13 +37,13 @@ public class TalismanRequireItemAction implements TalismanAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
         // TODO: Check for item
         final boolean hasItem = true;
         if (hasItem) {
-            this.successAction.applyTo(player);
+            this.successAction.apply();
         } else {
-            this.failedAction.applyTo(player);
+            this.failedAction.apply();
         }
     }
 
