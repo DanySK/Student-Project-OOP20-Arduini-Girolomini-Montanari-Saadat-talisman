@@ -56,7 +56,7 @@ public class TalismanQuestChoiceAction<X> extends TalismanChoiceAction<X> {
      * {@inheritDoc}
      */
     @Override
-    protected boolean applyChoice(final int player, final int choice) {
+    protected boolean applyChoice(final int choice) {
         if (choice == 0) {
             return true;
         }

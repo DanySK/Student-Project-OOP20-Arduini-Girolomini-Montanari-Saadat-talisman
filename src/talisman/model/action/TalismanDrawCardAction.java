@@ -33,7 +33,7 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
         // TODO: Draw cards
     }
 
@@ -41,7 +41,8 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public boolean canBeApplied(final int player) {
-        return !Controllers.getBoardController().getCharacterCell(player).getCard().isPresent();
+    public boolean canBeApplied() {
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        return !Controllers.getBoardController().getCharacterCell(playerIndex).getCard().isPresent();
     }
 }

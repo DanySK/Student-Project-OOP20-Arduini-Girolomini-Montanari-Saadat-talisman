@@ -2,8 +2,6 @@ package talisman.model.action;
 
 import java.io.Serializable;
 
-import talisman.model.board.BoardPawn;
-
 /**
  * Interface for actions that will be applied to a player when it reaches a
  * cell.
@@ -29,19 +27,16 @@ public interface TalismanAction extends Serializable {
     String getDescription();
 
     /**
-     * Applies the action to the specified player.
-     * 
-     * @param player the player on which the action will execute
+     * Applies the action to the current player.
      */
-    void applyTo(int player);
+    void apply();
 
     /**
-     * Checks if the action can be applied to a player.
+     * Checks if the action can be applied to the current player.
      * 
-     * @param player the player on which the action should be execute
      * @return if the action can be applied
      */
-    default boolean canBeApplied(final int player) {
+    default boolean canBeApplied() {
         return true;
     }
 }

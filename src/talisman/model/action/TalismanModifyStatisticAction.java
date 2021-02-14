@@ -1,12 +1,8 @@
 package talisman.model.action;
 
-import java.util.HashMap;
-import java.util.Map;
+import talisman.Controllers;
 
-import talisman.model.battle.CharacterInfo;
-import talisman.model.battle.CharacterInfoImpl;
-import talisman.model.battle.PlayerInfos;
-import talisman.model.board.BoardPawn;
+import talisman.model.character.CharacterModelImpl;
 
 /**
  * An action that adds or removes an amount from a player statistic.
@@ -64,21 +60,21 @@ public class TalismanModifyStatisticAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
-        final int currentValue = this.getCurrentPlayerStatistic(this.getStatistic(), player);
-        this.setCurrentPlayerStatistic(this.getStatistic(), player, currentValue + this.getAmount());
+    public void apply() {
+        final int currentValue = this.getCurrentPlayerStatistic(this.getStatistic());
+        this.setCurrentPlayerStatistic(this.getStatistic(), currentValue + this.getAmount());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean canBeApplied(final int player) {
-        return this.isGain() || this.getCurrentPlayerStatistic(this.getStatistic(), player) + this.getAmount() >= 0;
+    public boolean canBeApplied() {
+        return this.isGain() || this.getCurrentPlayerStatistic(this.getStatistic()) + this.getAmount() >= 0;
     }
 
-    private int getCurrentPlayerStatistic(final TalismanActionStatistic statistic, final int player) {
-        final CharacterInfoImpl info = PlayerInfos.getPlayer(player).getCurrentCharacter();
+    private int getCurrentPlayerStatistic(final TalismanActionStatistic statistic) {
+        final CharacterModelImpl info = (CharacterModelImpl) Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter();
         switch (statistic) {
         case CRAFT:
             return info.getCraft();
@@ -95,8 +91,8 @@ public class TalismanModifyStatisticAction extends TalismanAmountAction {
         }
     }
 
-    private void setCurrentPlayerStatistic(final TalismanActionStatistic statistic, final int player, final int value) {
-        final CharacterInfoImpl info = PlayerInfos.getPlayer(player).getCurrentCharacter();
+    private void setCurrentPlayerStatistic(final TalismanActionStatistic statistic, final int value) {
+        final CharacterModelImpl info = (CharacterModelImpl) Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter();
         switch (statistic) {
         case CRAFT:
             info.setCraft(value);

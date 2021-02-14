@@ -1,16 +1,11 @@
 package talisman.model.action;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
 
-import talisman.model.battle.CharacterInfo;
-import talisman.model.battle.PlayerInfos;
-import talisman.model.board.BoardPawn;
+import talisman.Controllers;
+
+import talisman.model.character.CharacterModelImpl;
+
 import talisman.util.DiceType;
 import talisman.util.Utils;
 
@@ -24,13 +19,11 @@ public class TalismanRollAction extends TalismanAmountAction {
     private static final long serialVersionUID = 4657209105775876617L;
     private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
     private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice, if the result is at least %d then:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT
-            + System.lineSeparator() + "otherwise:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT + System.lineSeparator()
+            + "otherwise:" + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
     private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT
-            + System.lineSeparator() + "otherwise:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
+            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT + System.lineSeparator()
+            + "otherwise:" + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
 
     private final TalismanActionStatistic statistic;
     private final TalismanAction successAction;
@@ -43,10 +36,10 @@ public class TalismanRollAction extends TalismanAmountAction {
      * @param amount        the minimum amount to reach
      * @param statistic     the statistic to base the roll on
      * @param successAction what to do on success
-     * @param failedAction  what to do on failuer
+     * @param failedAction  what to do on failure
      */
-    public TalismanRollAction(final int amount, final TalismanActionStatistic statistic, final TalismanAction successAction,
-            final TalismanAction failedAction) {
+    public TalismanRollAction(final int amount, final TalismanActionStatistic statistic,
+            final TalismanAction successAction, final TalismanAction failedAction) {
         super(amount);
         this.statistic = statistic;
         this.successAction = Objects.requireNonNull(successAction);
@@ -71,10 +64,11 @@ public class TalismanRollAction extends TalismanAmountAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
         this.lastResult = Utils.rollDice(DiceType.SEVEN);
         int actualValue = this.getResult();
-        final CharacterInfo playerStatistics = PlayerInfos.getPlayer(player).getCurrentCharacter();
+        final CharacterModelImpl playerStatistics = (CharacterModelImpl) Controllers.getCharactersController()
+                .getCurrentPlayer().getCurrentCharacter();
         switch (this.getStatistic()) {
         case CRAFT:
             actualValue += playerStatistics.getCraft();
@@ -83,18 +77,20 @@ public class TalismanRollAction extends TalismanAmountAction {
             actualValue += playerStatistics.getFate();
             break;
         case HEALTH:
-            // actualValue += playerStatistics.getHealth();
+            actualValue += playerStatistics.getHealth();
             break;
         case STRENGTH:
             actualValue += playerStatistics.getStrength();
             break;
+        case GOLD:
+            actualValue += playerStatistics.getGold();
         default:
             break;
         }
         if (actualValue >= this.getAmount()) {
-            this.successAction.applyTo(player);
+            this.successAction.apply();
         } else {
-            this.failedAction.applyTo(player);
+            this.failedAction.apply();
         }
     }
 

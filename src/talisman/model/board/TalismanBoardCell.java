@@ -76,8 +76,8 @@ public final class TalismanBoardCell extends BoardCellImpl {
      * 
      * @param player The player to which the actions will apply
      */
-    public void applyActionsTo(final int player) {
-        this.getActions().stream().forEach(a -> a.applyTo(player));
+    public void applyActions() {
+        this.getActions().stream().forEach(a -> a.apply());
     }
 
     public void setCard(final Card card) {
