@@ -1,4 +1,4 @@
-package talisman.model.battle;
+package talisman.model.character;
 
 /**
  * Implementation of the player.
@@ -9,7 +9,7 @@ package talisman.model.battle;
 public class PlayerModelImpl implements PlayerModel {
     private int numPlayers;
     private int id;
-    private CharacterInfoImpl currentCharacter;
+    private CharacterModelImpl currentCharacter;
     private boolean crown;
 
     /**
@@ -19,7 +19,7 @@ public class PlayerModelImpl implements PlayerModel {
      * @param id - the player's id
      * @param character - the current character's information assigned to the player
      */
-    public PlayerModelImpl(final int numPlayers, final int id, final CharacterInfoImpl character) {
+    public PlayerModelImpl(final int numPlayers, final int id, final CharacterModelImpl character) {
         this.numPlayers = numPlayers;
         this.id = id;
         this.currentCharacter = character;
@@ -31,7 +31,7 @@ public class PlayerModelImpl implements PlayerModel {
      * 
      * @return the value
      */
-    public int getId() {
+    public int getIndex() {
         return this.id;
     }
 
@@ -49,7 +49,7 @@ public class PlayerModelImpl implements PlayerModel {
      * 
      * @return the value
      */
-    public CharacterInfoImpl getCurrentCharacter() {
+    public CharacterModel getCurrentCharacter() {
         return this.currentCharacter;
     }
 
@@ -58,7 +58,7 @@ public class PlayerModelImpl implements PlayerModel {
      * 
      @param id - the value to be set
      */
-    public void setId(final int id) {
+    public void setIndex(final int id) {
         this.id = id;
     }
 
@@ -76,7 +76,7 @@ public class PlayerModelImpl implements PlayerModel {
      * 
      @param character - the character to be set
      */
-    public void setCurrentCharacter(final CharacterInfoImpl character) {
+    public void setCurrentCharacter(final CharacterModelImpl character) {
         this.currentCharacter = character;
     }
 

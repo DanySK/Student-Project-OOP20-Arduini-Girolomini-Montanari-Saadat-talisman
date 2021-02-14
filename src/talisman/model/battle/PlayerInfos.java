@@ -1,6 +1,8 @@
 package talisman.model.battle;
 
 import java.util.ArrayList;
+import talisman.model.character.PlayerModel;
+
 import java.util.List;
 
 /**

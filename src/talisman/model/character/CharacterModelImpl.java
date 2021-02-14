@@ -1,12 +1,6 @@
-package talisman.model.battle;
+package talisman.model.character;
 
-/**
- * Implementation of character's informations in the battle.
- * 
- * @author Alice Girolomini
- *
- */
-public class CharacterInfoImpl implements CharacterInfo {
+public class CharacterModelImpl implements CharacterModel {
     private int health;
     private int strength;
     private int craft;
@@ -16,14 +10,14 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Creates the character's informations.
-     * 
+     *
      * @param health - the initial health value
      * @param strength - the initial strength value
      * @param craft - the initial craft value
      * @param gold - the initial gold coin number
      * @param fate - the initial fate coin number
      */
-    public CharacterInfoImpl(final int health, final int strength, final int craft, final int gold, final int fate) {
+    public CharacterModelImpl(final int health, final int strength, final int craft, final int gold, final int fate) {
         this.health = health;
         this.strength = strength;
         this.craft = craft;
@@ -33,7 +27,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Gets the number of health points.
-     * 
+     *
      * @return the value
      */
     public int getHealth() {
@@ -42,7 +36,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Gets the number of strength points.
-     * 
+     *
      * @return the value
      */
     public int getStrength() {
@@ -51,7 +45,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Gets the number of craft points.
-     * 
+     *
      * @return the value
      */
     public int getCraft() {
@@ -60,7 +54,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Gets the number of fate coins.
-     * 
+     *
      * @return the value
      */
     public int getFate() {
@@ -69,7 +63,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Gets the number of gold coins.
-     * 
+     *
      * @return the value
      */
     public int getGold() {
@@ -78,7 +72,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Sets health points value.
-     * 
+     *
      @param points - the value to be set
      */
     public void setHealth(final int points) {
@@ -87,7 +81,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Sets strength points value.
-     * 
+     *
      @param points - the value to be set
      */
     public void setStrength(final int points) {
@@ -96,7 +90,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Sets craft points value.
-     * 
+     *
      @param points - the value to be set
      */
     public void setCraft(final int points) {
@@ -105,7 +99,7 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Sets Fate points value.
-     * 
+     *
      @param coins - the value to be set
      */
     public void setFate(final int coins) {
@@ -114,18 +108,17 @@ public class CharacterInfoImpl implements CharacterInfo {
 
     /**
      * Sets gold coins number.
-     * 
+     *
      @param coins - the value to be set
      */
     public void setGold(final int coins) {
         this.gold = coins;
     }
-    
+
     /* Card public getCard() {
-        
+
     }
     public void addCards() {
-        
-    }*/
 
+    }*/
 }

@@ -1,4 +1,7 @@
-package talisman.model.battle;
+package talisman.model.character;
+
+import talisman.model.character.CharacterModel;
+import talisman.model.character.CharacterModelImpl;
 
 /**
  * Interface that models the player.
@@ -12,7 +15,7 @@ public interface PlayerModel {
      * 
      * @return the value
      */
-    int getId();
+    int getIndex();
 
     /**
      * Gets the count of all active players.
@@ -26,14 +29,14 @@ public interface PlayerModel {
      * 
      * @return the value
      */
-    CharacterInfoImpl getCurrentCharacter();
+    CharacterModel getCurrentCharacter();
 
     /**
      * Sets id.
      * 
      @param id - the value to be set
      */
-    void setId(int id);
+    void setIndex(int id);
 
     /**
      * Sets the current number of active players.
@@ -47,7 +50,7 @@ public interface PlayerModel {
      * 
      @param character - the character to be set
      */
-    void setCurrentCharacter(CharacterInfoImpl character);
+    void setCurrentCharacter(CharacterModelImpl character);
 
     /**
      * Checks whether the players has the crown of command.
