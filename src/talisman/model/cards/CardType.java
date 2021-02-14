@@ -1,10 +1,8 @@
 package talisman.model.cards;
 
 public enum CardType {
-    OBJECT,
-    ENEMY,
-    FOLLOWER,
-    PLACE,
-    SPELL,
-    EVENT
+    /**
+     * The types of card present in the game.
+     */
+    OBJECT, ENEMY, FOLLOWER, PLACE, SPELL, EVENT
 }

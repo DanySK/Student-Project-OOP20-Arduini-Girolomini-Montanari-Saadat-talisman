@@ -17,7 +17,11 @@ import talisman.util.ViewUtils;
 public final class TalismanDeckFactory {
     private TalismanDeckFactory() {
     }
-
+    /**
+     * The main method for creating decks using this factory.
+     * @param type The type of deck.
+     * @return The created deck.
+     */
     public static Deck createDeck(final DeckType type) {
         final Queue<Card> cards = new LinkedList<>();
         switch (type) {
@@ -37,7 +41,6 @@ public final class TalismanDeckFactory {
             break;
         }
         return new DeckImpl(type, cards);
-        //
     }
 
     private static Queue<Card> createSpellDeck(final Queue<Card> cards) {

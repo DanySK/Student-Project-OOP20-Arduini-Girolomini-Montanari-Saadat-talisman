@@ -18,24 +18,37 @@ public class CardImpl implements Card {
         this.type = type;
         this.actions = actions;
     }
-
+    /**
+     * 
+     * @return The name of the card.
+     */
     public String getName() {
         return name;
     }
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public String getText() {
         return text;
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public CardType getType() {
         return type;
     }
-
+    /**
+     * 
+     * @return a list of actions the card does.
+     */
     public Collection<TalismanAction> getActions() {
         return actions;
     }
-
+    /**
+     * 
+     * @return The path of the image of the card.
+     */
     public String getImagePath() {
         return imagepath;
     }
