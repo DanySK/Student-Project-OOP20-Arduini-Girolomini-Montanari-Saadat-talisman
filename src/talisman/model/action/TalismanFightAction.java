@@ -33,7 +33,7 @@ public class TalismanFightAction implements TalismanAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
         // TODO: Start fight
     }
 

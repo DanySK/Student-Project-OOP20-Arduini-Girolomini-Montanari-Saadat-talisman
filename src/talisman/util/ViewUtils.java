@@ -1,6 +1,7 @@
 package talisman.util;
 
 import talisman.model.board.TalismanCellType;
+import talisman.model.cards.CardType;
 
 /**
  * Utility class for generic view related constants and functions.
@@ -21,6 +22,10 @@ public final class ViewUtils {
      * The path to the cells images folder.
      */
     public static final String CELLS_IMAGE_PATH = ViewUtils.IMAGES_PATH + "cells/";
+    /**
+     * The path to the cards images folder.
+     */
+    public static final String CARDS_IMAGE_PATH = ViewUtils.IMAGES_PATH + "cards/";
 
     /**
      * The path to the "image not found" image file as a resource path.
@@ -44,6 +49,14 @@ public final class ViewUtils {
      */
     public static String getPathToCell(final TalismanCellType type, final String name, final boolean resource) {
         String path = ViewUtils.CELLS_IMAGE_PATH + type.toString() + "_" + name + ".png";
+        if (resource) {
+            path = ViewUtils.RESOURCES_PATH + path;
+        }
+        return path;
+    }
+
+    public static String getPathToCard(final CardType type, final String name, final boolean resource) {
+        String path = ViewUtils.CARDS_IMAGE_PATH + type.toString() + "_" + name + ".png";
         if (resource) {
             path = ViewUtils.RESOURCES_PATH + path;
         }

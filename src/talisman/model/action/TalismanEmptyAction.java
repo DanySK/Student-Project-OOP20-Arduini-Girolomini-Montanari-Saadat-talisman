@@ -24,6 +24,6 @@ public class TalismanEmptyAction implements TalismanAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
     }
 }

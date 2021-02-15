@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.model.menu.PlayerInfo;
+import talisman.util.GameSetupUtil;
 
 /**
  * The window used to setup a game.
@@ -45,6 +46,9 @@ public class PlayerSetupWindow extends JFrame {
         this.setLayout(layout);
         this.setResizable(false);
 
+        this.currentPlayerIndexLabel = new JLabel();
+        this.add(currentPlayerIndexLabel);
+
         this.charactersPanel = new CharacterSelectionPanel();
         this.charactersPanel.setSelectedListener((character) -> {
             this.finalizeCurrentPlayer(character);
@@ -52,15 +56,14 @@ public class PlayerSetupWindow extends JFrame {
         });
         this.add(this.charactersPanel);
 
-        this.currentPlayerIndexLabel = new JLabel();
-        this.add(currentPlayerIndexLabel);
-
         this.currentPlayersPanel = new PlayersInfoPanel();
         this.add(this.currentPlayersPanel);
 
         this.startButton = new JButton();
         this.startButton.setText("Start game");
         this.startButton.addActionListener(l -> {
+            this.setVisible(false);
+            GameSetupUtil.getSingleton().setupGame(List.copyOf(this.players)).startGame();
         });
         this.add(this.startButton);
 

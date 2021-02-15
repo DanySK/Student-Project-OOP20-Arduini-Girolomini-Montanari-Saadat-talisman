@@ -16,7 +16,7 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
+    public void apply() {
         boolean applied = false;
         do {
             // TODO: Ask user
@@ -24,7 +24,7 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
             if (reply < 0 || reply >= this.getChoicesCount()) {
                 continue;
             }
-            applied = this.applyChoice(player, reply);
+            applied = this.applyChoice(reply);
             // The loop is used to check if the choice is valid and if it has been applied
         } while (!applied);
     }
@@ -74,12 +74,11 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
     protected abstract String getDescriptionFormat();
 
     /**
-     * Applies the given choice on the given player index.
+     * Applies the given choice on the current player.
      * 
-     * @param player the player index
      * @param choice the choice index
      * 
      * @return if the choice has been applied or not
      */
-    protected abstract boolean applyChoice(int player, int choice);
+    protected abstract boolean applyChoice(int choice);
 }

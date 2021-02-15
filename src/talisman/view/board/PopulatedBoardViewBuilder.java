@@ -22,7 +22,6 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
      */
     @Override
     public PopulatedBoardViewBuilder addCell(final String imagePath, final String text, final CellType type) {
-        // TODO Auto-generated method stub
         super.addCell(imagePath, text, type);
         return this;
     }
@@ -32,7 +31,6 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
      */
     @Override
     public PopulatedBoardViewBuilder addCell(final BoardCellView cell) {
-        // TODO Auto-generated method stub
         super.addCell(cell);
         return this;
     }
@@ -42,7 +40,6 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
      */
     @Override
     public PopulatedBoardViewBuilder setAsMainSection() {
-        // TODO Auto-generated method stub
         super.setAsMainSection();
         return this;
     }
@@ -52,7 +49,6 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
      */
     @Override
     public PopulatedBoardViewBuilder finalizeSection() {
-        // TODO Auto-generated method stub
         super.finalizeSection();
         return this;
     }
@@ -62,7 +58,6 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
      */
     @Override
     public PopulatedBoardViewBuilder finalizeSectionAndInsertInto(final int parentSectionIndex) {
-        // TODO Auto-generated method stub
         super.finalizeSectionAndInsertInto(parentSectionIndex);
         return this;
     }
@@ -105,5 +100,14 @@ public class PopulatedBoardViewBuilder extends BoardViewBuilder {
         this.checkNotBuilt();
         this.pawns.add(PawnView.create(imagePath));
         return this;
+    }
+
+    /**
+     * Gets the list of the currently added pawns.
+     * 
+     * @return the pawns list
+     */
+    protected List<PawnView> getPawns() {
+        return this.pawns;
     }
 }

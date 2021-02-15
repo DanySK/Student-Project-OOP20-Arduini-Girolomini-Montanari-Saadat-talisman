@@ -40,8 +40,9 @@ public class TalismanMoveAction implements TalismanAction {
      * {@inheritDoc}
      */
     @Override
-    public void applyTo(final int player) {
-        Controllers.getBoardController().getCharacterPawn(player).setPosition(this.getSection(), this.getCell());
+    public void apply() {
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        Controllers.getBoardController().getCharacterPawn(playerIndex).setPosition(this.getSection(), this.getCell());
     }
 
     /**

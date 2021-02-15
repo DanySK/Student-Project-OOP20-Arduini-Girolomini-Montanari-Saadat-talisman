@@ -60,14 +60,14 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
      * {@inheritDoc}
      */
     @Override
-    protected boolean applyChoice(final int player, final int choice) {
+    protected boolean applyChoice(final int choice) {
         if (choice == 0 && this.hasNothing()) {
             return true;
         }
-        if (!this.getChoice(choice + 1).canBeApplied(player)) {
+        if (!this.getChoice(choice + 1).canBeApplied()) {
             return false;
         }
-        this.getChoice(choice + 1).applyTo(player);
+        this.getChoice(choice + 1).apply();
         return true;
     }
 
