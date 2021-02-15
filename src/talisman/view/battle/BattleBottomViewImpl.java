@@ -30,10 +30,12 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         this.add(new JLabel("Dice"), this.setConstraints(1, 0, 1));
         this.add(diceButton, this.setConstraints(1, 1, 1));
         this.add(firstRoll, this.setConstraints(2, 1, 1));
+        this.add(new JLabel("Roll dice 1:"), this.setConstraints(2, 0, 1));
         this.add(secondRoll, this.setConstraints(3, 1, 1));
+        this.add(new JLabel("Roll dice 2:"), this.setConstraints(3, 0, 1));
         this.setBackground(Color.darkGray);
     }
-    
+
     private GridBagConstraints setConstraints(final int x, final int y, final int width) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
