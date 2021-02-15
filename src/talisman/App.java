@@ -11,13 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.controller.board.TalismanBoardController;
-import talisman.model.battle.CharacterInfoImpl;
 import talisman.model.battle.PlayerInfos;
-import talisman.model.battle.PlayerModel;
-import talisman.model.battle.PlayerModelImpl;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
+import talisman.model.character.CharacterModelImpl;
+import talisman.model.character.PlayerModel;
+import talisman.model.character.PlayerModelImpl;
 import talisman.util.ViewUtils;
 import talisman.view.DebugView;
 import talisman.view.battle.BattleBottomViewImpl;
@@ -71,7 +71,7 @@ public final class App {
         // For testing i set by default 4 players
         final int count = App.PLAYER_COUNT;
         for (int i = 0; i < count; i++) {
-            final PlayerModel player = new PlayerModelImpl(count, i, new CharacterInfoImpl(0, 0, 0, 0, 0));
+            final PlayerModel player = new PlayerModelImpl(count, i, new CharacterModelImpl(0, 0, 0, 0, 0));
             PlayerInfos.addPlayer(player);
         }
     }

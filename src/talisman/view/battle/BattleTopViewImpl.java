@@ -30,7 +30,9 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         this.add(firstCharDamage, this.setConstraints(2, 2, 1));
         this.add(secondCharDamage, this.setConstraints(6, 2, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));
+        this.add(new JLabel("Attack score 1 :"), this.setConstraints(0, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(0, 2, 1));
+        this.add(new JLabel("Attack score 2 :"), this.setConstraints(5, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(5, 2, 1));
         this.setBackground(Color.darkGray);
     }
