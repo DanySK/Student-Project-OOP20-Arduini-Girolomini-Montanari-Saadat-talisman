@@ -61,4 +61,40 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         return c;
     }
 
+    /**
+     * Gets the attack roll of the first character.
+     * 
+     *@return the value
+     */
+    public int getFirstAttackRoll() {
+        return Integer.parseInt(this.firstRoll.getText());
+    }
+
+    /**
+     * Gets the attack roll of the first character.
+     * 
+     *@return the value
+     */
+    public int getSecondAttackRoll() {
+        return Integer.parseInt(this.secondRoll.getText());
+    }
+
+    /**
+     * Sets the attack roll of the first character.
+     * 
+     *@param value - the result of the dice roll
+     */
+    public void setFirstAttackRoll(final int value) {
+        this.firstRoll.setText(String.valueOf(value));
+    }
+
+    /**
+     * Sets the attack roll of the second character.
+     * 
+     *@param value - the result of the dice roll
+     */
+    public void setSecondAttackRoll(final int value) {
+        this.secondRoll.setText(String.valueOf(value));
+    }
+
 }

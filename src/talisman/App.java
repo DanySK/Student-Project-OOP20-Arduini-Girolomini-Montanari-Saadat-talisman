@@ -20,6 +20,7 @@ import talisman.model.character.PlayerModel;
 import talisman.model.character.PlayerModelImpl;
 import talisman.util.ViewUtils;
 import talisman.view.DebugView;
+import talisman.view.ImagePanel;
 import talisman.view.battle.BattleBottomViewImpl;
 import talisman.view.battle.BattleCenterViewImpl;
 import talisman.view.battle.BattleTopViewImpl;

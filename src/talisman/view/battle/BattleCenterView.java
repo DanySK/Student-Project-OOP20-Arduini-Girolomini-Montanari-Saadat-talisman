@@ -1,5 +1,7 @@
 package talisman.view.battle;
 
+import java.awt.event.ActionListener;
+
 /**
  * An interface for the center view of the battle.
  * 
@@ -8,7 +10,7 @@ package talisman.view.battle;
  */
 public interface BattleCenterView {
     /**
-     * creates the center view of the battle.
+     * Creates the center view of the battle.
      * 
      *@return the center view
      */

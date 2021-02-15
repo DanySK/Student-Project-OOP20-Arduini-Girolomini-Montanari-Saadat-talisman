@@ -34,8 +34,8 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         this.setLayout(layout);
         this.firstCharDamage = new JLabel("0");
         this.secondCharDamage = new JLabel("0");
-        this.add(firstCharDamage, this.setConstraints(2, 2, 1));
-        this.add(secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
+        this.add(this.firstCharDamage, this.setConstraints(2, 2, 1));
+        this.add(this.secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));
         this.add(new JLabel("Attack score 1 :"), this.setConstraints(0, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(0, 2, 1));
@@ -61,5 +61,41 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         c.weighty = 1;
         c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
+    }
+
+    /**
+     * Gets the attack score of the first character.
+     * 
+     *@return the value
+     */
+    public int getFirstAttackScore() {
+        return Integer.parseInt(this.firstCharDamage.getText());
+    }
+
+    /**
+     * Gets the attack score of the second character.
+     * 
+     *@return the value
+     */
+    public int getSecondAttackScore() {
+        return Integer.parseInt(this.secondCharDamage.getText());
+    }
+
+    /**
+     * Sets the value of the attack score for the first character.
+     * 
+     *@param value - the value to be set
+     */
+    public void setFirstAttackScore(final int value) {
+        this.firstCharDamage.setText(String.valueOf(value));
+    }
+
+    /**
+     * Sets the value of the attack score for the second character.
+     * 
+     *@param value - the value to be set
+     */
+    public void setSecondAttackScore(final int value) {
+        this.secondCharDamage.setText(String.valueOf(value));
     }
 }
