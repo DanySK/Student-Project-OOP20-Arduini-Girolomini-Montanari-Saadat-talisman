@@ -19,24 +19,39 @@ import talisman.view.ImagePanel;
  * @author Alice Girolomini
  */
 public class BattleTopViewImpl extends JPanel implements BattleTopView {
+    private static final int INSETSVALUE = 5;
+    private static final int XCOORDINATEIMAGE = 5;
+    private static final int XCOORDINATELABEL = 6;
     private final JLabel firstCharDamage;
     private final JLabel secondCharDamage;
 
+    /**
+     * Initializes the battle's top view.
+     * 
+     */
     public BattleTopViewImpl() {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         this.firstCharDamage = new JLabel("0");
         this.secondCharDamage = new JLabel("0");
         this.add(firstCharDamage, this.setConstraints(2, 2, 1));
-        this.add(secondCharDamage, this.setConstraints(6, 2, 1));
+        this.add(secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));
         this.add(new JLabel("Attack score 1 :"), this.setConstraints(0, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(0, 2, 1));
-        this.add(new JLabel("Attack score 2 :"), this.setConstraints(5, 1, 1));
-        this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(5, 2, 1));
+        this.add(new JLabel("Attack score 2 :"), this.setConstraints(XCOORDINATEIMAGE, 1, 1));
+        this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(XCOORDINATEIMAGE, 2, 1));
         this.setBackground(Color.darkGray);
     }
 
+    /**
+     * Sets new constraints for the specified component.
+     * 
+     * @param x - the x coordinate of the component
+     * @param y - the y coordinate of the component
+     * @param width - the width of the component
+     *@return the bottom view
+     */
     private GridBagConstraints setConstraints(final int x, final int y, final int width) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
@@ -44,7 +59,7 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         c.gridwidth = width;
         c.weightx = 1;
         c.weighty = 1;
-        c.insets = new Insets(5, 5, 5 ,5);
+        c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
     }
 }

@@ -19,10 +19,16 @@ import talisman.view.ImagePanel;
  * @author Alice Girolomini
  */
 public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
+    private static final int INSETSVALUE = 5;
+    private static final int YCOORDINATEBUTTON = 5;
     private final JButton attackButton;
     private final JButton fateButton;
     private final JButton magicButton;
-    
+
+    /**
+     * Initializes the battle's center view.
+     * 
+     */
     public BattleCenterViewImpl() {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
@@ -31,7 +37,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.magicButton = new JButton(new ImageIcon("res/imgs/battle/magicButton.png"));
         this.add(attackButton, this.setConstraints(1, 2, 1));
         this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
-        this.add(fateButton, this.setConstraints(1, 5, 1));
+        this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
         this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
         GridBagConstraints c = this.setConstraints(3, 2, 1);
         c.anchor = GridBagConstraints.EAST;
@@ -40,7 +46,15 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.add(new JLabel("Magic"), c);
         this.setBackground(Color.darkGray);
     }
-    
+
+    /**
+     * Sets new constraints for the specified component.
+     * 
+     * @param x - the x coordinate of the component
+     * @param y - the y coordinate of the component
+     * @param width - the width of the component
+     *@return the bottom view
+     */
     private GridBagConstraints setConstraints(final int x, final int y, final int width) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
@@ -49,7 +63,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         c.weightx = 1;
         c.weighty = 1;
         c.anchor = GridBagConstraints.WEST;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
     }
 

@@ -17,10 +17,15 @@ import javax.swing.JPanel;
  * @author Alice Girolomini
  */
 public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
+    private static final int INSETSVALUE = 5;
     private final JButton diceButton;
     private final JLabel firstRoll;
     private final JLabel secondRoll;
-    
+
+    /**
+     * Initializes the battle's bottom view.
+     * 
+     */
     public BattleBottomViewImpl() {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
@@ -36,6 +41,14 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         this.setBackground(Color.darkGray);
     }
 
+    /**
+     * Sets new constraints for the specified component.
+     * 
+     * @param x - the x coordinate of the component
+     * @param y - the y coordinate of the component
+     * @param width - the width of the component
+     *@return the bottom view
+     */
     private GridBagConstraints setConstraints(final int x, final int y, final int width) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
@@ -44,7 +57,7 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         c.weightx = 1;
         c.weighty = 1;
         c.anchor = GridBagConstraints.WEST;
-        c.insets = new Insets(5, 5, 5, 5);
+        c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
     }
 

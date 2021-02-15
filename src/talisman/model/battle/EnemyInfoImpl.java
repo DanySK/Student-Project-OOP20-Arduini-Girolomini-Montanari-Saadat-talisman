@@ -1,12 +1,14 @@
 package talisman.model.battle;
 
+import talisman.model.character.CharacterModel;
+
 /**
  * Implementation of enemy's informations in the battle.
  * 
  * @author Alice Girolomini
  *
  */
-public class EnemyInfoImpl implements CharacterInfo {
+public class EnemyInfoImpl implements CharacterModel {
     private int strength;
     private int craft;
     private int fate;
