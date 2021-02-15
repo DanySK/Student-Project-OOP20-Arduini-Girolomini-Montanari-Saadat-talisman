@@ -5,6 +5,11 @@ import talisman.model.character.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The implementation of the MVC controller for the players
+ *
+ * @author Enrico Maria Montanari
+ */
 public class CharacterControllerImpl implements CharactersController {
 
     private int currentPlayer;
@@ -41,8 +46,19 @@ public class CharacterControllerImpl implements CharactersController {
         Players.removePlayer(index);
         activePlayers--;
     }
+
+    @Override
+    public int getActivePlayers(){
+
+        return activePlayers;
+    }
 }
 
+/**
+ * Utility class to store all registered players in the game
+ *
+ * @author Enrico Maria Montanari
+ */
 class Players {
 
     private static List<PlayerModel> players = new ArrayList<>();
@@ -61,5 +77,6 @@ class Players {
     static void removePlayer(int index){
 
         players.remove(index);
+        lastId--;
     }
 }
