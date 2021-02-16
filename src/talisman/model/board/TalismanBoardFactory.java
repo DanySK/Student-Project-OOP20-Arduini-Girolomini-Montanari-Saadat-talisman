@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import talisman.model.action.TalismanAction;
@@ -32,8 +33,6 @@ import talisman.util.ViewUtils;
  *
  */
 public final class TalismanBoardFactory {
-    private static final String BOARD_FILE_PATH = "board.tal";
-
     private TalismanBoardFactory() {
     }
 
@@ -45,22 +44,29 @@ public final class TalismanBoardFactory {
      * @return the create board model
      */
     public static TalismanBoard createDefaultBoardModel(final List<TalismanBoardPawn> startingPawns) {
-        if (new File(BOARD_FILE_PATH).exists()) {
-            try {
-                final TalismanBoard board = TalismanBoardFactory.loadBoard();
-                if (board != null) {
-                    for (int i = 0; i < startingPawns.size(); i++) {
-                        board.addPawn(i, startingPawns.get(i));
-                    }
-                }
-                return board;
-            } catch (final InvalidClassException ex) {
-                System.out.println("Something has changed in the board classes, re-creating it...");
+        // First i try to load from file
+        final Optional<TalismanBoard> loadedBoard = TalismanBoardSerializer.loadBoard();
+        if (loadedBoard.isPresent()) {
+            for (int i = 0; i < startingPawns.size(); i++) {
+                loadedBoard.get().addPawn(i, startingPawns.get(i));
             }
+            return loadedBoard.get();
         }
-        // For now the values used are for testing
-        final List<TalismanBoardSection> sections = new ArrayList<>();
-        sections.add(TalismanBoardSection.createSection(List.of(
+        // If the loading fails (file not found, classes changed, etc.) then i create it
+        // from scratch
+        final List<TalismanBoardSection> sections = List.of(
+                TalismanBoardFactory.createOutsideSection(),
+                TalismanBoardFactory.createMiddleSection(), 
+                TalismanBoardFactory.createInnerSection(),
+                TalismanBoardFactory.createCrownSection());
+        final TalismanBoard createdBoard = TalismanBoard.createBoard(sections, startingPawns);
+        // After creation, before returning, i save it for future use
+        TalismanBoardSerializer.saveBoard(createdBoard);
+        return createdBoard;
+    }
+
+    private static TalismanBoardSection createOutsideSection() {
+        return TalismanBoardSection.createSection(List.of(
                 TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
@@ -70,14 +76,20 @@ public final class TalismanBoardFactory {
                 TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
                         Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
-                        Set.of()))));
-        sections.add(TalismanBoardSection.createSection(List.of(
+                        Set.of())));
+    }
+
+    private static TalismanBoardSection createMiddleSection() {
+        return TalismanBoardSection.createSection(List.of(
                 TalismanBoardFactory.createCell("Field", "Test Up", CellType.UP, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Left", CellType.LEFT, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Down", CellType.DOWN, TalismanCellType.BIOME, Set.of()),
                 TalismanBoardFactory.createCell("Field", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
-                        Set.of()))));
-        sections.add(TalismanBoardSection.createSection(List.of(
+                        Set.of())));
+    }
+
+    private static TalismanBoardSection createInnerSection() {
+        return TalismanBoardSection.createSection(List.of(
                 TalismanBoardFactory.createCell("Field", "Plains of Peril", CellType.UP, TalismanCellType.BIOME,
                         Set.of()),
                 TalismanBoardFactory.createCell("Field", "Mines", CellType.UP, TalismanCellType.BIOME,
@@ -93,20 +105,20 @@ public final class TalismanBoardFactory {
                         Set.of(new TalismanRollAction(5, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
                                 new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH)))),
                 TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
-                        // TODO: set mininum to the werewolf's strength
+                        // TODO: set minimum to the werewolf's strength
                         Set.of(new TalismanRollAction(5, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
                                 new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH)))),
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
                         Set.of(new TalismanRequireItemAction(0, new TalismanMoveAction(0, 3),
                                 new TalismanEmptyAction()))),
                 TalismanBoardFactory.createCell("Field", "Pits", CellType.RIGHT, TalismanCellType.BIOME,
-                        // TODO: set mininum to the pitfiend's strength
-                        Set.of(new TalismanFightAction(0))))));
-        sections.add(TalismanBoardSection.createSection(List
-                .of(TalismanBoardFactory.createCell("Crown", "Crown", CellType.UP, TalismanCellType.ZONE, Set.of()))));
-        final TalismanBoard board = TalismanBoard.createBoard(sections, startingPawns);
-        TalismanBoardFactory.saveBoard(board);
-        return board;
+                        // TODO: set minimum to the pitfiend's strength
+                        Set.of(new TalismanFightAction(0)))));
+    }
+
+    private static TalismanBoardSection createCrownSection() {
+        return TalismanBoardSection.createSection(List
+                .of(TalismanBoardFactory.createCell("Crown", "Crown", CellType.UP, TalismanCellType.ZONE, Set.of())));
     }
 
     /**
@@ -123,31 +135,5 @@ public final class TalismanBoardFactory {
             final TalismanCellType type, final Collection<TalismanAction> actions) {
         return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type,
                 actions);
-    }
-
-    private static void saveBoard(final TalismanBoard board) {
-        try (FileOutputStream fileOut = new FileOutputStream(BOARD_FILE_PATH);
-                ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-            out.writeObject(board);
-            out.close();
-            fileOut.close();
-        } catch (final IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private static TalismanBoard loadBoard() throws InvalidClassException {
-        try (FileInputStream fileIn = new FileInputStream(BOARD_FILE_PATH);
-                ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            final TalismanBoard board = (TalismanBoard) in.readObject();
-            in.close();
-            fileIn.close();
-            return board;
-        } catch (final InvalidClassException ex) {
-            throw ex;
-        } catch (final IOException | ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        return null;
     }
 }
