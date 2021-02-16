@@ -9,16 +9,15 @@ import talisman.model.board.BoardPawn;
  * @author Alberto Arduini
  *
  */
-public class TalismanDrawCardAction extends TalismanAmountAction {
-    private static final String DESCRIPTION_FORMAT = "Draw %d cards";
+public class TalismanDrawCardAction implements TalismanAction {
+    private static final String DESCRIPTION_FORMAT = "Draw a card if there isn't already one in this space";
 
     /**
      * Creates a new draw card action.
      * 
      * @param amount how may cards to draw
      */
-    public TalismanDrawCardAction(final int amount) {
-        super(amount);
+    public TalismanDrawCardAction() {
     }
 
     /**
@@ -26,7 +25,7 @@ public class TalismanDrawCardAction extends TalismanAmountAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanDrawCardAction.DESCRIPTION_FORMAT, this.getAmount());
+        return String.format(TalismanDrawCardAction.DESCRIPTION_FORMAT);
     }
 
     /**
