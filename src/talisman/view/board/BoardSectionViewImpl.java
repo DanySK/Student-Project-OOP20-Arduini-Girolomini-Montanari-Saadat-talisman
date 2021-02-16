@@ -44,14 +44,14 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
         final Map<CellType, JPanel> subsections = new HashMap<>();
         // I create the four containers for the subsections
         subsections.put(CellType.UP, this.createSubsection(SubsectionOrientation.HORIZONTAL));
+        subsections.put(CellType.RIGHT, this.createSubsection(SubsectionOrientation.VERTICAL));
         subsections.put(CellType.DOWN, this.createSubsection(SubsectionOrientation.HORIZONTAL));
         subsections.put(CellType.LEFT, this.createSubsection(SubsectionOrientation.VERTICAL));
-        subsections.put(CellType.RIGHT, this.createSubsection(SubsectionOrientation.VERTICAL));
         // I add all the subsections in the right part of the BorderLayout
         this.add(subsections.get(CellType.UP), this.createLayoutContraints(0, 0, 3));
+        this.add(subsections.get(CellType.RIGHT), this.createLayoutContraints(2, 1, 1));
         this.add(subsections.get(CellType.DOWN), this.createLayoutContraints(0, 2, 3));
         this.add(subsections.get(CellType.LEFT), this.createLayoutContraints(0, 1, 1));
-        this.add(subsections.get(CellType.RIGHT), this.createLayoutContraints(2, 1, 1));
         for (final BoardCellView cell : this.cells) {
             final JPanel subsection = subsections.get(cell.getCellType());
             // I take as granted that the cells use the swing implementation
@@ -60,7 +60,15 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
             // Anyway i still cast to the most generic type possible, to retain some
             // abstraction
             // in case the implementation changes the type of component.
-            subsection.add((Component) cell);
+            // Also i need to check if the cell is added to the bottom or left subsections,
+            // and if that's the case i need to insert it at the start, since those
+            // subsections are created following the clockwise index order, which inverts
+            // the cells order.
+            if (cell.getCellType() == CellType.DOWN || cell.getCellType() == CellType.LEFT) {
+                subsection.add((Component) cell, 0);
+            } else {
+                subsection.add((Component) cell);
+            }
         }
     }
 
@@ -92,12 +100,14 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
     /**
      * Abstracts the creation for the container for a row/column of the section.
      * 
-     * @param orientation
+     * @param orientation direction of the subsection
+     * @param reversed    should the cells
      * @return
      */
     private JPanel createSubsection(final SubsectionOrientation orientation) {
         final JPanel panel = new JPanel();
-        final int boxOrientation = orientation == SubsectionOrientation.HORIZONTAL ? BoxLayout.X_AXIS : BoxLayout.Y_AXIS;
+        final int boxOrientation = orientation == SubsectionOrientation.HORIZONTAL ? BoxLayout.X_AXIS
+                : BoxLayout.Y_AXIS;
         final LayoutManager layout = new BoxLayout(panel, boxOrientation);
         panel.setLayout(layout);
         return panel;
