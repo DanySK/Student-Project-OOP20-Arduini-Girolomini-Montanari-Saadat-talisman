@@ -42,6 +42,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.text.setForeground(Color.WHITE);
         this.text.setBackground(Color.BLACK);
         this.text.setLineWrap(true);
+        this.text.setWrapStyleWord(true);
         this.text.setEditable(false);
         this.text.setAlignmentX(CENTER_ALIGNMENT);
         this.text.setAlignmentY(CENTER_ALIGNMENT);
