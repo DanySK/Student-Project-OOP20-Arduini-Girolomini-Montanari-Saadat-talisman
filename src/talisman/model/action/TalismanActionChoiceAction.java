@@ -3,8 +3,7 @@ package talisman.model.action;
 import java.util.List;
 
 /**
- * Action that lets the user choose between sub-actions. It has the option to
- * have an empty action as the first one.
+ * Action that lets the user choose between sub-actions.
  * 
  * @author Alberto Arduini
  *
@@ -15,17 +14,14 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
     private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
 
     private final transient List<TalismanAction> actions;
-    private final boolean hasNothing;
 
     /**
      * Creates a new choice actions.
      * 
      * @param actions    the list of possible actions
-     * @param hasNothing if there should be the choice of not doing anything
      */
-    public TalismanActionChoiceAction(final List<TalismanAction> actions, final boolean hasNothing) {
+    public TalismanActionChoiceAction(final List<TalismanAction> actions) {
         this.actions = List.copyOf(actions);
-        this.hasNothing = hasNothing;
     }
 
     /**
@@ -33,9 +29,6 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
      */
     @Override
     public TalismanAction getChoice(final int index) {
-        if (index == 0 && this.hasNothing()) {
-            return null;
-        }
         return this.actions.get(index);
     }
 
@@ -61,13 +54,10 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
      */
     @Override
     protected boolean applyChoice(final int choice) {
-        if (choice == 0 && this.hasNothing()) {
-            return true;
-        }
-        if (!this.getChoice(choice + 1).canBeApplied()) {
+        if (!this.getChoice(choice).canBeApplied()) {
             return false;
         }
-        this.getChoice(choice + 1).apply();
+        this.getChoice(choice).apply();
         return true;
     }
 
@@ -77,15 +67,5 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
     @Override
     public int getChoicesCount() {
         return this.actions.size();
-    }
-
-    /**
-     * Does this choice action provide an empty option (where the player doens't do
-     * anything)?
-     * 
-     * @return if the option is available
-     */
-    public boolean hasNothing() {
-        return this.hasNothing;
     }
 }
