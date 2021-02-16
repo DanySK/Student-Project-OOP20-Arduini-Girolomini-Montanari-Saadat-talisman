@@ -3,7 +3,6 @@ package talisman.controller.board;
 import java.util.ArrayList;
 import java.util.List;
 
-import talisman.Controllers;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
