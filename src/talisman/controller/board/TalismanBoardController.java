@@ -1,6 +1,7 @@
 package talisman.controller.board;
 
-import talisman.view.board.PopulatedBoardView;
+import talisman.view.board.TalismanBoardView;
+
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanBoardCell;
@@ -21,7 +22,13 @@ public interface TalismanBoardController
      * @param view  the board view
      * @return the controller
      */
-    static TalismanBoardController create(final TalismanBoard board, final PopulatedBoardView view) {
+    static TalismanBoardController create(final TalismanBoard board, final TalismanBoardView view) {
         return new TalismanBoardControllerImpl(board, view);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    TalismanBoardView getView();
 }

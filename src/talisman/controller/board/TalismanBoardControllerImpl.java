@@ -1,9 +1,10 @@
 package talisman.controller.board;
 
+import talisman.Controllers;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardSection;
-import talisman.view.board.PopulatedBoardView;
+import talisman.view.board.TalismanBoardView;
 import talisman.model.board.TalismanBoardPawn;
 
 /**
@@ -14,7 +15,7 @@ import talisman.model.board.TalismanBoardPawn;
  */
 public final class TalismanBoardControllerImpl implements TalismanBoardController {
     private final TalismanBoard board;
-    private final PopulatedBoardView view;
+    private final TalismanBoardView view;
 
     /**
      * Creates a new controller.
@@ -22,7 +23,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      * @param board the board model to control
      * @param view  the board view
      */
-    public TalismanBoardControllerImpl(final TalismanBoard board, final PopulatedBoardView view) {
+    public TalismanBoardControllerImpl(final TalismanBoard board, final TalismanBoardView view) {
         this.board = board;
         this.view = view;
         this.view.addUpdateListener(() -> {
@@ -70,8 +71,9 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      * {@inheritDoc}
      */
     @Override
-    public void applyCharacterCellActions(final int player) {
-        this.getCharacterCell(player).applyActionsTo(player);
+    public void applyCurrentPlayerCellActions() {
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        this.getCharacterCell(playerIndex).applyActions();
     }
 
     /**
@@ -94,7 +96,7 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
      * {@inheritDoc}
      */
     @Override
-    public PopulatedBoardView getView() {
+    public TalismanBoardView getView() {
         return this.view;
     }
 
