@@ -1,9 +1,10 @@
 package talisman.model.action;
 
+import java.util.List;
 import java.util.Objects;
 
 import talisman.Controllers;
-
+import talisman.model.action.TalismanRollActionSection.ApplyResult;
 import talisman.model.character.CharacterModelImpl;
 
 import talisman.util.DiceType;
@@ -15,16 +16,15 @@ import talisman.util.Utils;
  * @author Alberto Arduini
  *
  */
-public class TalismanRollAction extends TalismanAmountAction {
+public class TalismanRollAction implements TalismanAction {
     private static final long serialVersionUID = 2847596850734221682L;
-    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice, if the result is at least %d then: %s"
-            + System.lineSeparator() + "otherwise: %s";
-    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then: %s"
-            + System.lineSeparator() + "otherwise: %s";
+    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice,";
+    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s,";
+    private static final String OPTION_FORMAT = System.lineSeparator() + "if the result is at least %d then: %s";
+    private static final String LAST_OPTION_FORMAT = System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
-    private final TalismanAction successAction;
-    private final TalismanAction failedAction;
+    private final List<TalismanRollActionSection> sections;
     private int lastResult;
 
     /**
@@ -37,10 +37,21 @@ public class TalismanRollAction extends TalismanAmountAction {
      */
     public TalismanRollAction(final int amount, final TalismanActionStatistic statistic,
             final TalismanAction successAction, final TalismanAction failedAction) {
-        super(amount);
+        this(statistic, List.of(new TalismanRollActionSection(0, Objects.requireNonNull(failedAction)),
+                new TalismanRollActionSection(amount, Objects.requireNonNull(successAction))));
+    }
+
+    /**
+     * Creates a new roll action.
+     * 
+     * @param statistic      the statistic to base the roll on
+     * @param resultSections the sections that indicate the possible actions base on
+     *                       the results
+     */
+    public TalismanRollAction(final TalismanActionStatistic statistic,
+            final List<TalismanRollActionSection> resultSections) {
         this.statistic = statistic;
-        this.successAction = Objects.requireNonNull(successAction);
-        this.failedAction = Objects.requireNonNull(failedAction);
+        this.sections = List.copyOf(resultSections);
     }
 
     /**
@@ -48,13 +59,21 @@ public class TalismanRollAction extends TalismanAmountAction {
      */
     @Override
     public String getDescription() {
+        final StringBuilder stringBuilder = new StringBuilder();
         if (this.getStatistic() == TalismanActionStatistic.NONE) {
-            return String.format(TalismanRollAction.ABSOLUTE_DESCRIPTION_FORMAT, this.getAmount(),
-                    this.successAction.getDescription(), this.failedAction.getDescription());
+            stringBuilder.append(String.format(TalismanRollAction.ABSOLUTE_DESCRIPTION_FORMAT));
         } else {
-            return String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic(), this.getAmount(),
-                    this.successAction.getDescription(), this.failedAction.getDescription());
+            stringBuilder.append(String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic()));
         }
+        for (int i = 0; i < this.sections.size() - 1; i++) {
+            final TalismanRollActionSection section = this.sections.get(i);
+            stringBuilder.append(String.format(TalismanRollAction.OPTION_FORMAT, section.getFromValue(),
+                    section.getAction().getDescription()));
+        }
+        final TalismanRollActionSection finalSection = this.sections.get(this.sections.size() - 1);
+        stringBuilder.append(String.format(TalismanRollAction.LAST_OPTION_FORMAT, finalSection.getFromValue(),
+                finalSection.getAction().getDescription()));
+        return stringBuilder.toString();
     }
 
     /**
@@ -84,10 +103,10 @@ public class TalismanRollAction extends TalismanAmountAction {
         default:
             break;
         }
-        if (actualValue >= this.getAmount()) {
-            this.successAction.apply();
-        } else {
-            this.failedAction.apply();
+        for (final TalismanRollActionSection section : this.sections) {
+            if (section.apply(actualValue) != ApplyResult.VALUE_NOT_ENOUGH) {
+                break;
+            }
         }
     }
 
