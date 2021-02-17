@@ -1,5 +1,6 @@
 package talisman.controller.board;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import talisman.Controllers;
@@ -104,8 +105,14 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
 
     @Override
     public Set<TalismanBoardPawn> getCharactersInCell(final int section, final int cell) {
-        // TODO Auto-generated method stub
-        return null;
+        final Set<TalismanBoardPawn> pawns = new HashSet<>();
+        for (int i = 0; i < Controllers.getCharactersController().getActivePlayers(); i++) {
+            final TalismanBoardPawn pawn = this.getCharacterPawn(i);
+            if (pawn.getPositionCell() == cell && pawn.getPositionSection() == section) {
+                pawns.add(pawn);
+            }
+        }
+        return pawns;
     }
 
     private void updatePawnsViewPosition() {
