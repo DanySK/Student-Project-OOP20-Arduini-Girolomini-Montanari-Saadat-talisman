@@ -18,10 +18,9 @@ import talisman.util.Utils;
  */
 public class TalismanRollAction implements TalismanAction {
     private static final long serialVersionUID = 2847596850734221682L;
-    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice:";
-    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s:";
-    private static final String FIRST_OPTION_FORMAT = System.lineSeparator() + "if the result is at least %d then: %s;";
-    private static final String OPTION_FORMAT = System.lineSeparator() + "otherwise if it is at least %d then: %s;";
+    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice. If the result is at least:";
+    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s. . If the result is at least:";
+    private static final String OPTION_FORMAT = System.lineSeparator() + "%d then: %s;";
     private static final String LAST_OPTION_FORMAT = System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
@@ -66,10 +65,7 @@ public class TalismanRollAction implements TalismanAction {
         } else {
             stringBuilder.append(String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic()));
         }
-        if (this.sections.size() > 1) { 
-            stringBuilder.append(this.getFormattedResult(TalismanRollAction.FIRST_OPTION_FORMAT, this.sections.size() - 1, true));
-        }
-        for (int i = this.sections.size() - 2; i > 0; i--) {
+        for (int i = this.sections.size() - 1; i > 0; i--) {
             stringBuilder.append(this.getFormattedResult(TalismanRollAction.OPTION_FORMAT, i, true));
         }
         stringBuilder.append(this.getFormattedResult(TalismanRollAction.LAST_OPTION_FORMAT, 0, false));
