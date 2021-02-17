@@ -3,10 +3,12 @@ package talisman.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -23,6 +25,8 @@ public class GameWindow extends JFrame {
     private static final long serialVersionUID = 1L;
     private static final int WINDOW_SIZE_X = 1280;
     private static final int WINDOW_SIZE_Y = 720;
+    private static final String QUIT_PANEL_TITLE = "Confirm Exit";
+    private static final String QUIT_PANEL_TEXT = "Are you sure you want to quit the current game?";
 
     /**
      * Creates a new game window.
@@ -43,12 +47,28 @@ public class GameWindow extends JFrame {
         this.add((JPanel) board, constraint);
 
         this.pack();
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent e) {
+                GameWindow.this.askQuitConfirm();
+            }
+        });
     }
 
     /**
      * Closes the game window.
      */
     public void close() {
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+        this.setVisible(false);
+        this.dispose();
+    }
+
+    private void askQuitConfirm() {
+        final int chosenOption = JOptionPane.showConfirmDialog(GameWindow.this, GameWindow.QUIT_PANEL_TEXT,
+                GameWindow.QUIT_PANEL_TITLE, JOptionPane.YES_NO_OPTION);
+        if (chosenOption == JOptionPane.YES_OPTION) {
+            GameSetupUtil.getSingleton().endGame();
+        }
     }
 }
