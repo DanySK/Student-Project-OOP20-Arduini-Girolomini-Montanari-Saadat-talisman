@@ -35,7 +35,7 @@ public class TalismanModifyStatisticAction extends TalismanAmountAction {
     public String getDescription() {
         return String.format(TalismanModifyStatisticAction.DESCRIPTION_FORMAT,
                 this.isGain() ? TalismanModifyStatisticAction.GAIN_NAME : TalismanModifyStatisticAction.LOSE_NAME,
-                this.getAmount(), this.getStatistic());
+                Math.abs(this.getAmount()), this.getStatistic());
     }
 
     /**
