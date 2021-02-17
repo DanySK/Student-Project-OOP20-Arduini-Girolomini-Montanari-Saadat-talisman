@@ -24,6 +24,7 @@ public class TalismanRollAction implements TalismanAction {
     private static final String LAST_OPTION_FORMAT = System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
+    private final DiceType diceType;
     private final List<TalismanRollActionSection> sections;
     private int lastResult;
 
@@ -50,6 +51,22 @@ public class TalismanRollAction implements TalismanAction {
      */
     public TalismanRollAction(final TalismanActionStatistic statistic,
             final List<TalismanRollActionSection> resultSections) {
+        this.diceType = DiceType.SEVEN;
+        this.statistic = statistic;
+        this.sections = List.copyOf(resultSections);
+    }
+
+    /**
+     * Creates a new roll action.
+     * 
+     * @param dice           the dice used for the action
+     * @param statistic      the statistic to base the roll on
+     * @param resultSections the sections that indicate the possible actions base on
+     *                       the results
+     */
+    public TalismanRollAction(final DiceType dice, final TalismanActionStatistic statistic,
+            final List<TalismanRollActionSection> resultSections) {
+        this.diceType = dice;
         this.statistic = statistic;
         this.sections = List.copyOf(resultSections);
     }
@@ -77,7 +94,7 @@ public class TalismanRollAction implements TalismanAction {
      */
     @Override
     public void apply() {
-        this.lastResult = Utils.rollDice(DiceType.SEVEN);
+        this.lastResult = Utils.rollDice(this.diceType);
         int actualValue = this.getResult();
         final CharacterModelImpl playerStatistics = (CharacterModelImpl) Controllers.getCharactersController()
                 .getCurrentPlayer().getCurrentCharacter();

@@ -20,14 +20,17 @@ import talisman.model.action.TalismanActionStatistic;
 import talisman.model.action.TalismanDrawCardAction;
 import talisman.model.action.TalismanEmptyAction;
 import talisman.model.action.TalismanFightAction;
+import talisman.model.action.TalismanGiveItemAction;
 import talisman.model.action.TalismanModifyStatisticAction;
 import talisman.model.action.TalismanMoveAction;
 import talisman.model.action.TalismanPayAction;
+import talisman.model.action.TalismanQuestChoiceAction;
 import talisman.model.action.TalismanRequireItemAction;
 import talisman.model.action.TalismanRollAction;
 import talisman.model.action.TalismanRollActionSection;
 import talisman.model.action.TalismanSkipTurnAction;
 import talisman.util.CellType;
+import talisman.util.DiceType;
 import talisman.util.ViewUtils;
 
 /**
@@ -182,21 +185,59 @@ public final class TalismanBoardFactory {
                                 new TalismanRollAction(5, TalismanActionStatistic.STRENGTH,
                                         new TalismanMoveAction(2, 0),
                                         new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))))),
-                TalismanBoardFactory.createCell("BlackNight", "Black Night", CellType.LEFT, TalismanCellType.MONSTER,
+                TalismanBoardFactory.createCell("BlackNight", "Black Night", CellType.UP, TalismanCellType.MONSTER,
                         new TalismanActionChoiceAction(
                                 List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD),
                                         new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH)))),
-                TalismanBoardFactory.createCell("HiddenValley", "Hidden Valley", CellType.LEFT, TalismanCellType.ZONE,
+                TalismanBoardFactory.createCell("HiddenValley", "Hidden Valley", CellType.UP, TalismanCellType.ZONE,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("Hills_Top", "Hills", CellType.UP, TalismanCellType.BIOME,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("CursedGlade", "Cursed Glade", CellType.UP, TalismanCellType.ZONE,
                         new TalismanDrawCardAction()),
                 // Right column (top -> bottom)
-                TalismanBoardFactory.createCell("Fields_Left", "Test Left", CellType.LEFT, TalismanCellType.BIOME,
-                        Set.of()),
+                TalismanBoardFactory.createCell("Runes_Right", "Runes", CellType.RIGHT, TalismanCellType.BIOME,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("Chasm", "Chasm", CellType.RIGHT, TalismanCellType.ZONE,
+                        new TalismanRollAction(3, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
+                                new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))),
+                TalismanBoardFactory.createCell("Runes_Right", "Runes", CellType.RIGHT, TalismanCellType.BIOME,
+                        new TalismanDrawCardAction()),
                 // Bottom row (left <- right)
-                TalismanBoardFactory.createCell("Fields_Bottom", "Test Down", CellType.DOWN, TalismanCellType.BIOME,
-                        Set.of()),
+                TalismanBoardFactory.createCell("WarlocksCave", "Warlock's Cave", CellType.DOWN, TalismanCellType.ZONE,
+                        // TODO: add quests when they are done
+                        new TalismanQuestChoiceAction(List.of())),
+                TalismanBoardFactory.createCell("Desert_Bottom", "Desert", CellType.DOWN, TalismanCellType.BIOME,
+                        Set.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH),
+                                new TalismanDrawCardAction())),
+                TalismanBoardFactory.createCell("Oasis", "Oasis", CellType.DOWN, TalismanCellType.ZONE,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("Desert_Bottom", "Desert", CellType.DOWN, TalismanCellType.BIOME,
+                        Set.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH),
+                                new TalismanDrawCardAction())),
+                TalismanBoardFactory.createCell("Temple", "Temple", CellType.DOWN, TalismanCellType.ZONE,
+                        new TalismanRollAction(DiceType.DOUBLE_SEVEN, TalismanActionStatistic.NONE, List.of(
+                                new TalismanRollActionSection(3,
+                                        new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH)),
+                                new TalismanRollActionSection(5, new TalismanSkipTurnAction()),
+                                new TalismanRollActionSection(6,
+                                        new TalismanModifyStatisticAction(1, TalismanActionStatistic.CRAFT)),
+                                new TalismanRollActionSection(8,
+                                        new TalismanModifyStatisticAction(1, TalismanActionStatistic.STRENGTH)),
+                                // TODO: set talisman item index
+                                new TalismanRollActionSection(10, new TalismanGiveItemAction(0)),
+                                new TalismanRollActionSection(11,
+                                        new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH))))),
                 // Left column (bottom -> up)
-                TalismanBoardFactory.createCell("Fields_Right", "Test Right", CellType.RIGHT, TalismanCellType.BIOME,
-                        Set.of())));
+                TalismanBoardFactory.createCell("Woods_Left", "Forest", CellType.LEFT, TalismanCellType.BIOME,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("Runes_Left", "Runes", CellType.LEFT, TalismanCellType.BIOME,
+                        new TalismanDrawCardAction()),
+                TalismanBoardFactory.createCell("Castle", "Castle", CellType.LEFT, TalismanCellType.ZONE,
+                        new TalismanActionChoiceAction(List.of(
+                                new TalismanPayAction(1,
+                                        new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH)),
+                                new TalismanEmptyAction())))));
     }
 
     private static TalismanBoardSection createInnerSection() {
