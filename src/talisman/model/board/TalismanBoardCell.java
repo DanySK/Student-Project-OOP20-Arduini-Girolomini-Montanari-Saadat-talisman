@@ -73,8 +73,6 @@ public final class TalismanBoardCell extends BoardCellImpl {
 
     /**
      * Applies all the actions of this cell the the specified player.
-     * 
-     * @param player The player to which the actions will apply
      */
     public void applyActions() {
         this.getActions().stream().forEach(a -> a.apply());
@@ -101,5 +99,20 @@ public final class TalismanBoardCell extends BoardCellImpl {
     public static TalismanBoardCell createCell(final String imagePath, final String text, final CellType orientation,
             final TalismanCellType type, final Collection<TalismanAction> actions) {
         return new TalismanBoardCell(imagePath, text, orientation, type, actions);
+    }
+
+    /**
+     * Constructs a new cell.
+     * 
+     * @param imagePath   the path to the cell's image
+     * @param text        the cell's text
+     * @param orientation the cell's orientation
+     * @param type        the cell's type
+     * @param action      the cell's action
+     * @return the created cell
+     */
+    public static TalismanBoardCell createCell(final String imagePath, final String text, final CellType orientation,
+            final TalismanCellType type, final TalismanAction action) {
+        return new TalismanBoardCell(imagePath, text, orientation, type, Set.of(action));
     }
 }
