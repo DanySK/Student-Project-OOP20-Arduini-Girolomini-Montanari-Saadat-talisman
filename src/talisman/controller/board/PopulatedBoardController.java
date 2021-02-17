@@ -3,6 +3,9 @@ package talisman.controller.board;
 import talisman.model.board.PopulatedBoard;
 import talisman.view.board.PopulatedBoardView;
 import talisman.model.board.BoardSection;
+
+import java.util.Set;
+
 import talisman.model.board.BoardCell;
 import talisman.model.board.BoardPawn;
 
@@ -18,13 +21,13 @@ import talisman.model.board.BoardPawn;
  */
 public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S extends BoardSection<C>, C extends BoardCell, P extends BoardPawn>
         extends BoardController<B> {
-    
+
     /**
      * {@inheritDoc}
      */
     @Override
     PopulatedBoardView getView();
-    
+
     /**
      * Moves the character of the specified player in the specified cell.
      * 
@@ -69,12 +72,21 @@ public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S e
     C getCharacterCell(int player);
 
     /**
-     * Gets the pawn of  the character of the specified player.
+     * Gets the pawn of the character of the specified player.
      * 
      * @param player the player's index
      * @return the pawn
      */
     P getCharacterPawn(int player);
+
+    /**
+     * Gets the characters that are on the specified cell.
+     * 
+     * @param section the cell's section
+     * @param cell    the cell
+     * @return a set of characters
+     */
+    Set<P> getCharactersInCell(int section, int cell);
 
     /**
      * Applies the actions of the cell where the current player is.

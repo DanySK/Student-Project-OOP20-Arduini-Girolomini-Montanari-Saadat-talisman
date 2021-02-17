@@ -1,5 +1,7 @@
 package talisman.controller.board;
 
+import java.util.Set;
+
 import talisman.Controllers;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
@@ -98,6 +100,12 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
     @Override
     public TalismanBoardView getView() {
         return this.view;
+    }
+
+    @Override
+    public Set<TalismanBoardPawn> getCharactersInCell(final int section, final int cell) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     private void updatePawnsViewPosition() {
