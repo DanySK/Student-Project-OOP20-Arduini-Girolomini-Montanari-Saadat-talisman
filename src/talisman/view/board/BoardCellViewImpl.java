@@ -48,7 +48,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.text.setAlignmentY(CENTER_ALIGNMENT);
         this.text.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         this.add(this.text, BorderLayout.PAGE_END);
-        final Dimension size = new Dimension(225, 125);
+        final Dimension size = new Dimension(275, 150);
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
