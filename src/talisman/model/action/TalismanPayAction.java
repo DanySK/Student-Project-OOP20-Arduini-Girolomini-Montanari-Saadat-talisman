@@ -10,7 +10,8 @@ import talisman.model.character.CharacterModelImpl;
  *
  */
 public class TalismanPayAction extends TalismanAmountAction {
-    private static final String DESCRIPTION_FORMAT = "Pay %d gold for: " + System.lineSeparator() + "%s";
+    private static final long serialVersionUID = -4422869078909113064L;
+    private static final String DESCRIPTION_FORMAT = "Pay %d gold for: %s";
 
     private final TalismanAction actionToApply;
 

@@ -9,11 +9,11 @@ import java.util.List;
  *
  */
 public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAction> {
-    private static final long serialVersionUID = 2629235500890871339L;
+    private static final long serialVersionUID = 8300744485501458316L;
     private static final String DESCRIPTION_FORMAT = "Choose between:";
     private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
 
-    private final transient List<TalismanAction> actions;
+    private final List<TalismanAction> actions;
 
     /**
      * Creates a new choice actions.

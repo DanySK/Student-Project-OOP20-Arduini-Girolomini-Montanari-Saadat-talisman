@@ -10,8 +10,8 @@ import java.util.Objects;
  */
 public class TalismanRequireItemAction implements TalismanAction {
     private static final long serialVersionUID = 3944869345872798127L;
-    private static final String DESCRIPTION_FORMAT = "If you have a %s then:" + System.lineSeparator() + "- %s"
-            + System.lineSeparator() + "otherwise:" + System.lineSeparator() + "- %s";
+    private static final String DESCRIPTION_FORMAT = "If you have a %s then: %s"
+            + System.lineSeparator() + "otherwise: %s";
 
     private final int item;
     private final TalismanAction successAction;

@@ -16,14 +16,11 @@ import talisman.util.Utils;
  *
  */
 public class TalismanRollAction extends TalismanAmountAction {
-    private static final long serialVersionUID = 4657209105775876617L;
-    private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
-    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice, if the result is at least %d then:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT + System.lineSeparator()
-            + "otherwise:" + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
-    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then:"
-            + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT + System.lineSeparator()
-            + "otherwise:" + System.lineSeparator() + TalismanRollAction.SINGLE_ACTION_DESCRIPTION_FORMAT;
+    private static final long serialVersionUID = 2847596850734221682L;
+    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice, if the result is at least %d then: %s"
+            + System.lineSeparator() + "otherwise: %s";
+    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s, if the result is at least %d then: %s"
+            + System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
     private final TalismanAction successAction;
