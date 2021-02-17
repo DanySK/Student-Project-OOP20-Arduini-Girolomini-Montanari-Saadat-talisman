@@ -18,10 +18,10 @@ import talisman.util.Utils;
  */
 public class TalismanRollAction implements TalismanAction {
     private static final long serialVersionUID = 2847596850734221682L;
-    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice,";
-    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s,";
-    private static final String FIRST_OPTION_FORMAT = System.lineSeparator() + "if the result is at least %d then: %s";
-    private static final String OPTION_FORMAT = System.lineSeparator() + "otherwise if it is at least %d then: %s";
+    private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice:";
+    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s:";
+    private static final String FIRST_OPTION_FORMAT = System.lineSeparator() + "if the result is at least %d then: %s;";
+    private static final String OPTION_FORMAT = System.lineSeparator() + "otherwise if it is at least %d then: %s;";
     private static final String LAST_OPTION_FORMAT = System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
@@ -38,7 +38,7 @@ public class TalismanRollAction implements TalismanAction {
      */
     public TalismanRollAction(final int amount, final TalismanActionStatistic statistic,
             final TalismanAction successAction, final TalismanAction failedAction) {
-        this(statistic, List.of(new TalismanRollActionSection(0, Objects.requireNonNull(failedAction)),
+        this(statistic, List.of(new TalismanRollActionSection(1, Objects.requireNonNull(failedAction)),
                 new TalismanRollActionSection(amount, Objects.requireNonNull(successAction))));
     }
 
@@ -66,13 +66,13 @@ public class TalismanRollAction implements TalismanAction {
         } else {
             stringBuilder.append(String.format(TalismanRollAction.RELATIVE_DESCRIPTION_FORMAT, this.getStatistic()));
         }
-        stringBuilder.append(this.getFormattedResult(TalismanRollAction.FIRST_OPTION_FORMAT, 0));
-        for (int i = 1; i < this.sections.size() - 1; i++) {
-            stringBuilder.append(this.getFormattedResult(TalismanRollAction.OPTION_FORMAT, i));
+        if (this.sections.size() > 1) { 
+            stringBuilder.append(this.getFormattedResult(TalismanRollAction.FIRST_OPTION_FORMAT, this.sections.size() - 1, true));
         }
-        if (this.sections.size() > 1) {
-            stringBuilder.append(this.getFormattedResult(TalismanRollAction.LAST_OPTION_FORMAT, this.sections.size() - 1));
+        for (int i = this.sections.size() - 2; i > 0; i--) {
+            stringBuilder.append(this.getFormattedResult(TalismanRollAction.OPTION_FORMAT, i, true));
         }
+        stringBuilder.append(this.getFormattedResult(TalismanRollAction.LAST_OPTION_FORMAT, 0, false));
         return stringBuilder.toString();
     }
 
@@ -128,9 +128,12 @@ public class TalismanRollAction implements TalismanAction {
         return this.lastResult;
     }
 
-    private String getFormattedResult(final String format, final int sectionIndex) {
-        final TalismanRollActionSection finalSection = this.sections.get(sectionIndex);
-        return String.format(format, finalSection.getFromValue(),
-                finalSection.getAction().getDescription());
+    private String getFormattedResult(final String format, final int sectionIndex, final boolean showValue) {
+        final TalismanRollActionSection section = this.sections.get(sectionIndex);
+        if (showValue) {
+            return String.format(format, section.getFromValue(), section.getAction().getDescription());
+        } else {
+            return String.format(format, section.getAction().getDescription());
+        }
     }
 }
