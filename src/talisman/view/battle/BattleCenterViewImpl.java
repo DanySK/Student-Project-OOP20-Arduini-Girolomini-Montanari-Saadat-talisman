@@ -5,14 +5,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import talisman.view.ImagePanel;
+import talisman.controller.battle.BattleController;
 
 /**
  * Swing implementation of the battle's center view.
@@ -25,24 +25,45 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
     private final JButton attackButton;
     private final JButton fateButton;
     private final JButton magicButton;
+    private BattleController controller;
 
     /**
      * Initializes the battle's center view.
      * 
+     * @param controller - the battle's controller
      */
-    public BattleCenterViewImpl() {
+    public BattleCenterViewImpl(final BattleController controller) {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
+        this.controller = controller;
         this.attackButton = new JButton(new ImageIcon("res/imgs/battle/attackButton.png"));
         this.fateButton = new JButton(new ImageIcon("res/imgs/battle/fateButton.png"));
         this.magicButton = new JButton(new ImageIcon("res/imgs/battle/magicButton.png"));
         this.add(attackButton, this.setConstraints(1, 2, 1));
+        this.attackButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                controller.requestedAttack();
+            } 
+        });
         this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
+        this.fateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                controller.requestedFate();
+            } 
+        });
         this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
         GridBagConstraints c = this.setConstraints(3, 2, 1);
         c.anchor = GridBagConstraints.EAST;
         this.add(magicButton, c);
+        this.fateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                
+            } 
+        });
         c.gridy = 1;
         this.add(new JLabel("Magic"), c);
         this.setBackground(Color.darkGray);
@@ -67,5 +88,4 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
     }
-
 }

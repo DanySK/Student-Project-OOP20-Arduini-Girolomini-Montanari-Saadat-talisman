@@ -1,6 +1,7 @@
 package talisman.view.battle;
 
-import java.awt.event.ActionListener;
+
+import talisman.controller.battle.BattleController;
 
 /**
  * An interface for the center view of the battle.
@@ -14,7 +15,7 @@ public interface BattleCenterView {
      * 
      *@return the center view
      */
-    static BattleCenterView create() {
-        return new BattleCenterViewImpl();
+    static BattleCenterView create(BattleController controller) {
+        return new BattleCenterViewImpl(controller);
     }
 }
