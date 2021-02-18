@@ -10,4 +10,6 @@ public interface Card {
 String getText();
 
 CardType getType();
+
+String getImagePath();
 }
