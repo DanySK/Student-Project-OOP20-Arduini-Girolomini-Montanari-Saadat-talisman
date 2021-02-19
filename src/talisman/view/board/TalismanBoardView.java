@@ -2,6 +2,8 @@ package talisman.view.board;
 
 import java.util.List;
 
+import talisman.view.cards.TalismanCardView;
+
 public interface TalismanBoardView extends PopulatedBoardView {
     /**
      * Adds a card on top of the specified cell. If the card is already present on
@@ -9,14 +11,16 @@ public interface TalismanBoardView extends PopulatedBoardView {
      * 
      * @param section the section of the cell
      * @param cell    the cell
+     * @param card    the card view to add
      */
-    // TODO: Add card parameter
-    void addOverlayedCard(int section, int cell);
+    void addOverlayedCard(int section, int cell, TalismanCardView card);
 
     /**
      * Removes a card from the board. If the card is not present it does nothing.
+     *
+     * @param card the card to remove
      */
-    void removeOverlayedCard(/* final CardView card */);
+    void removeOverlayedCard(TalismanCardView card);
 
     /**
      * Removes the card on the specified cell. If the cell doesn't have a card it
