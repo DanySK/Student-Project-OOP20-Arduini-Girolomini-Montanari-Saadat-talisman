@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import talisman.Controllers;
 
-import talisman.controller.board.TalismanBoardController;
-import talisman.controller.character.CharacterControllerImpl;
-
 import talisman.model.action.TalismanAction;
 import talisman.model.action.TalismanMoveAction;
 import talisman.model.action.TalismanPayAction;

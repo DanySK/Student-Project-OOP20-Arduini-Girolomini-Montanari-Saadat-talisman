@@ -2,14 +2,11 @@ package talisman.view.board;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
-import java.awt.Point;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
 import talisman.util.CellType;
 import talisman.util.SwingViewUtils;
@@ -22,7 +19,7 @@ import talisman.view.ImagePanel;
  *
  */
 public final class BoardCellViewImpl extends ImagePanel implements BoardCellView {
-    private final JTextArea text;
+    private static final long serialVersionUID = 1L;
     private final CellType type;
 
     /**
@@ -37,17 +34,17 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.type = type;
         final LayoutManager layout = new BorderLayout();
         this.setLayout(layout);
-        this.text = new JTextArea(1, 1);
-        this.text.setText(text);
-        this.text.setForeground(Color.WHITE);
-        this.text.setBackground(Color.BLACK);
-        this.text.setLineWrap(true);
-        this.text.setWrapStyleWord(true);
-        this.text.setEditable(false);
-        this.text.setAlignmentX(CENTER_ALIGNMENT);
-        this.text.setAlignmentY(CENTER_ALIGNMENT);
-        this.text.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        this.add(this.text, BorderLayout.PAGE_END);
+        final JTextArea textArea = new JTextArea(1, 1);
+        textArea.setText(text);
+        textArea.setForeground(Color.WHITE);
+        textArea.setBackground(Color.BLACK);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setAlignmentX(CENTER_ALIGNMENT);
+        textArea.setAlignmentY(CENTER_ALIGNMENT);
+        textArea.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        this.add(textArea, BorderLayout.PAGE_END);
         final Dimension size = new Dimension(275, 150);
         this.setMinimumSize(size);
         this.setPreferredSize(size);

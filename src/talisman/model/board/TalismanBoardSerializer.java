@@ -4,27 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InvalidClassException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
-import talisman.model.action.TalismanAction;
-import talisman.model.action.TalismanActionStatistic;
-import talisman.model.action.TalismanEmptyAction;
-import talisman.model.action.TalismanFightAction;
-import talisman.model.action.TalismanModifyStatisticAction;
-import talisman.model.action.TalismanMoveAction;
-import talisman.model.action.TalismanRequireItemAction;
-import talisman.model.action.TalismanRollAction;
-
-import talisman.util.CellType;
-import talisman.util.PathUtils;
 
 /**
  * Static class used to help serialize the board.

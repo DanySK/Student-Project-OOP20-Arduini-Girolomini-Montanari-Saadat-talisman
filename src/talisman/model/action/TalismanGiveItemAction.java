@@ -1,7 +1,5 @@
 package talisman.model.action;
 
-import java.util.Objects;
-
 /**
  * An action that gives an item to a player.
  * 
