@@ -6,7 +6,6 @@ import java.util.List;
 import talisman.model.board.Board;
 import talisman.model.board.BoardCell;
 import talisman.model.board.BoardSection;
-import talisman.model.board.TalismanBoardSection;
 import talisman.util.CellType;
 
 /**
@@ -25,8 +24,8 @@ public class BoardViewBuilder {
      * Creates a new builder.
      */
     public BoardViewBuilder() {
-        this.cells = new LinkedList<BoardCellView>();
-        this.sections = new LinkedList<BoardSectionView>();
+        this.cells = new LinkedList<>();
+        this.sections = new LinkedList<>();
         this.built = false;
     }
 

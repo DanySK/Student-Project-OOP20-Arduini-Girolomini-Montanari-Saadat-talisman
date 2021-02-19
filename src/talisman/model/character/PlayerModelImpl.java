@@ -49,7 +49,7 @@ public class PlayerModelImpl implements PlayerModel {
      * 
      * @return the value
      */
-    public CharacterModel getCurrentCharacter() {
+    public CharacterModelImpl getCurrentCharacter() {
         return this.currentCharacter;
     }
 

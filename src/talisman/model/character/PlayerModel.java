@@ -1,8 +1,5 @@
 package talisman.model.character;
 
-import talisman.model.character.CharacterModel;
-import talisman.model.character.CharacterModelImpl;
-
 /**
  * Interface that models the player.
  * 

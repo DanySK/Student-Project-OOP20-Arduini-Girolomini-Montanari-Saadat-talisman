@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.Set;
 
 import talisman.Controllers;
+
 import talisman.controller.board.TalismanBoardController;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
 import talisman.model.character.CharacterModelImpl;
-import talisman.test.BoardActionTests;
+
 import talisman.util.CellType;
 
 import talisman.view.board.TalismanBoardViewBuilder;

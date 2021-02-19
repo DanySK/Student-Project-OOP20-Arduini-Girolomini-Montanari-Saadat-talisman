@@ -1,7 +1,6 @@
 package talisman.model.action;
 
 import talisman.Controllers;
-import talisman.model.board.TalismanBoardCell;
 
 /**
  * An action that makes the player draw a given amount of cards.
@@ -10,13 +9,8 @@ import talisman.model.board.TalismanBoardCell;
  *
  */
 public class TalismanDrawCardAction implements TalismanAction {
+    private static final long serialVersionUID = 1L;
     private static final String DESCRIPTION_FORMAT = "Draw a card if there isn't already one in this space";
-
-    /**
-     * Creates a new draw card action.
-     */
-    public TalismanDrawCardAction() {
-    }
 
     /**
      * {@inheritDoc}

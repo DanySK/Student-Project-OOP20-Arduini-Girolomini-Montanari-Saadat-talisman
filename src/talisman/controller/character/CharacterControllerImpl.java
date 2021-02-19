@@ -1,5 +1,7 @@
 package talisman.controller.character;
 
+import talisman.model.action.TalismanAction;
+import talisman.model.action.TalismanQuestChoiceAction;
 import talisman.model.character.*;
 
 import java.util.ArrayList;
@@ -52,6 +54,31 @@ public class CharacterControllerImpl implements CharactersController {
 
         return activePlayers;
     }
+
+    public void movePlayerTo(int cells){
+
+
+    }
+
+    public void movePlayerToSection(int section){
+
+
+    }
+
+    public void movePlayerToSection(int section, int cells){
+
+
+    }
+
+    public void makePlayerAction(TalismanAction action){
+
+        if (action instanceof TalismanQuestChoiceAction){
+
+            //TODO Resolve quest
+        }
+
+        if (action.canBeApplied()) action.apply();
+    }
 }
 
 /**
@@ -77,6 +104,5 @@ class Players {
     static void removePlayer(int index){
 
         players.remove(index);
-        lastId--;
     }
 }

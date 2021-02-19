@@ -3,7 +3,6 @@ package talisman.view.board;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,6 +21,8 @@ import talisman.util.CellType;
  *
  */
 public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Used to specify which orientation should a subsection have.
      * 

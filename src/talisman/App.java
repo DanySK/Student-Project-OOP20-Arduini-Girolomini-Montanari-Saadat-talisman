@@ -3,26 +3,18 @@ package talisman;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.LayoutManager;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.controller.cards.TalismanCardController;
-import talisman.model.action.TalismanActionStatistic;
-import talisman.model.action.TalismanModifyStatisticAction;
-import talisman.model.cards.Card;
-import talisman.model.cards.CardImpl;
-import talisman.model.cards.CardType;
+
 import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
+
 import talisman.util.GameSetupUtil;
 
-import talisman.view.battle.BattleBottomViewImpl;
-import talisman.view.battle.BattleCenterViewImpl;
-import talisman.view.battle.BattleTopViewImpl;
-import talisman.view.cards.TalismanCardView;
 import talisman.view.menu.MainMenuWindow;
 
 public final class App {

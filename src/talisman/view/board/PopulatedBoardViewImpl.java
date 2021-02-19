@@ -1,7 +1,6 @@
 package talisman.view.board;
 
 import java.awt.Component;
-import java.awt.Point;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -13,6 +12,8 @@ import javax.swing.SwingUtilities;
  *
  */
 public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBoardView {
+    private static final long serialVersionUID = 1L;
+
     private final List<PawnView> pawns;
 
     /**
