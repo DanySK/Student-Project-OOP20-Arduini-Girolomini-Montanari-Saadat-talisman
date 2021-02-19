@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import talisman.util.CellType;
+import talisman.util.SwingViewUtils;
 import talisman.view.ImagePanel;
 
 /**
@@ -66,11 +67,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      */
     @Override
     public int getCellX() {
-        final Component root = SwingUtilities.getRoot(this);
-        if (!root.isVisible()) {
-            return 0;
-        }
-        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).x;
+        return SwingViewUtils.getGlobalPosition(this).x;
     }
 
     /**
@@ -78,10 +75,6 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      */
     @Override
     public int getCellY() {
-        final Component root = SwingUtilities.getRoot(this);
-        if (!root.isVisible()) {
-            return 0;
-        }
-        return SwingUtilities.convertPoint(this.getParent(), this.getLocation(), null).y;
+        return SwingViewUtils.getGlobalPosition(this).y;
     }
 }
