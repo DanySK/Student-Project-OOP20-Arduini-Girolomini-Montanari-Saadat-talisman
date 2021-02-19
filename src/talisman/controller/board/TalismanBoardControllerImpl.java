@@ -41,7 +41,7 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public TalismanBoardView getView() {
-        return (TalismanBoardView) super.getBoard();
+        return (TalismanBoardView) super.getView();
     }
 
     /**

@@ -30,7 +30,7 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
      */
     @Override
     public PopulatedBoardView getView() {
-        return (PopulatedBoardView) super.getBoard();
+        return (PopulatedBoardView) super.getView();
     }
 
     /**
