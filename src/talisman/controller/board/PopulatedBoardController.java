@@ -87,9 +87,4 @@ public interface PopulatedBoardController<B extends PopulatedBoard<S, C, P>, S e
      * @return a set of characters
      */
     Set<P> getCharactersInCell(int section, int cell);
-
-    /**
-     * Applies the actions of the cell where the current player is.
-     */
-    void applyCurrentPlayerCellActions();
 }
