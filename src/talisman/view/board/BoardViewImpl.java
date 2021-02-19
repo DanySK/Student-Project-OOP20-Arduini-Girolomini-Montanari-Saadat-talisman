@@ -19,6 +19,8 @@ import javax.swing.OverlayLayout;
  *
  */
 public class BoardViewImpl extends JPanel implements BoardView {
+    private static final long serialVersionUID = 1L;
+    
     private final List<BoardSectionView> sections;
     private final Set<BoardListener> updateListeners;
 

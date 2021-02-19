@@ -1,7 +1,5 @@
 package talisman.model.action;
 
-import talisman.model.board.BoardPawn;
-
 /**
  * A action that makes the player battle with an enemy.
  * 
@@ -9,6 +7,7 @@ import talisman.model.board.BoardPawn;
  *
  */
 public class TalismanFightAction implements TalismanAction {
+    private static final long serialVersionUID = 1L;
     private static final String DESCRIPTION_FORMAT = "You have to fight a %s";
     private final int enemy;
 

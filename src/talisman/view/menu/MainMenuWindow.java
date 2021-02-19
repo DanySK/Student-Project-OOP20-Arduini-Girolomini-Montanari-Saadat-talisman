@@ -2,8 +2,6 @@ package talisman.view.menu;
 
 import java.awt.Font;
 import java.awt.LayoutManager;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -25,8 +23,6 @@ public class MainMenuWindow extends JFrame {
     private static final int TITLE_FONT_SIZE = 20;
     private static final int BORDER_SIZE = 10;
 
-    private final MainMenuOptionsPanel optionsPanel;
-
     /**
      * Creates a new main menu window.
      */
@@ -44,12 +40,12 @@ public class MainMenuWindow extends JFrame {
                 MainMenuWindow.BORDER_SIZE, MainMenuWindow.BORDER_SIZE));
         this.add(titleLabel);
 
-        this.optionsPanel = new MainMenuOptionsPanel();
-        this.optionsPanel.setBorder(BorderFactory.createEmptyBorder(MainMenuWindow.BORDER_SIZE,
+        final MainMenuOptionsPanel optionsPanel = new MainMenuOptionsPanel();
+        optionsPanel.setBorder(BorderFactory.createEmptyBorder(MainMenuWindow.BORDER_SIZE,
                 MainMenuWindow.BORDER_SIZE, MainMenuWindow.BORDER_SIZE, MainMenuWindow.BORDER_SIZE));
-        this.optionsPanel.addQuitListener(() -> this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
-        this.optionsPanel.addStartListener(() -> this.showPlayerSetupWindow());
-        this.add(this.optionsPanel);
+        optionsPanel.addQuitListener(() -> this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)));
+        optionsPanel.addStartListener(() -> this.showPlayerSetupWindow());
+        this.add(optionsPanel);
 
         this.pack();
     }
