@@ -52,6 +52,8 @@ public final class TalismanDeckFactory {
     private static Queue<Card> createAdventureDeck(final Queue<Card> cards) {
         cards.add(TalismanDeckFactory.createCard("bag of gold", "get 1 gold", "BagOfGold", CardType.OBJECT,
                 List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
+        cards.add(TalismanDeckFactory.createCard("wild boar", "get 1 gold", "WildBoar", CardType.ENEMY,
+                List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
         return cards;
     }
 
