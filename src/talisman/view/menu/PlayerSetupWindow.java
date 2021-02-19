@@ -1,6 +1,5 @@
 package talisman.view.menu;
 
-import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -10,8 +9,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import talisman.model.menu.PlayerInfo;
 import talisman.util.GameSetupUtil;

@@ -1,7 +1,7 @@
 package talisman.model.battle;
 
 /**
- * Implementation of enemy's informations in battle.
+ * Implementation of strength enemy's informations in battle.
  * 
  * @author Alice Girolomini
  *
@@ -9,31 +9,60 @@ package talisman.model.battle;
 public class StrengthEnemy implements EnemyModel {
     private int strength;
 
-    public StrengthEnemy(int strength) {
+    /**
+     * Initializes the enemie's strength.
+     * 
+     * @param strength - enemie's strength
+     */
+    public StrengthEnemy(final int strength) {
         this.strength = strength;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getStrength() {
         return this.strength;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getCraft() {
         return 0;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public int getFate() {
         return 0;
     }
 
-    public void setStrength(int points) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setStrength(final int points) {
 
     }
 
-    public void setCraft(int points) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCraft(final int points) {
 
     }
 
-    public void setFate(int coins) {
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setFate(final int coins) {
 
     }
 

@@ -6,34 +6,44 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import talisman.controller.battle.BattleController;
 import talisman.view.ImagePanel;
 
 /**
- * Swing implementation of the battle's top view.
+ * Swing implementation of the top view of the battle.
  * 
  * @author Alice Girolomini
  */
 public class BattleTopViewImpl extends JPanel implements BattleTopView {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int XCOORDINATEIMAGE = 5;
     private static final int XCOORDINATELABEL = 6;
     private final JLabel firstCharDamage;
     private final JLabel secondCharDamage;
+    private final BattleController controller;
 
     /**
-     * Initializes the battle's top view.
+     * Initializes the top view of the battle.
      * 
+     * @param controller - the controller of the battle
      */
-    public BattleTopViewImpl() {
+    public BattleTopViewImpl(final BattleController controller) {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
-        this.firstCharDamage = new JLabel("0");
-        this.secondCharDamage = new JLabel("0");
+        this.controller = controller;
+        HashMap<Integer, Integer> values = this.controller.initializeScores();
+        this.firstCharDamage = new JLabel(values.get(1).toString());
+        this.secondCharDamage = new JLabel(values.get(2).toString());
         this.add(this.firstCharDamage, this.setConstraints(2, 2, 1));
         this.add(this.secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));
@@ -64,38 +74,25 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
     }
 
     /**
-     * Gets the attack score of the first character.
-     * 
-     *@return the value
+     * {@inheritDoc}
      */
-    public int getFirstAttackScore() {
-        return Integer.parseInt(this.firstCharDamage.getText());
-    }
-
-    /**
-     * Gets the attack score of the second character.
-     * 
-     *@return the value
-     */
-    public int getSecondAttackScore() {
+    @Override
+    public int getAttackScore(final int character) {
+        if (character == 1) {
+            return Integer.parseInt(this.firstCharDamage.getText());
+        }
         return Integer.parseInt(this.secondCharDamage.getText());
     }
 
     /**
-     * Sets the value of the attack score for the first character.
-     * 
-     *@param value - the value to be set
+     * {@inheritDoc}
      */
-    public void setFirstAttackScore(final int value) {
-        this.firstCharDamage.setText(String.valueOf(value));
-    }
-
-    /**
-     * Sets the value of the attack score for the second character.
-     * 
-     *@param value - the value to be set
-     */
-    public void setSecondAttackScore(final int value) {
-        this.secondCharDamage.setText(String.valueOf(value));
+    @Override
+    public void setAttackScore(final int character, final int value) {
+        if (character == 1) {
+            this.firstCharDamage.setText(String.valueOf(value));
+        } else {
+            this.secondCharDamage.setText(String.valueOf(value));
+        }
     }
 }

@@ -1,12 +1,14 @@
 package talisman.model.character;
 
 public class CharacterModelImpl implements CharacterModel {
+
     private int health;
     private int strength;
     private int craft;
     private int gold;
     private int fate;
-    //deck[]
+
+    private final InventoryModel inventory = new InventoryModelImpl();
 
     /**
      * Creates the character's informations.
@@ -18,6 +20,7 @@ public class CharacterModelImpl implements CharacterModel {
      * @param fate - the initial fate coin number
      */
     public CharacterModelImpl(final int health, final int strength, final int craft, final int gold, final int fate) {
+
         this.health = health;
         this.strength = strength;
         this.craft = craft;
@@ -115,10 +118,13 @@ public class CharacterModelImpl implements CharacterModel {
         this.gold = coins;
     }
 
-    /* Card public getCard() {
+    /**
+     * Returns the instance of the character inventory
+     *
+     * @return the inventory
+     */
+    public InventoryModel getInventory() {
 
+        return inventory;
     }
-    public void addCards() {
-
-    }*/
 }

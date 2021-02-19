@@ -1,7 +1,7 @@
 package talisman.model.action;
 
 import talisman.Controllers;
-import talisman.model.board.BoardPawn;
+
 import talisman.util.Pair;
 
 /**

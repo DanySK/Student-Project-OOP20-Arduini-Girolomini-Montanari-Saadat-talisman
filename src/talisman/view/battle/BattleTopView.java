@@ -1,5 +1,7 @@
 package talisman.view.battle;
 
+import talisman.controller.battle.BattleController;
+
 /**
  * An interface for the top view of the battle.
  * 
@@ -8,39 +10,28 @@ package talisman.view.battle;
  */
 public interface BattleTopView {
     /**
-     * Gets the attack score of the first character.
+     * Gets the attack score from the specified opponent.
      * 
-     *@return the value
+     * @param character - the opponent
+     * @return the value
      */
-    int getFirstAttackScore();
+    int getAttackScore(int character);
 
     /**
-     * Gets the attack score of the second character.
+     * Sets the opponent's attack score.
      * 
-     *@return the value
+     * @param character - the opponent
+     * @param value - the value to be set
      */
-    int getSecondAttackScore();
-
-    /**
-     * Sets the value of the attack score for the first character.
-     * 
-     *@param value - the value to be set
-     */
-    void setFirstAttackScore(int value);
-
-    /**
-     * Sets the value of the attack score for the second character.
-     * 
-     *@param value - the value to be set
-     */
-    void setSecondAttackScore(int value);
+    void setAttackScore(int character, int value);
 
     /**
      * creates the top view of the battle.
      * 
+     * @param controller - the controller of the battle
      *@return the top view
      */
-    static BattleTopView create() {
-        return new BattleTopViewImpl();
+    static BattleTopView create(BattleController controller) {
+        return new BattleTopViewImpl(controller);
     }
 }

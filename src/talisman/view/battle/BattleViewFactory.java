@@ -3,63 +3,56 @@ package talisman.view.battle;
 import talisman.controller.battle.BattleController;
 
 /**
- * Builder used to compose the battle view.
+ * Factory used to create the view of the battle.
  * 
  * @author Alice Girolomini
  *
  */
 public class BattleViewFactory {
     private BattleController controller;
-    private boolean built;
 
     /**
-     * Initializes the battle's builder.
+     * Initializes the factory.
      * 
-     * @param controller - the battle's controller
+     * @param controller - the controller of the battle
      */
     public BattleViewFactory(final BattleController controller) {
         this.controller = controller;
-        this.built = false;
     }
 
     /**
      * Creates the top view.
      * 
+     * @param controller - the controller of the battle
      * @return  the view
      */
-    public BattleTopView createTopView() {
-        BattleTopView view = BattleTopView.create();
+    public BattleTopView createTopView(final BattleController controller) {
+        BattleTopView view = BattleTopView.create(controller);
         return view;
     }
 
     /**
      * Creates the center view.
      * 
-     * @param controller - the battle's controller
+     * @param controller - the controller of the battle
+     * @param topView - the top view of the battle
+     * @param bottomView - the bottom view of the battle
      * @return  the view
      */
-    public BattleCenterView createCenterView(final BattleController controller) {
-        BattleCenterView view = BattleCenterView.create(this.controller);
+    public BattleCenterView createCenterView(final BattleController controller, final BattleTopView topView, final BattleBottomView bottomView) {
+        BattleCenterView view = BattleCenterView.create(this.controller, topView, bottomView);
         return view;
     }
 
     /**
      * Creates the bottom view.
      * 
+     * @param controller - the controller of the battle
      * @return  the view
      */
-    public BattleBottomView createBottomView() {
-        BattleBottomView view = BattleBottomView.create();
+    public BattleBottomView createBottomView(final BattleController controller) {
+        BattleBottomView view = BattleBottomView.create(controller);
         return view;
-    }
-
-    /**
-     * Checks whether the view is built.
-     * 
-     * @return true if the battle's view is ready
-     */
-    boolean isBuilt() {
-        return this.built;
     }
 
 }

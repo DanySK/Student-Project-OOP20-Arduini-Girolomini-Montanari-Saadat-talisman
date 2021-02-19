@@ -7,12 +7,15 @@ import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import talisman.controller.battle.BattleController;
+import talisman.model.battle.BattleState;
 
 /**
  * Swing implementation of the battle's center view.
@@ -20,19 +23,25 @@ import talisman.controller.battle.BattleController;
  * @author Alice Girolomini
  */
 public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int YCOORDINATEBUTTON = 5;
     private final JButton attackButton;
     private final JButton fateButton;
     private final JButton magicButton;
-    private BattleController controller;
+    private final BattleController controller;
 
     /**
-     * Initializes the battle's center view.
+     * Initializes the center view of the battle.
      * 
-     * @param controller - the battle's controller
+     * @param controller - the controller of the battle
+     * @param topView - the top view of the battle
+     * @param bottomView - the bottom view of the battle
      */
-    public BattleCenterViewImpl(final BattleController controller) {
+    public BattleCenterViewImpl(final BattleController controller, final BattleTopView topView, final BattleBottomView bottomView) {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         this.controller = controller;
@@ -43,25 +52,36 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.attackButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                controller.requestedAttack();
+                if (!controller.canRoll()) {
+                    topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
+                }
+                if (controller.getTurn() == 2) {
+                    endBattle();
+                }
             } 
         });
         this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
+        fateButton.setEnabled(this.controller.requestedFate());
         this.fateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                controller.requestedFate();
+                if (!controller.canRoll()) {
+                    controller.updateFate();
+                    bottomView.setAttackRoll(controller.getTurn(), 0);
+                }
             } 
         });
         this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
         GridBagConstraints c = this.setConstraints(3, 2, 1);
         c.anchor = GridBagConstraints.EAST;
         this.add(magicButton, c);
-        this.fateButton.addActionListener(new ActionListener() {
+        this.magicButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                
+                if (controller.canRoll()) {
+                    
+                }
             } 
         });
         c.gridy = 1;
@@ -87,5 +107,18 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         c.anchor = GridBagConstraints.WEST;
         c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
+    }
+
+    private void endBattle() {
+        BattleState status = this.controller.getResult();
+        if (status.equals(BattleState.FIRST)) {
+            JOptionPane.showMessageDialog(null, "First opponent wins!");
+        } else if (status.equals(BattleState.SECOND)) {
+            JOptionPane.showMessageDialog(null, "Second opponent wins!");
+        } else if (status.equals(BattleState.STAND_OFF)) {
+            JOptionPane.showMessageDialog(null, "It's a standoff!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Someone escaped the battle...");
+        }
     }
 }

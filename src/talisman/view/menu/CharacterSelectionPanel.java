@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 /**
  * A panel that contains a button for each character. Used to select the
@@ -82,7 +82,7 @@ public class CharacterSelectionPanel extends JPanel {
 
     private JButton createCharacterButton(final String imageName) {
         // TODO: get image path
-        final String imagePath = ViewUtils.getDevImagePath(ViewUtils.NO_IMAGE_NAME, true);
+        final String imagePath = PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true);
         return new JButton(new ImageIcon(imagePath));
     }
 

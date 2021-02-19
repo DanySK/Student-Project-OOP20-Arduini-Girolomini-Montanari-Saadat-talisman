@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -20,6 +21,8 @@ import talisman.util.CellType;
  *
  */
 public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
+    private static final long serialVersionUID = 1L;
+
     /**
      * Used to specify which orientation should a subsection have.
      * 
@@ -70,6 +73,7 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
                 subsection.add((Component) cell);
             }
         }
+        this.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
     }
 
     /**

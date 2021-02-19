@@ -2,12 +2,14 @@ package talisman.controller.board;
 
 import talisman.view.board.TalismanBoardView;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import talisman.Controllers;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardSection;
+import talisman.model.cards.Card;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
 
@@ -24,6 +26,26 @@ public interface TalismanBoardController
      */
     @Override
     TalismanBoardView getView();
+
+    /**
+     * Applies the actions of the cell where the current player is.
+     */
+    void applyCurrentPlayerCellActions();
+
+    /**
+     * Sets the card that is on top of the cell where the current player is.
+     * 
+     * @param card the card to set
+     */
+    void setCurrentCharacterCellCard(Card card);
+
+    /**
+     * Removes the card from the cell that is on the current player and returns it,
+     * if present.
+     * 
+     * @return an optional containing the card that was on the cell
+     */
+    Optional<Card> collectCurrentCharacterCellCard();
 
     /**
      * Gets the characters opponents on the current player cell.

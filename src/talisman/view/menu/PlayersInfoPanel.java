@@ -9,7 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 /**
  * Panel used to show all the players ready to start a game.
@@ -47,7 +47,7 @@ public class PlayersInfoPanel extends JPanel {
 
     private PlayerInfoPanel createPlayerPanel(final int character, final String name) {
         // TODO: get image path
-        final String imagePath = ViewUtils.getDevImagePath(ViewUtils.NO_IMAGE_NAME, true);
+        final String imagePath = PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true);
         final PlayerInfoPanel panel = new PlayerInfoPanel(imagePath, name);
         if (this.playerPanels.size() > 0) {
             panel.setBorder(BorderFactory.createEmptyBorder(0, PlayersInfoPanel.OFFSET, 0, 0));

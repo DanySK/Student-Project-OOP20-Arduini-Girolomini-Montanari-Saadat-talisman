@@ -1,5 +1,6 @@
 package talisman.view.board;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.LayoutManager;
 import java.awt.event.ComponentAdapter;
@@ -18,6 +19,8 @@ import javax.swing.OverlayLayout;
  *
  */
 public class BoardViewImpl extends JPanel implements BoardView {
+    private static final long serialVersionUID = 1L;
+    
     private final List<BoardSectionView> sections;
     private final Set<BoardListener> updateListeners;
 
@@ -32,6 +35,7 @@ public class BoardViewImpl extends JPanel implements BoardView {
         // I use an OverlayLayout so i can layer things on top of the board
         final LayoutManager layout = new OverlayLayout(this);
         this.setLayout(layout);
+        this.setBackground(Color.DARK_GRAY);
         // Like for the sections cells, I take as granted that the sections use the
         // swing implementation.
         // Still, the most generic type is used in case the actual type of component

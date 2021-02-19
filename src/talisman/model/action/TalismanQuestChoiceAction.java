@@ -12,7 +12,7 @@ import java.util.List;
  */
 // TODO: Set X to the quest type
 public class TalismanQuestChoiceAction<X> extends TalismanChoiceAction<X> {
-    private static final String DESCRIPTION_FORMAT = "You may go on a quest:";
+    private static final String DESCRIPTION_FORMAT = "You may take a quest:";
     private static final String QUEST_DESCRIPTION_FORMAT = "- %s";
 
     private final List<X> quests;

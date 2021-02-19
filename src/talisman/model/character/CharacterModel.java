@@ -1,6 +1,13 @@
 package talisman.model.character;
 
 public interface CharacterModel {
+
+    /**
+     * Gets the amount of health points
+     *
+     * @return the value
+     */
+    int getHealth();
     /**
      * Gets the number of strength points.
      *
@@ -23,6 +30,20 @@ public interface CharacterModel {
     int getFate();
 
     /**
+     * Gets the amount of gold
+     *
+     * @return the value
+     */
+    int getGold();
+
+    /**
+     * Sets the amount of health
+     *
+     * @param points the value to set
+     */
+    void setHealth(final int points);
+
+    /**
      * Sets strength points value.
      *
      @param points - the value to be set
@@ -42,4 +63,11 @@ public interface CharacterModel {
      @param coins - the value to be set
      */
     void setFate(int coins);
+
+    /**
+     * Sets the amount of gold
+     *
+     * @param coins the value to set
+     */
+    void setGold(final int coins);
 }

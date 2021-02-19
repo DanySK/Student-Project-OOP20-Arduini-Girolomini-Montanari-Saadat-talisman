@@ -1,8 +1,7 @@
 package talisman.view.board;
 
-import talisman.model.board.Board;
-import talisman.model.board.PopulatedBoard;
 import talisman.model.board.TalismanBoard;
+
 import talisman.util.CellType;
 
 public class TalismanBoardViewBuilder extends PopulatedBoardViewBuilder {

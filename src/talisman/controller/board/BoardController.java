@@ -18,7 +18,7 @@ public interface BoardController<B extends Board<?, ?>> {
      */
     B getBoard();
     /**
-     * Gets the controllerd board view.
+     * Gets the controlled board view.
      * 
      * @return the board view
      */

@@ -1,29 +1,28 @@
 package talisman.model.battle;
 
-import java.util.Random;
+import talisman.util.DiceType;
+import talisman.util.Utils;
 
 /**
- * Implementation of battle model.
+ * Implementation of the model of the battle.
  * 
  * @author Alice Girolomini
  *
  */
 
 public class BattleModelImpl implements BattleModel {
-    private static final int MAXDICEVALUE = 7;
     private int firstCharScore;
     private int secondCharScore;
     private int firstDice;
     private int secondDice;
-    private final Random rand = new Random();
     private BattleState currentState;
     private boolean end;
 
     /**
      * Creates a new battle model.
      * 
-     * @param firstCharScore the initial strength or craft of the first player
-     * @param secondCharScore the initial strength or craft of the second player
+     * @param firstCharScore the initial strength or craft of the first character
+     * @param secondCharScore the initial strength or craft of the second character
      */
     public BattleModelImpl(final int firstCharScore, final int secondCharScore) {
         this.firstCharScore = firstCharScore;
@@ -33,32 +32,23 @@ public class BattleModelImpl implements BattleModel {
         this.currentState = BattleState.START;
         this.end = false;
     }
+
     /**
-     *  Calculates the dice roll of the first player.
+     * {@inheritDoc}
      */
-    public void firstDiceRoll() {
-        int result = 0;
-        while (result == 0) {
-            result = rand.nextInt(MAXDICEVALUE);
+    @Override
+    public void diceRoll(final int character) {
+        if (character == 1) {
+            this.firstDice = Utils.rollDice(DiceType.SEVEN);
+        } else {
+            this.secondDice = Utils.rollDice(DiceType.SEVEN);
         }
-        this.firstDice = result;
     }
 
     /**
-     *  Calculates the dice roll of the second player.
+     * {@inheritDoc}
      */
-    public void secondDiceRoll() {
-        int result = 0;
-        while (result == 0) {
-            result = rand.nextInt(MAXDICEVALUE);
-        }
-        this.secondDice = result;
-    }
-
-    /**
-     * Checks if one of the players decides to evade the battle.
-     * @return true if one of them evades
-     */
+    @Override
     public boolean checkEvade() {
         if (this.firstCharScore == 0 || this.secondCharScore == 0) {
             this.currentState = BattleState.EVADE;
@@ -69,8 +59,9 @@ public class BattleModelImpl implements BattleModel {
     }
 
     /**
-     * Compares the scores of the players.
+     * {@inheritDoc}
      */
+    @Override
     public void compareScore() {
         if (this.firstCharScore > this.secondCharScore) {
             this.currentState = BattleState.FIRST;
@@ -83,64 +74,52 @@ public class BattleModelImpl implements BattleModel {
     }
 
     /**
-     * Checks whether the battle is ended or not.
-     * 
-     * @return true if the battle is ended
+     * {@inheritDoc}
      */
+    @Override
     public boolean isEnded() {
         return this.end;
     }
 
     /**
-     * Adds the dice result to the initial score of the player.
+     * {@inheritDoc}
      */
-    public void addScore() {
-        this.firstCharScore = this.firstCharScore + this.firstDice;
-        this.secondCharScore = this.secondCharScore + this.secondDice;
-    }
-
-    /**
-     * Gets the current state of the battle.
-     * 
-     * @return the current BattleState
-     */
+    @Override
     public BattleState getState() {
         return this.currentState;
     }
 
     /**
-     * Gets the current score of the first player.
-     * 
-     * @return the value
+     * {@inheritDoc}
      */
-    public int getFirstScore() {
-        return this.firstCharScore;
+    @Override
+    public void setScore(final int character, final int value) {
+        if (character == 1) {
+            this.firstCharScore = value;
+        } else {
+            this.secondCharScore = value;
+        }
     }
 
     /**
-     * Gets the current score of the second player.
-     * 
-     * @return the value
+     * {@inheritDoc}
      */
-    public int getSecondScore() {
-        return this.secondCharScore;
-    }
-
-    /**
-     * Gets the value of the last die roll of the first player.
-     * 
-     * @return the value
-     */
-    public int getFirstDice() {
-        return this.firstDice;
-    }
-
-    /**
-     * Gets the value of the last die roll of the second player.
-     * 
-     * @return the value
-     */
-    public int getSecondDice() {
+    @Override
+    public int getDiceRoll(final int character) {
+        if (character == 1) {
+            return this.firstDice;
+        }
         return this.secondDice;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getScore(final int character) {
+        if (character == 1) {
+            return this.firstCharScore;
+        }
+        return this.secondCharScore;
     }
 }

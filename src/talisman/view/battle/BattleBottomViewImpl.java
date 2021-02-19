@@ -5,30 +5,42 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import talisman.controller.battle.BattleController;
+
 /**
- * Swing implementation of the battle's bottom view.
+ * Swing implementation of the bottom view of the battle.
  * 
  * @author Alice Girolomini
  */
 public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private final JButton diceButton;
     private final JLabel firstRoll;
     private final JLabel secondRoll;
+    private final BattleController controller;
 
     /**
-     * Initializes the battle's bottom view.
+     * Initializes the bottom view of the battle.
      * 
+     * @param controller - the controller of the battle
      */
-    public BattleBottomViewImpl() {
+    public BattleBottomViewImpl(final BattleController controller) {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
+        this.controller = controller;
         this.firstRoll = new JLabel("0");
         this.secondRoll = new JLabel("0");
         this.diceButton = new JButton(new ImageIcon("res/imgs/battle/diceButton.png"));
@@ -39,6 +51,15 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         this.add(secondRoll, this.setConstraints(3, 1, 1));
         this.add(new JLabel("Roll dice 2:"), this.setConstraints(3, 0, 1));
         this.setBackground(Color.darkGray);
+        this.diceButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (getAttackRoll(controller.getTurn()) == 0 && controller.canRoll()) {
+                    setAttackRoll(controller.getTurn(), controller.updateRoll());
+                }
+            }
+        });
     }
 
     /**
@@ -62,39 +83,25 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
     }
 
     /**
-     * Gets the attack roll of the first character.
-     * 
-     *@return the value
+     * {@inheritDoc}
      */
-    public int getFirstAttackRoll() {
-        return Integer.parseInt(this.firstRoll.getText());
-    }
-
-    /**
-     * Gets the attack roll of the first character.
-     * 
-     *@return the value
-     */
-    public int getSecondAttackRoll() {
+    @Override
+    public int getAttackRoll(final int character) {
+        if (character == 1) {
+            return Integer.parseInt(this.firstRoll.getText());
+        }
         return Integer.parseInt(this.secondRoll.getText());
     }
 
     /**
-     * Sets the attack roll of the first character.
-     * 
-     *@param value - the result of the dice roll
+     * {@inheritDoc}
      */
-    public void setFirstAttackRoll(final int value) {
-        this.firstRoll.setText(String.valueOf(value));
+    @Override
+    public void setAttackRoll(final int character, final int value) {
+        if (character == 1) {
+            this.firstRoll.setText(String.valueOf(value));
+        } else {
+            this.secondRoll.setText(String.valueOf(value));
+        }
     }
-
-    /**
-     * Sets the attack roll of the second character.
-     * 
-     *@param value - the result of the dice roll
-     */
-    public void setSecondAttackRoll(final int value) {
-        this.secondRoll.setText(String.valueOf(value));
-    }
-
 }
