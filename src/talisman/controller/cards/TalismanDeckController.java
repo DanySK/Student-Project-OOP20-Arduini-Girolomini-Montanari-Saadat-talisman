@@ -1,5 +1,10 @@
 package talisman.controller.cards;
 
+import talisman.model.cards.Card;
+import talisman.view.cards.TalismanDeckView;
+
 public interface TalismanDeckController {
-    void createDecks();
+    Card draw();
+    void shuffle();
+    TalismanDeckView createView();
 }
