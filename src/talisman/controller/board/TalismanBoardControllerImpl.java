@@ -4,11 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import talisman.Controllers;
+
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardSection;
-import talisman.view.board.TalismanBoardView;
 import talisman.model.board.TalismanBoardPawn;
+
+import talisman.view.board.TalismanBoardView;
 
 /**
  * The implementation of a basic MVC controller for a TalismanBoard.
@@ -103,6 +105,9 @@ public final class TalismanBoardControllerImpl implements TalismanBoardControlle
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<TalismanBoardPawn> getCharactersInCell(final int section, final int cell) {
         final Set<TalismanBoardPawn> pawns = new HashSet<>();
