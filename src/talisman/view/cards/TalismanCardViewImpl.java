@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -18,7 +19,7 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
     public TalismanCardViewImpl(final String imagePath, final String text) {
         super(PathUtils.getDevImagePath("cardbg", true));
         this.image = new ImagePanel(imagePath);
-        final LayoutManager layout = new BorderLayout();
+        final LayoutManager layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layout);
         this.text = new JTextArea(1, 1);
         this.text.setText(text);
