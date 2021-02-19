@@ -1,5 +1,6 @@
 package talisman.model.battle;
 
+
 /**
  * Interface that models battles.
  * 
@@ -8,13 +9,20 @@ package talisman.model.battle;
  */
 public interface BattleModel {
     /**
-     * Checks if one of the players decides to evade the battle.
+     *  Calculates the opponent's dice roll.
+     *
+     *  @param character - the opponent
+     */
+    void diceRoll(int character);
+
+    /**
+     * Checks whether one of the opponents decided to escape from the battle.
      * @return true if one of them evades
      */
     boolean checkEvade(); 
 
     /**
-     * Compares the scores of the players.
+     * Compares the opponents' scores.
      */
     void compareScore();
 
@@ -26,14 +34,34 @@ public interface BattleModel {
     boolean isEnded();
 
     /**
-     * Adds the dice result to the initial score of the player.
-     */
-    void addScore();
-
-    /**
      * Gets the current state of the battle.
      * 
      * @return the current BattleState
      */
     BattleState getState();
+
+    /**
+     * Gets the current score for the specified character.
+     * 
+     * @param character - the character
+     * @return the value
+     */
+    int getScore(int character);
+
+    /**
+     * Gets the value of the last dice roll from the specified opponent.
+     * 
+     * @param character - the opponent
+     * @return the value
+     */
+    int getDiceRoll(int character);
+ 
+
+    /**
+     * Sets the opponent's score.
+     * 
+     * @param character - the opponent
+     * @param value - the value to be set
+     */
+    void setScore(int character, int value);
 }

@@ -1,69 +1,184 @@
 package talisman.controller.battle;
 
-import talisman.model.battle.BattleModel;
-import talisman.model.character.CharacterModel;
-import talisman.view.battle.BattleBottomView;
-import talisman.view.battle.BattleCenterView;
-import talisman.view.battle.BattleTopView;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-public class BattleControllerImpl implements BattleController{
+import talisman.model.battle.BattleModel;
+import talisman.model.battle.BattleState;
+import talisman.model.character.CharacterModel;
+
+/**
+ * The implementation of a MVC controller for the battle.
+ * 
+ * @author Alice Girolomini
+ *
+ */
+public class BattleControllerImpl implements BattleController {
+    private static final int FIRSTTURN = 1;
+    private static final int SECONDTURN = 2;
     private final BattleModel model;
     private final CharacterModel firstCharacter;
     private final CharacterModel secondCharacter;
+    private final ArrayList<Integer> countFate;
     private int turn;
+    private boolean roll;
 
-    public BattleControllerImpl(CharacterModel firstCharacter, CharacterModel secondCharacter) {
+    /**
+     * Initializes the controller of the battle.
+     * 
+     * @param firstCharacter - one of the battle's opponents
+     * @param secondCharacter - the other opponent
+     * @param model - the model of the battle
+     */
+    public BattleControllerImpl(final CharacterModel firstCharacter, final CharacterModel secondCharacter, final BattleModel model) {
         this.firstCharacter = firstCharacter;
         this.secondCharacter = secondCharacter;
         this.model = model;
-        this.turn = 0
+        this.turn = 1;
+        this.roll = true;
+        countFate = new ArrayList<>(2);
+        for (int i = 0; i < 2; i++) {
+            countFate.set(i, 0);
+        }
     }
+
+    /**
+     * Checks which character is fighting.
+     */
+    private CharacterModel checkTurn() {
+        if (this.turn == FIRSTTURN) {
+            return this.firstCharacter;
+        }
+        return this.secondCharacter;
+    }
+
+    /**
+     * Changes the current turn of the battle.
+     */
+    private void changeTurn() {
+        if (turn == FIRSTTURN) {
+            this.turn = SECONDTURN;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public BattleModel getBattle() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.model;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public HashMap<Integer, Integer> initializeScores() {
+        HashMap<Integer, Integer> values = new HashMap<>();
+        values.put(this.model.getScore(1), this.model.getScore(2));
+        return values;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getTurn() {
+        return this.turn;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canRoll() {
+        return this.roll;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CharacterModel getFirstCharacter() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.firstCharacter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CharacterModel getSecondCharacter() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.secondCharacter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean requestedFate() {
+        CharacterModel character = checkTurn();
+        if (character.getFate() > 0) {
+            character.setFate(character.getFate() - 1);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateFate() {
-        // TODO Auto-generated method stub
-        
+        if (this.countFate.get(this.turn - 1) == 0) {
+            this.roll = true;
+            CharacterModel character = checkTurn();
+            character.setFate(character.getFate() - 1);
+            this.countFate.set((this.turn - 1), this.countFate.get(this.turn - 1) - 1);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int updateRoll(int i) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int updateRoll() {
+        this.roll = false;
+        this.model.diceRoll(this.turn);
+        return this.model.getDiceRoll(this.turn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public int udpateScore(int i) {
-        // TODO Auto-generated method stub
-        return 0;
+    public int updateScore() {
+        this.model.setScore(this.turn, this.model.getScore(this.turn) + this.model.getDiceRoll(this.turn));
+        return this.model.getScore(this.turn);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void requestedFate() {
-        // TODO Auto-generated method stub
-        
+    public int requestedAttack() {
+        int score = updateScore();
+        changeTurn();
+        this.roll = true;
+        if (this.turn == SECONDTURN) {
+            this.model.compareScore();
+        }
+        return score;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void requestedAttack() {
-        // TODO Auto-generated method stub
-        
+    public BattleState getResult() {
+        if (this.model.getState() == BattleState.FIRST) {
+            
+        }
+        return this.getBattle().getState();
     }
 
 }
