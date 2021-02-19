@@ -1,7 +1,7 @@
 package talisman.model.action;
 
 import talisman.Controllers;
-import talisman.model.board.BoardPawn;
+import talisman.model.board.TalismanBoardCell;
 
 /**
  * An action that makes the player draw a given amount of cards.
@@ -14,8 +14,6 @@ public class TalismanDrawCardAction implements TalismanAction {
 
     /**
      * Creates a new draw card action.
-     * 
-     * @param amount how may cards to draw
      */
     public TalismanDrawCardAction() {
     }
@@ -33,7 +31,8 @@ public class TalismanDrawCardAction implements TalismanAction {
      */
     @Override
     public void apply() {
-        // TODO: Draw cards
+        // TODO: draw card from deck
+        Controllers.getBoardController().setCurrentCharacterCellCard(null);
     }
 
     /**

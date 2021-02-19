@@ -12,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = -4187586139530880986L;
@@ -39,7 +39,7 @@ public class ImagePanel extends JPanel {
         File imageFile = new File(imagePath);
         // If the image doesn't exist, then I default to the "image not found" image
         if (!imageFile.exists() || !imageFile.isFile()) {
-            imageFile = new File(ViewUtils.getDevImagePath(ViewUtils.NO_IMAGE_NAME, true));
+            imageFile = new File(PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true));
         }
         Image loadedImage = null;
         try {

@@ -24,7 +24,7 @@ import talisman.model.action.TalismanRequireItemAction;
 import talisman.model.action.TalismanRollAction;
 
 import talisman.util.CellType;
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 /**
  * Static class used to help serialize the board.

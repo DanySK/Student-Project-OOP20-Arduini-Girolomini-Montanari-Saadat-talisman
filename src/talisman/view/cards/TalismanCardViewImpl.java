@@ -9,14 +9,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 import talisman.view.ImagePanel;
 
 public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView {
     private ImagePanel image;
     private JTextArea text;
     public TalismanCardViewImpl(final String imagePath, final String text) {
-        super(ViewUtils.getDevImagePath("cardbg", true));
+        super(PathUtils.getDevImagePath("cardbg", true));
         this.image = new ImagePanel(imagePath);
         final LayoutManager layout = new BorderLayout();
         this.setLayout(layout);

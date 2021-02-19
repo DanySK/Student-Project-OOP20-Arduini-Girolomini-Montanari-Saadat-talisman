@@ -31,7 +31,7 @@ import talisman.model.action.TalismanRollActionSection;
 import talisman.model.action.TalismanSkipTurnAction;
 import talisman.util.CellType;
 import talisman.util.DiceType;
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 /**
  * Static class used to abstract the creation of the default game board.
@@ -288,7 +288,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final Collection<TalismanAction> actions) {
-        return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, true), text, orientation, type,
                 actions);
     }
 
@@ -305,7 +305,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final TalismanAction action) {
-        return TalismanBoardCell.createCell(ViewUtils.getPathToCell(type, imageName, true), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, true), text, orientation, type,
                 action);
     }
 }

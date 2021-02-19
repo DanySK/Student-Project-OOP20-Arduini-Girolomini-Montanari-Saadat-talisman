@@ -8,7 +8,7 @@ import talisman.model.board.TalismanBoardFactory;
 import talisman.model.board.TalismanBoardPawn;
 import talisman.model.character.CharacterModel;
 
-import talisman.util.ViewUtils;
+import talisman.util.PathUtils;
 
 import talisman.view.board.TalismanBoardViewBuilder;
 
@@ -21,7 +21,7 @@ public final class TalismanBoardControllerFactory {
         for (int i = 0; i < playerCharacters.size(); i++) {
             final CharacterModel character = playerCharacters.get(i);
             // TODO: Get image from CharacterInfo
-            pawns.add(TalismanBoardPawn.createPawn(ViewUtils.getDevImagePath(ViewUtils.DEV_PAWN_IMAGE_NAME, true), i));
+            pawns.add(TalismanBoardPawn.createPawn(PathUtils.getDevImagePath(PathUtils.DEV_PAWN_IMAGE_NAME, true), i));
         }
         final TalismanBoard board = TalismanBoardFactory.createDefaultBoardModel(pawns);
         final TalismanBoardViewBuilder viewBuilder = new TalismanBoardViewBuilder();

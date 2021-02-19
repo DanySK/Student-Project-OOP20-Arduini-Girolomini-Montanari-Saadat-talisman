@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import talisman.Controllers;
-
+import talisman.controller.cards.TalismanCardController;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
@@ -13,6 +13,7 @@ import talisman.model.board.TalismanBoardSection;
 import talisman.model.cards.Card;
 
 import talisman.view.board.TalismanBoardView;
+import talisman.view.cards.TalismanCardView;
 
 /**
  * The implementation of a basic MVC controller for a TalismanBoard.
@@ -58,7 +59,10 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public void setCurrentCharacterCellCard(final Card card) {
-        this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex()).setCard(Objects.requireNonNull(card));
+        final TalismanCardView cardView = TalismanCardController.createView(card);
+        final TalismanBoardPawn currentPawn = this.getCharacterPawn(Controllers.getCharactersController().getCurrentPlayer().getIndex());
+        this.getBoard().getCell(currentPawn.getPositionSection(), currentPawn.getPositionCell()).setCard(Objects.requireNonNull(card));
+        this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView);
     }
 
     /**
@@ -66,9 +70,11 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public Optional<Card> collectCurrentCharacterCellCard() {
-        final TalismanBoardCell cell = this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex());
+        final TalismanBoardPawn currentPawn = this.getCharacterPawn(Controllers.getCharactersController().getCurrentPlayer().getIndex());
+        final TalismanBoardCell cell = this.getBoard().getCell(currentPawn.getPositionSection(), currentPawn.getPositionCell());
         final Optional<Card> card = cell.getCard();
         cell.clearCard();
+        this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
         return card;
     }
 }
