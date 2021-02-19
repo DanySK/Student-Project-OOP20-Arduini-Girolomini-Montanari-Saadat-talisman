@@ -20,7 +20,6 @@ import talisman.view.ImagePanel;
  * * @author Alberto Arduini
  *
  */
-// getX and getY do not get overridden since they are already define in JComponent
 public final class BoardCellViewImpl extends ImagePanel implements BoardCellView {
     private final JTextArea text;
     private final CellType type;

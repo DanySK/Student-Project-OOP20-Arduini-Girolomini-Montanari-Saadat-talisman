@@ -3,11 +3,13 @@ package talisman.view.board;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -70,6 +72,7 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
                 subsection.add((Component) cell);
             }
         }
+        this.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
     }
 
     /**

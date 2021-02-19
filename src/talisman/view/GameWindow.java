@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.util.GameSetupUtil;
+
 import talisman.view.board.TalismanBoardView;
 
 /**
@@ -65,7 +66,7 @@ public class GameWindow extends JFrame {
     }
 
     private void askQuitConfirm() {
-        final int chosenOption = JOptionPane.showConfirmDialog(GameWindow.this, GameWindow.QUIT_PANEL_TEXT,
+        final int chosenOption = JOptionPane.showConfirmDialog(this, GameWindow.QUIT_PANEL_TEXT,
                 GameWindow.QUIT_PANEL_TITLE, JOptionPane.YES_NO_OPTION);
         if (chosenOption == JOptionPane.YES_OPTION) {
             GameSetupUtil.getSingleton().endGame();
