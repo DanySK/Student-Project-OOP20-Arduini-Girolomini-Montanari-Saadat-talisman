@@ -13,9 +13,12 @@ public interface BattleCenterView {
     /**
      * Creates the center view of the battle.
      * 
-     *@return the center view
+     * @param controller - the controller of the battle
+     * @param topView - the top view of the battle
+     * @param bottomView - the bottom view of the battle
+     * @return the center view
      */
-    static BattleCenterView create(BattleController controller) {
-        return new BattleCenterViewImpl(controller);
+    static BattleCenterView create(BattleController controller, BattleTopView topView, BattleBottomView bottomView) {
+        return new BattleCenterViewImpl(controller, topView, bottomView);
     }
 }

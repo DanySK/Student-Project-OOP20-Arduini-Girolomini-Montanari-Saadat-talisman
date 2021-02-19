@@ -1,5 +1,7 @@
 package talisman.view.battle;
 
+import talisman.controller.battle.BattleController;
+
 /**
  * An interface for the bottom view of the battle.
  * 
@@ -8,40 +10,29 @@ package talisman.view.battle;
  */
 public interface BattleBottomView {
     /**
-     * Gets the attack roll of the first character.
+     * Gets the attack roll from the specified opponent.
      * 
-     *@return the value
+     * @param character - the opponent
+     * @return the value
      */
-    int getFirstAttackRoll();
+    int getAttackRoll(int character);
 
     /**
-     * Gets the attack roll of the first character.
+     * Sets the opponent's attack roll.
      * 
-     *@return the value
+     * @param character - the opponent
+     * @param value - the result of the dice roll
      */
-    int getSecondAttackRoll();
-
-    /**
-     * Sets the attack roll of the first character.
-     * 
-     *@param value - the result of the dice roll
-     */
-    void setFirstAttackRoll(int value);
-
-    /**
-     * Sets the attack roll of the second character.
-     * 
-     *@param value - the result of the dice roll
-     */
-    void setSecondAttackRoll(int value);
+    void setAttackRoll(int character, int value);
 
     /**
      * creates the bottom view of the battle.
      * 
-     *@return the bottom view
+     * @param controller - the controller of the battle
+     * @return the bottom view
      */
-    static BattleBottomView create() {
-        return new BattleBottomViewImpl();
+    static BattleBottomView create(BattleController controller) {
+        return new BattleBottomViewImpl(controller);
     }
 
 }
