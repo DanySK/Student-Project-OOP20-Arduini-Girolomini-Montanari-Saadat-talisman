@@ -162,11 +162,11 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public int requestedAttack() {
         int score = updateScore();
-        changeTurn();
         this.roll = true;
         if (this.turn == SECONDTURN) {
             this.model.compareScore();
         }
+        changeTurn();
         return score;
     }
 
@@ -175,10 +175,14 @@ public class BattleControllerImpl implements BattleController {
      */
     @Override
     public BattleState getResult() {
-        if (this.model.getState() == BattleState.FIRST) {
-            
+        if (this.model.isEnded()) {
+            if (this.model.getState() == BattleState.FIRST) {
+                //this.secondCharacter.setHealth(this.secondCharacter.getHealth() - 1);
+            } else if (this.model.getState() == BattleState.SECOND) {
+            //this.firstCharacter.setHealth(this.firstCharacter.getHealth() - 1);
+            }
         }
-        return this.getBattle().getState();
+        return this.model.getState();
     }
 
 }

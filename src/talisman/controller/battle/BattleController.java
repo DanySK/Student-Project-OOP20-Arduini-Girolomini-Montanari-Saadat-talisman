@@ -57,7 +57,7 @@ public interface BattleController {
     /**
      * Gets the outcome of the battle.
      * 
-     * @return the BattleState associated to the outcome of the battle
+     * @return the  associated to the outcome of the battle
      */
     BattleState getResult();
 

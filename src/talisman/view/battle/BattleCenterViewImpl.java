@@ -11,9 +11,11 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import talisman.controller.battle.BattleController;
+import talisman.model.battle.BattleState;
 
 /**
  * Swing implementation of the battle's center view.
@@ -31,7 +33,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
     private final JButton fateButton;
     private final JButton magicButton;
     private final BattleController controller;
-    private final BattleTopView topView;
 
     /**
      * Initializes the center view of the battle.
@@ -44,7 +45,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         this.controller = controller;
-        this.topView = topView;
         this.attackButton = new JButton(new ImageIcon("res/imgs/battle/attackButton.png"));
         this.fateButton = new JButton(new ImageIcon("res/imgs/battle/fateButton.png"));
         this.magicButton = new JButton(new ImageIcon("res/imgs/battle/magicButton.png"));
@@ -108,8 +108,17 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         c.insets = new Insets(INSETSVALUE, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
     }
-    
+
     private void endBattle() {
-        
+        BattleState status = this.controller.getResult();
+        if (status.equals(BattleState.FIRST)) {
+            JOptionPane.showMessageDialog(null, "First opponent wins!");
+        } else if (status.equals(BattleState.SECOND)) {
+            JOptionPane.showMessageDialog(null, "Second opponent wins!");
+        } else if (status.equals(BattleState.STAND_OFF)) {
+            JOptionPane.showMessageDialog(null, "It's a standoff!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Someone escaped the battle...");
+        }
     }
 }
