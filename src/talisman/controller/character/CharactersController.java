@@ -1,7 +1,7 @@
 package talisman.controller.character;
 
 import talisman.model.character.CharacterModelImpl;
-import talisman.model.character.PlayerModel;
+import talisman.model.character.PlayerModelImpl;
 
 /**
  * An MVC Controller for the players
@@ -16,7 +16,7 @@ public interface CharactersController {
      *
      * @return the player
      */
-    PlayerModel getCurrentPlayer();
+    PlayerModelImpl getCurrentPlayer();
 
     /**
      * Gets the amount of players currently registered in the game session
@@ -45,4 +45,11 @@ public interface CharactersController {
      * @param index the id of the player
      */
     void removePlayer(int index);
+
+    /**
+     * Gets the player who currently owns a crown
+     *
+     * @return the instance of the player or null if no player
+     */
+    PlayerModelImpl getCrownPlayer();
 }

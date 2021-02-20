@@ -24,7 +24,7 @@ public class CharacterControllerImpl implements CharactersController {
     }
 
     @Override
-    public PlayerModel getCurrentPlayer() {
+    public PlayerModelImpl getCurrentPlayer() {
 
         return Players.getPlayer(currentPlayer);
     }
@@ -47,6 +47,17 @@ public class CharacterControllerImpl implements CharactersController {
 
         Players.removePlayer(index);
         activePlayers--;
+    }
+
+    @Override
+    public PlayerModelImpl getCrownPlayer() {
+
+        for (PlayerModelImpl player : Players.getPlayers()){
+
+            if (player.hasCrown()) return player;
+        }
+
+        return null;
     }
 
     @Override
@@ -88,7 +99,7 @@ public class CharacterControllerImpl implements CharactersController {
  */
 class Players {
 
-    private static List<PlayerModel> players = new ArrayList<>();
+    private static List<PlayerModelImpl> players = new ArrayList<>();
     private static int lastId = 0;
 
     static void addPlayer(CharacterModelImpl character, int activePlayers){
@@ -96,7 +107,7 @@ class Players {
         players.add(new PlayerModelImpl(activePlayers, lastId++, character));
     }
 
-    static PlayerModel getPlayer(int index){
+    static PlayerModelImpl getPlayer(int index){
 
         return players.get(index);
     }
@@ -104,5 +115,10 @@ class Players {
     static void removePlayer(int index){
 
         players.remove(index);
+    }
+
+    static PlayerModelImpl[] getPlayers(){
+
+        return (PlayerModelImpl[]) players.toArray();
     }
 }
