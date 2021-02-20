@@ -17,4 +17,5 @@ public interface Deck {
      */
     int getNumberOfCards();
     DeckType getType();
+    void shuffle();
 }

@@ -1,6 +1,8 @@
 package talisman.model.cards;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class DeckImpl implements Deck {
@@ -38,5 +40,9 @@ public class DeckImpl implements Deck {
     @Override
     public DeckType getType() {
         return this.type;
+    }
+    @Override
+    public void shuffle() {
+        Collections.shuffle((List<?>) this.cards);
     }
 }
