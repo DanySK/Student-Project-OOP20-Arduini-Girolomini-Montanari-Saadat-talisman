@@ -47,6 +47,13 @@ public interface CharactersController {
     void removePlayer(int index);
 
     /**
+     * Get all the registered players
+     *
+     * @return the array of players
+     */
+    PlayerModelImpl[] getPlayers();
+
+    /**
      * Gets the player who currently owns a crown
      *
      * @return the instance of the player or null if no player

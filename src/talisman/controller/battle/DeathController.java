@@ -6,6 +6,6 @@ package talisman.controller.battle;
  */
 public interface DeathController {
 
-    void death();
+    boolean death();
 
 }

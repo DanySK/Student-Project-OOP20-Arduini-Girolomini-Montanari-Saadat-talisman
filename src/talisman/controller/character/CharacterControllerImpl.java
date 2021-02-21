@@ -66,6 +66,12 @@ public class CharacterControllerImpl implements CharactersController {
         return activePlayers;
     }
 
+    @Override
+    public PlayerModelImpl[] getPlayers(){
+
+        return Players.getPlayers();
+    }
+
     public void movePlayerTo(int cells){
 
 

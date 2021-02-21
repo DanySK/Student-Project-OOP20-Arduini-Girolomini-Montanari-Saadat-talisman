@@ -11,19 +11,15 @@ public enum BattleState {
      */
     START,
     /**
-     *  First player wins. 
+     *  First character wins. 
      */
     FIRST,
     /**
-     *  Second player wins. 
+     *  Second character wins. 
      */
     SECOND,
     /**
      *  Stand-off. 
      */
     STAND_OFF,
-    /**
-     *  One player chooses to evade the battle. 
-     */
-    EVADE
 }

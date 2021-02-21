@@ -13,13 +13,7 @@ public interface BattleModel {
      *
      *  @param character - the opponent
      */
-    void diceRoll(int character);
-
-    /**
-     * Checks whether one of the opponents decided to escape from the battle.
-     * @return true if one of them evades
-     */
-    boolean checkEvade(); 
+    void diceRoll(int character); 
 
     /**
      * Compares the opponents' scores.

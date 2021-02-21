@@ -1,5 +1,7 @@
 package talisman.model.action;
 
+import javax.swing.JFrame;
+
 import talisman.Controllers;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
@@ -8,6 +10,7 @@ import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.EnemyInfos;
 import talisman.model.battle.EnemyModel;
 import talisman.model.character.CharacterModel;
+import talisman.view.BattleWindow;
 import talisman.view.battle.BattleBottomView;
 import talisman.view.battle.BattleTopView;
 import talisman.view.battle.BattleViewFactory;
@@ -54,7 +57,7 @@ public class TalismanFightAction implements TalismanAction {
             battleModel = new BattleModelImpl(characterModel.getCraft(), enemyModel.getCraft());
         }
         BattleController battleController = new BattleControllerImpl(characterModel, enemyModel, battleModel);
-        BattleViewFactory.createBattleView(battleController);
+        new BattleWindow(battleController);
     }
 
     /**
