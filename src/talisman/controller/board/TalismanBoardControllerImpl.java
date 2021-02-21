@@ -32,9 +32,6 @@ public final class TalismanBoardControllerImpl
      */
     public TalismanBoardControllerImpl(final TalismanBoard board, final TalismanBoardView view) {
         super(board, view);
-        this.getView().addUpdateListener(() -> {
-            this.updatePawnsViewPosition();
-        });
     }
 
     /**
@@ -60,8 +57,9 @@ public final class TalismanBoardControllerImpl
     @Override
     public void setCurrentCharacterCellCard(final Card card) {
         final TalismanCardView cardView = TalismanCardController.createView(card);
-        final TalismanBoardPawn currentPawn = this.getCharacterPawn(Controllers.getCharactersController().getCurrentPlayer().getIndex());
-        this.getBoard().getCell(currentPawn.getPositionSection(), currentPawn.getPositionCell()).setCard(Objects.requireNonNull(card));
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        this.getCharacterCell(playerIndex).setCard(Objects.requireNonNull(card));
+        final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
         this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView);
     }
 
@@ -70,10 +68,11 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public Optional<Card> collectCurrentCharacterCellCard() {
-        final TalismanBoardPawn currentPawn = this.getCharacterPawn(Controllers.getCharactersController().getCurrentPlayer().getIndex());
-        final TalismanBoardCell cell = this.getBoard().getCell(currentPawn.getPositionSection(), currentPawn.getPositionCell());
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        final TalismanBoardCell cell = this.getCharacterCell(playerIndex);
         final Optional<Card> card = cell.getCard();
         cell.clearCard();
+        final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
         this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
         return card;
     }
