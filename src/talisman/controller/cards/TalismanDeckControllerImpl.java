@@ -7,7 +7,7 @@ import talisman.model.cards.TalismanDeckFactory;
 import talisman.view.cards.TalismanDeckView;
 
 public class TalismanDeckControllerImpl implements TalismanDeckController {
-    private Deck deck;
+    private final Deck deck;
     public TalismanDeckControllerImpl(final DeckType type) {
         this.deck = TalismanDeckFactory.createDeck(type);
     }
@@ -19,7 +19,6 @@ public class TalismanDeckControllerImpl implements TalismanDeckController {
 
     @Override
     public void shuffle() {
-        // TODO Auto-generated method stub
         deck.shuffle();
     }
 
