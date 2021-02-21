@@ -17,7 +17,7 @@ import talisman.util.PathUtils;
 public class ImagePanel extends JPanel {
     private static final long serialVersionUID = -4187586139530880986L;
 
-    private final Image backgroundImage;
+    private Image backgroundImage;
 
     /**
      * Creates a new panel.
@@ -35,7 +35,20 @@ public class ImagePanel extends JPanel {
      * @param background the color of the background
      */
     public ImagePanel(final String imagePath, final Color background) {
-        // I try to load the specified image
+        final LayoutManager layout = new BorderLayout();
+        this.setLayout(layout);
+        this.setImage(imagePath);
+        this.setBackground(background);
+        this.setOpaque(background != null);
+        this.setMinimumSize(new Dimension(100, 100));
+    }
+
+    /**
+     * Sets the rendered background image.
+     * 
+     * @param imagePath the path to the image
+     */
+    public final void setImage(final String imagePath) {
         File imageFile = new File(imagePath);
         // If the image doesn't exist, then I default to the "image not found" image
         if (!imageFile.exists() || !imageFile.isFile()) {
@@ -48,12 +61,7 @@ public class ImagePanel extends JPanel {
             // Shouldn't happen, since the file in "*_NO_IMAGE_PATH" should always exist
             e.printStackTrace();
         }
-        final LayoutManager layout = new BorderLayout();
-        this.setLayout(layout);
         this.backgroundImage = loadedImage;
-        this.setBackground(background);
-        this.setOpaque(background != null);
-        this.setMinimumSize(new Dimension(100, 100));
     }
 
     /**
