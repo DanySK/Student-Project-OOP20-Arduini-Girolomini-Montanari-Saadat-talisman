@@ -7,15 +7,18 @@ package talisman.model.battle;
  *
  */
 public class CraftEnemy implements EnemyModel {
-    private int craft;
+    private final int craft;
+    private final String name;
 
     /**
      * Initializes the enemie's craft.
      * 
      * @param craft - enemie's craft
+     * @param name - enemie's name
      */
-    public CraftEnemy(final int craft) {
+    public CraftEnemy(final int craft, final String name) {
         this.craft = craft;
+        this.name = name;
     }
 
     /**
@@ -46,6 +49,14 @@ public class CraftEnemy implements EnemyModel {
      * {@inheritDoc}
      */
     @Override
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setStrength(final int points) {
 
     }
@@ -63,6 +74,38 @@ public class CraftEnemy implements EnemyModel {
      */
     @Override
     public void setFate(final int coins) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHealth() {
+        return 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getGold() {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHealth(final int points) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGold(final int coins) {
 
     }
 

@@ -19,7 +19,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
 
     private final TalismanCellType type;
     private final Set<TalismanAction> actions;
-    private Optional<Card> card;
+    private transient Optional<Card> card;
 
     /**
      * Constructs a new talisman board cell.
@@ -35,6 +35,7 @@ public final class TalismanBoardCell extends BoardCellImpl {
         super(imagePath, text, orientation);
         this.type = type;
         this.actions = Set.copyOf(actions);
+        this.clearCard();
     }
 
     /**
@@ -67,7 +68,17 @@ public final class TalismanBoardCell extends BoardCellImpl {
         return text.toString();
     }
 
+    /**
+     * Gets an optional containing the card on this cell.
+     * 
+     * @return an optional with the card, if present, otherwise an empty optional
+     */
     public Optional<Card> getCard() {
+        // this is needed since the serialization doesn't call the constructor, so the
+        // card field remains uninitialized
+        if (this.card == null) {
+            this.clearCard();
+        }
         return this.card;
     }
 

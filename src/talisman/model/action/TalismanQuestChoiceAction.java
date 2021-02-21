@@ -48,6 +48,14 @@ public class TalismanQuestChoiceAction<X> extends TalismanChoiceAction<X> {
      * {@inheritDoc}
      */
     @Override
+    public Boolean isChoiceEnabled(final int index) {
+        return true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     protected String getDescriptionFormat() {
         return TalismanQuestChoiceAction.DESCRIPTION_FORMAT;
     }

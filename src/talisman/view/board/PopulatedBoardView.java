@@ -10,15 +10,6 @@ import java.util.List;
  */
 public interface PopulatedBoardView extends BoardView {
     /**
-     * Moves a pawn to a specific location.
-     * 
-     * @param index the pawn's index
-     * @param x     the new x position
-     * @param y     the new y position
-     */
-    void movePawnTo(int index, int x, int y);
-
-    /**
      * Moves a pawn to a specific section and cell.
      * 
      * @param index   the pawn's index

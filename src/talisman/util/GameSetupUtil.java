@@ -8,8 +8,15 @@ import talisman.Controllers;
 
 import talisman.controller.board.TalismanBoardController;
 import talisman.controller.board.TalismanBoardControllerFactory;
+import talisman.controller.cards.TalismanDeckControllerImpl;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+import talisman.model.battle.EnemyInfos;
+import talisman.model.battle.EnemyModel;
+import talisman.model.battle.StrengthEnemy;
+import talisman.model.cards.DeckImpl;
+import talisman.model.cards.DeckType;
+import talisman.model.cards.TalismanDeckFactory;
 import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.menu.PlayerInfo;
@@ -69,9 +76,22 @@ public final class GameSetupUtil {
             Controllers.getCharactersController().addPlayer(character);
         }
 
+        // Setup enemies
+        /*
+         * TODO: add actual enemy list, this is just to not crash the board when
+         * creating, since it needs the enemy name to show cells descriptions
+         */
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+
         // Setup board controller
         final TalismanBoardController boardController = TalismanBoardControllerFactory.createController(characters);
         Controllers.setBoardController(boardController);
+
+        // Setup decks
+        Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.ADVENTURE));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());

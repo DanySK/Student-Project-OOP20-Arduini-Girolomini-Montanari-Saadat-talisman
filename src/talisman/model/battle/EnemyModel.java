@@ -9,5 +9,10 @@ import talisman.model.character.CharacterModel;
  *
  */
 public interface EnemyModel extends CharacterModel {
-
+    /**
+     * Gets the enemie's name.
+     * 
+     * @return the name
+     */
+    String getName();
 }

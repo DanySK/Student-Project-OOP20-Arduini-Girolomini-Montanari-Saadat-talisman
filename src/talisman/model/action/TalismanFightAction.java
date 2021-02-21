@@ -1,5 +1,17 @@
 package talisman.model.action;
 
+import talisman.Controllers;
+import talisman.controller.battle.BattleController;
+import talisman.controller.battle.BattleControllerImpl;
+import talisman.model.battle.BattleModel;
+import talisman.model.battle.BattleModelImpl;
+import talisman.model.battle.EnemyInfos;
+import talisman.model.battle.EnemyModel;
+import talisman.model.character.CharacterModel;
+import talisman.view.battle.BattleBottomView;
+import talisman.view.battle.BattleTopView;
+import talisman.view.battle.BattleViewFactory;
+
 /**
  * A action that makes the player battle with an enemy.
  * 
@@ -7,7 +19,7 @@ package talisman.model.action;
  *
  */
 public class TalismanFightAction implements TalismanAction {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4451903715879720847L;
     private static final String DESCRIPTION_FORMAT = "You have to fight a %s";
     private final int enemy;
 
@@ -25,7 +37,7 @@ public class TalismanFightAction implements TalismanAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanFightAction.DESCRIPTION_FORMAT, enemy);
+        return String.format(TalismanFightAction.DESCRIPTION_FORMAT, EnemyInfos.getEnemyByIndex(enemy).getName());
     }
 
     /**
@@ -33,7 +45,16 @@ public class TalismanFightAction implements TalismanAction {
      */
     @Override
     public void apply() {
-        // TODO: Start fight
+        BattleModel battleModel;
+        CharacterModel characterModel = Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter();
+        EnemyModel enemyModel = EnemyInfos.getEnemyByIndex(enemy);
+        if (EnemyInfos.hasStrength(enemy)) {
+            battleModel = new BattleModelImpl(characterModel.getStrength(), enemyModel.getStrength());
+        } else {
+            battleModel = new BattleModelImpl(characterModel.getCraft(), enemyModel.getCraft());
+        }
+        BattleController battleController = new BattleControllerImpl(characterModel, enemyModel, battleModel);
+        BattleViewFactory.createBattleView(battleController);
     }
 
     /**

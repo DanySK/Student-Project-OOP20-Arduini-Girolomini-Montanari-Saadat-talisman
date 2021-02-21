@@ -1,6 +1,9 @@
 package talisman.view.board;
 
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +11,7 @@ import java.util.Map;
 import javax.swing.SwingUtilities;
 
 import talisman.util.Pair;
+
 import talisman.view.cards.TalismanCardView;
 
 public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements TalismanBoardView {
@@ -35,12 +39,34 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         if (this.cards.containsValue(card)) {
             return;
         }
+
         this.cards.put(new Pair<>(section, cell), card);
+        final BoardCellView cellInstance = this.getSection(section).getCell(cell);
+        final Component swingCard = (Component) card;
+
         SwingUtilities.invokeLater(() -> {
-            final BoardCellView cellInstance = this.getSection(section).getCell(cell);
-            final Component swingCard = (Component) card;
-            swingCard.setLocation(cellInstance.getCellX(), cellInstance.getCellY());
-            this.add(swingCard);
+            swingCard.setVisible(false);
+            this.add(swingCard, 0);
+        });
+
+        ((Component) cellInstance).addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(final MouseEvent e) {
+                swingCard.setLocation(e.getLocationOnScreen());
+                swingCard.setVisible(true);
+            }
+
+            @Override
+            public void mouseExited(final MouseEvent e) {
+                swingCard.setVisible(false);
+            }
+        });
+
+        swingCard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(final MouseEvent e) {
+                swingCard.setVisible(false);
+            }
         });
     }
 
@@ -51,10 +77,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
     public void removeOverlayedCard(final TalismanCardView card) {
         for (final Map.Entry<Pair<Integer, Integer>, TalismanCardView> entry : this.cards.entrySet()) {
             if (entry.getValue() == card) {
-                SwingUtilities.invokeLater(() -> {
-                    this.remove((Component) card);
-                    this.cards.remove(entry.getKey());
-                });
+                this.removeOverlayedCard(entry.getKey().getX(), entry.getKey().getY());
                 break;
             }
         }

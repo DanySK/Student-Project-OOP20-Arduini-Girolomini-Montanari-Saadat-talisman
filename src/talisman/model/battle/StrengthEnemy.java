@@ -7,15 +7,18 @@ package talisman.model.battle;
  *
  */
 public class StrengthEnemy implements EnemyModel {
-    private int strength;
+    private final int strength;
+    private final String name;
 
     /**
      * Initializes the enemie's strength.
      * 
      * @param strength - enemie's strength
+     * @param name - the enemie's name
      */
-    public StrengthEnemy(final int strength) {
+    public StrengthEnemy(final int strength, final String name) {
         this.strength = strength;
+        this.name = name;
     }
 
     /**
@@ -46,6 +49,14 @@ public class StrengthEnemy implements EnemyModel {
      * {@inheritDoc}
      */
     @Override
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void setStrength(final int points) {
 
     }
@@ -63,6 +74,38 @@ public class StrengthEnemy implements EnemyModel {
      */
     @Override
     public void setFate(final int coins) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getHealth() {
+        return 1;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getGold() {
+        return 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setHealth(final int points) {
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setGold(final int coins) {
 
     }
 

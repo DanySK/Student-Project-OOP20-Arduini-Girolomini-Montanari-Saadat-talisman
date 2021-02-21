@@ -26,6 +26,10 @@ public final class PathUtils {
      * The path to the cards images folder.
      */
     public static final String CARDS_IMAGE_PATH = PathUtils.IMAGES_PATH + "cards/";
+    /**
+     * The path to the character icons images folder.
+     */
+    public static final String CHARACTER_ICONS_IMAGE_PATH = PathUtils.IMAGES_PATH + "char_icons/";
 
     /**
      * The path to the "image not found" image file as a resource path.
@@ -48,11 +52,12 @@ public final class PathUtils {
      * @return the generated path
      */
     public static String getPathToCell(final TalismanCellType type, final String name, final boolean resource) {
-        String path = PathUtils.CELLS_IMAGE_PATH + type.toString() + "_" + name + ".png";
+        final StringBuilder path = new StringBuilder();
         if (resource) {
-            path = PathUtils.RESOURCES_PATH + path;
+            path.append(PathUtils.RESOURCES_PATH);
         }
-        return path;
+        path.append(PathUtils.CELLS_IMAGE_PATH + type.toString() + "_" + name + ".png");
+        return path.toString();
     }
 
     public static String getPathToCard(final CardType type, final String name, final boolean resource) {
@@ -61,6 +66,22 @@ public final class PathUtils {
             path = PathUtils.RESOURCES_PATH + path;
         }
         return path;
+    }
+
+    /**
+     * Gets the path to a character icon.
+     * 
+     * @param character the character index
+     * @param resource should the path start with the resource folder?
+     * @return the path to the image
+     */
+    public static String getPathToCharacterIcon(final int character, final boolean resource) {
+        final StringBuilder path = new StringBuilder();
+        if (resource) {
+            path.append(PathUtils.RESOURCES_PATH);
+        }
+        path.append(PathUtils.CHARACTER_ICONS_IMAGE_PATH + character + ".png");
+        return path.toString();
     }
 
     /**

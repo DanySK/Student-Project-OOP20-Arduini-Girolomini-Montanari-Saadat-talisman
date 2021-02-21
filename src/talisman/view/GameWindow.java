@@ -1,5 +1,6 @@
 package talisman.view;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
@@ -9,7 +10,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.util.GameSetupUtil;
@@ -45,7 +45,7 @@ public class GameWindow extends JFrame {
         constraint.gridx = 0;
         constraint.gridy = 0;
         constraint.fill = GridBagConstraints.NONE;
-        this.add((JPanel) board, constraint);
+        this.add((Component) board, constraint);
 
         this.pack();
 

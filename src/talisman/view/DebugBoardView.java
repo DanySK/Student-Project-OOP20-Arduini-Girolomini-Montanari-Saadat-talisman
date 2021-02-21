@@ -24,21 +24,29 @@ public class DebugBoardView extends JPanel {
         final LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         // Player selection
+        int row = 0;
         this.selectedPlayerNumber = new JTextArea("0");
-        this.add(new JLabel("Selected player"), this.createConstraint(0, 0));
-        this.add(this.selectedPlayerNumber, this.createConstraint(1, 0));
+        this.add(new JLabel("Selected player"), this.createConstraint(0, row));
+        this.add(this.selectedPlayerNumber, this.createConstraint(1, row));
         // Move to section
+        row++;
         this.moveCell = new JTextArea("0");
         this.moveSection = new JTextArea("0");
-        this.add(new JLabel("Move to"), this.createConstraint(0, 1));
-        this.add(new JLabel("Cell"), this.createConstraint(0, 2));
-        this.add(this.moveCell, this.createConstraint(1, 2));
-        this.add(new JLabel("Section"), this.createConstraint(0, 3));
-        this.add(this.moveSection, this.createConstraint(1, 3));
+        this.add(new JLabel("Move to"), this.createConstraint(0, row));
+        row++;
+        this.add(new JLabel("Cell"), this.createConstraint(0, row));
+        this.add(this.moveCell, this.createConstraint(1, row));
+        row++;
+        this.add(new JLabel("Section"), this.createConstraint(0, row));
+        this.add(this.moveSection, this.createConstraint(1, row));
+        row++;
         this.add(this.createButton("Move",
                 (e) -> board.moveCharacterSection(this.parseTextAreaAsInteger(this.selectedPlayerNumber),
                         this.parseTextAreaAsInteger(this.moveSection), this.parseTextAreaAsInteger(this.moveCell))),
-                this.createConstraint(1, 4));
+                this.createConstraint(1, row, 3));
+        row++;
+        this.add(this.createButton("Apply actions", (e) -> board.applyCurrentPlayerCellActions()),
+                this.createConstraint(0, row, 3));
     }
 
     private JButton createButton(final String text, final ActionListener callback) {
@@ -49,9 +57,14 @@ public class DebugBoardView extends JPanel {
     }
 
     private GridBagConstraints createConstraint(final int x, final int y) {
+        return this.createConstraint(x, y, 1);
+    }
+
+    private GridBagConstraints createConstraint(final int x, final int y, final int xSpan) {
         final GridBagConstraints constraint = new GridBagConstraints();
         constraint.gridx = x;
         constraint.gridy = y;
+        constraint.gridwidth = xSpan;
         constraint.fill = GridBagConstraints.HORIZONTAL;
         return constraint;
     }

@@ -2,6 +2,12 @@ package talisman.view.board;
 
 import talisman.util.CellType;
 
+/**
+ * Interface that models a MVC cell view.
+ * 
+ * @author Alberto Arduini
+ *
+ */
 public interface BoardCellView {
     /**
      * Gets the cell's orientation.
@@ -11,18 +17,18 @@ public interface BoardCellView {
     CellType getCellType();
 
     /**
-     * Get the cell x position.
+     * Adds a pawn on this cell.
      * 
-     * @return the x position
+     * @param pawn the pawn to add
      */
-    int getCellX();
+    void addPawn(PawnView pawn);
 
     /**
-     * Get the cell y position.
+     * Removes a pawn from this cell.
      * 
-     * @return the y position
+     * @param pawn the pawn to remove
      */
-    int getCellY();
+    void removePawn(PawnView pawn);
 
     /**
      * Creates a new cell.
