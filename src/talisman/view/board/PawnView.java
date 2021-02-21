@@ -8,26 +8,11 @@ package talisman.view.board;
  */
 public interface PawnView {
     /**
-     * Sets the new position for this pawn.
+     * Moves a pawn into the specified cell.
      * 
-     * @param x the new X position
-     * @param y the new Y position
+     * @param cell the destination cell
      */
-    void setPosition(int x, int y);
-
-    /**
-     * Gets the pawn's X position.
-     * 
-     * @return the X position
-     */
-    int getPawnX();
-
-    /**
-     * Gets the pawn's X position.
-     * 
-     * @return the Y position
-     */
-    int getPawnY();
+    void moveToCell(BoardCellView cell);
 
     /**
      * Constructs a new pawn with the given image.
