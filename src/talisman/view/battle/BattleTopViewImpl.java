@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import talisman.controller.battle.BattleController;
+import talisman.util.Pair;
 import talisman.view.ImagePanel;
 
 /**
@@ -26,8 +27,8 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
      */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
-    private static final int XCOORDINATEIMAGE = 5;
-    private static final int XCOORDINATELABEL = 6;
+    private static final int XCOORDINATEIMAGE = 4;
+    private static final int XCOORDINATELABEL = 5;
     private final JLabel firstCharDamage;
     private final JLabel secondCharDamage;
     private final BattleController controller;
@@ -41,9 +42,9 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         this.controller = controller;
-        HashMap<Integer, Integer> values = this.controller.initializeScores();
-        this.firstCharDamage = new JLabel(values.get(1).toString());
-        this.secondCharDamage = new JLabel(values.get(2).toString());
+        Pair<Integer, Integer> values = this.controller.initializeScores();
+        this.firstCharDamage = new JLabel(String.valueOf(values.getX()));
+        this.secondCharDamage = new JLabel(String.valueOf(values.getY()));
         this.add(this.firstCharDamage, this.setConstraints(2, 2, 1));
         this.add(this.secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));

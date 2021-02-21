@@ -1,10 +1,10 @@
 package talisman.controller.battle;
 
-import java.util.HashMap;
 
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleState;
 import talisman.model.character.CharacterModel;
+import talisman.util.Pair;
 
 /**
  * A MVC controller for the battle.
@@ -24,7 +24,7 @@ public interface BattleController {
      * 
      * @return the model
      */
-    HashMap<Integer, Integer> initializeScores();
+    Pair<Integer, Integer> initializeScores();
 
     /**
      * Gets the current turn.

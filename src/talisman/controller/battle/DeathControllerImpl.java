@@ -1,8 +1,13 @@
 package talisman.controller.battle;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import talisman.Controllers;
 import talisman.controller.board.TalismanBoardController;
 import talisman.controller.character.CharactersController;
 import talisman.model.character.CharacterModel;
+import talisman.model.character.PlayerModelImpl;
 
 /**
  * The implementation of a MVC controller for the character's death.
@@ -13,29 +18,44 @@ import talisman.model.character.CharacterModel;
 public class DeathControllerImpl implements DeathController {
     private final CharactersController characterController;
     private final TalismanBoardController boardController;
+    private final CharacterModel character;
 
-    public DeathControllerImpl(final CharactersController characterController, final TalismanBoardController boardController) {
-        this.characterController = characterController;
-        this.boardController = boardController;
+    public DeathControllerImpl(CharacterModel character) {
+        this.characterController = Controllers.getCharactersController();
+        this.boardController = Controllers.getBoardController();
+        this.character = character;
     }
 
     private boolean checkHealth() {
-        return (this.characterController.getCurrentPlayer().getCurrentCharacter().getHealth() == 0);
+        return (this.character.getHealth() == 0);
+    }
+
+    private int checkPlayer() {
+        List<Integer> indexes = new ArrayList<>(this.boardController.getCurrentCharacterOpponents());
+        PlayerModelImpl[] players = this.characterController.getPlayers();
+        for (int i = 0; i < indexes.size(); i++) {
+            if (players[indexes.get(i) - 1].getCurrentCharacter().equals(character)) {
+                return indexes.get(i);
+            }
+        }
+        return 0;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void death() {
-        CharacterModel character = this.characterController.getCurrentPlayer().getCurrentCharacter();
+    public boolean death() {
         if (checkHealth()) {
-            initializeCharacterInfo(character);
-            initializeCharacterPosition(this.characterController.getCurrentPlayer().getIndex());
+            initializeCharacterInfo(this.character);
+            initializeCharacterPosition(checkPlayer());
+            return true;
         }
+        return false;
     }
 
     private void initializeCharacterInfo(final CharacterModel character) {
+        
     }
 
     private void initializeCharacterPosition(final int index) {

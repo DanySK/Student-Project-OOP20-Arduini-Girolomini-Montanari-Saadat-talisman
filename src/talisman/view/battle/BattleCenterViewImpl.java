@@ -31,7 +31,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
     private static final int YCOORDINATEBUTTON = 5;
     private final JButton attackButton;
     private final JButton fateButton;
-    private final JButton magicButton;
     private final BattleController controller;
 
     /**
@@ -47,7 +46,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.controller = controller;
         this.attackButton = new JButton(new ImageIcon("res/imgs/battle/attackButton.png"));
         this.fateButton = new JButton(new ImageIcon("res/imgs/battle/fateButton.png"));
-        this.magicButton = new JButton(new ImageIcon("res/imgs/battle/magicButton.png"));
         this.add(attackButton, this.setConstraints(1, 2, 1));
         this.attackButton.addActionListener(new ActionListener() {
             @Override
@@ -56,8 +54,9 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                     topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
                 }
                 if (controller.getTurn() == 2) {
-                    endBattle();
+                   // endBattle();
                 }
+                fateButton.setEnabled(controller.requestedFate());
             } 
         });
         this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
@@ -73,19 +72,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
             } 
         });
         this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
-        GridBagConstraints c = this.setConstraints(3, 2, 1);
-        c.anchor = GridBagConstraints.EAST;
-        this.add(magicButton, c);
-        this.magicButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (controller.canRoll()) {
-                    
-                }
-            } 
-        });
-        c.gridy = 1;
-        this.add(new JLabel("Magic"), c);
         this.setBackground(Color.darkGray);
     }
 
@@ -117,8 +103,6 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
             JOptionPane.showMessageDialog(null, "Second opponent wins!");
         } else if (status.equals(BattleState.STAND_OFF)) {
             JOptionPane.showMessageDialog(null, "It's a standoff!");
-        } else {
-            JOptionPane.showMessageDialog(null, "Someone escaped the battle...");
         }
     }
 }
