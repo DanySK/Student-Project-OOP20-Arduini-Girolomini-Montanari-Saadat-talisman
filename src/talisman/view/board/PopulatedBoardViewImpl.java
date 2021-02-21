@@ -1,6 +1,5 @@
 package talisman.view.board;
 
-import java.awt.Component;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -27,18 +26,10 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
             final List<PawnView> pawns) {
         super(sections, mainSection);
         this.pawns = List.copyOf(pawns);
-        this.pawns.forEach(p -> {
-            this.add((Component) p, 0);
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void movePawnTo(final int index, final int x, final int y) {
         SwingUtilities.invokeLater(() -> {
-            this.getPawn(index).setPosition(x, y);
+            this.pawns.forEach(p -> {
+                p.moveToCell(this.getSection(0).getCell(0));
+            });
         });
     }
 
@@ -47,8 +38,9 @@ public class PopulatedBoardViewImpl extends BoardViewImpl implements PopulatedBo
      */
     @Override
     public void movePawnToCell(final int index, final int section, final int cell) {
-        final BoardCellView cellInstance = this.getSection(section).getCell(cell);
-        this.movePawnTo(index, cellInstance.getCellX(), cellInstance.getCellY());
+        SwingUtilities.invokeLater(() -> {
+            this.getPawn(index).moveToCell(this.getSection(section).getCell(cell));
+        });
     }
 
     /**
