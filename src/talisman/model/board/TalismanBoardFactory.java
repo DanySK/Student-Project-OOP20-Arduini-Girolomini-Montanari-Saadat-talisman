@@ -153,6 +153,7 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Woods_Left", "Forest", CellType.LEFT, TalismanCellType.BIOME,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
+                                // TODO: set to the brigand's index
                                 List.of(new TalismanRollActionSection(1, new TalismanFightAction(3)),
                                         new TalismanRollActionSection(2, new TalismanSkipTurnAction()),
                                         new TalismanRollActionSection(4, new TalismanEmptyAction()),
@@ -247,7 +248,7 @@ public final class TalismanBoardFactory {
                                 new TalismanModifyStatisticAction(-3, TalismanActionStatistic.HEALTH))),
                 // Right column
                 TalismanBoardFactory.createCell("Pits", "Pits", CellType.RIGHT, TalismanCellType.MONSTER,
-                        // TODO: set minimum to the pitfiend's strength
+                        // TODO: set to the pitfiend's index
                         new TalismanFightAction(0)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
