@@ -25,26 +25,6 @@ public interface BoardSectionView {
     BoardCellView getCell(int cellIndex);
 
     /**
-     * Gets the given cell x position.
-     * 
-     * @param cellIndex the cell index
-     * @return the x position
-     */
-    default int getCellPositionX(int cellIndex) {
-        return this.getCell(cellIndex).getCellX();
-    }
-
-    /**
-     * Gets the given cell y position.
-     * 
-     * @param cellIndex the cell index
-     * @return the y position
-     */
-    default int getCellPositionY(int cellIndex) {
-        return this.getCell(cellIndex).getCellY();
-    }
-
-    /**
      * Sets another section as contained into this one.
      * 
      * @param section the section to insert
