@@ -20,8 +20,8 @@ public final class TalismanBoardControllerFactory {
         final List<TalismanBoardPawn> pawns = new ArrayList<>();
         for (int i = 0; i < playerCharacters.size(); i++) {
             final CharacterModel character = playerCharacters.get(i);
-            // TODO: Get image from CharacterInfo
-            pawns.add(TalismanBoardPawn.createPawn(PathUtils.getDevImagePath(PathUtils.DEV_PAWN_IMAGE_NAME, true), i));
+            // TODO: Get character index from Characters list
+            pawns.add(TalismanBoardPawn.createPawn(PathUtils.getPathToCharacterIcon(i, true), i));
         }
         final TalismanBoard board = TalismanBoardFactory.createDefaultBoardModel(pawns);
         final TalismanBoardViewBuilder viewBuilder = new TalismanBoardViewBuilder();
