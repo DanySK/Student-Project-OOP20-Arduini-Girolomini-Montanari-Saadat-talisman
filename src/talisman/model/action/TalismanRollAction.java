@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import talisman.Controllers;
+
 import talisman.model.action.TalismanRollActionSection.ApplyResult;
 import talisman.model.character.CharacterModelImpl;
 
@@ -19,8 +20,8 @@ import talisman.util.Utils;
 public class TalismanRollAction implements TalismanAction {
     private static final long serialVersionUID = 2847596850734221682L;
     private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice. If the result is at least:";
-    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s. . If the result is at least:";
-    private static final String OPTION_FORMAT = System.lineSeparator() + "%d then: %s;";
+    private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s. If the result is at least:";
+    private static final String OPTION_FORMAT = System.lineSeparator() + "%d then: %s; ";
     private static final String LAST_OPTION_FORMAT = System.lineSeparator() + "otherwise: %s";
 
     private final TalismanActionStatistic statistic;
