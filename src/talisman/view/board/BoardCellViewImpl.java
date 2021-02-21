@@ -2,11 +2,15 @@ package talisman.view.board;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JTextArea;
+import javax.swing.OverlayLayout;
 
 import talisman.util.CellType;
 import talisman.util.SwingViewUtils;
@@ -20,6 +24,8 @@ import talisman.view.ImagePanel;
  */
 public final class BoardCellViewImpl extends ImagePanel implements BoardCellView {
     private static final long serialVersionUID = 1L;
+    private static final int SIZE_X = 275;
+    private static final int SIZE_Y = 150;
     private final CellType type;
 
     /**
@@ -32,7 +38,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
     public BoardCellViewImpl(final String imagePath, final String text, final CellType type) {
         super(imagePath);
         this.type = type;
-        final LayoutManager layout = new BorderLayout();
+        final LayoutManager layout = new OverlayLayout(this);
         this.setLayout(layout);
         final JTextArea textArea = new JTextArea(1, 1);
         textArea.setText(text);
@@ -41,14 +47,54 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
-        textArea.setAlignmentX(CENTER_ALIGNMENT);
-        textArea.setAlignmentY(CENTER_ALIGNMENT);
-        textArea.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        this.add(textArea, BorderLayout.PAGE_END);
-        final Dimension size = new Dimension(275, 150);
-        this.setMinimumSize(size);
-        this.setPreferredSize(size);
-        this.setMaximumSize(size);
+        textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textArea.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        this.add(textArea);
+        final Dimension cellSize = new Dimension(BoardCellViewImpl.SIZE_X, BoardCellViewImpl.SIZE_Y);
+        this.setMinimumSize(cellSize);
+        this.setPreferredSize(cellSize);
+        this.setMaximumSize(cellSize);
+        final Dimension textSize = new Dimension(BoardCellViewImpl.SIZE_X, textArea.getPreferredSize().height);
+        textArea.setMinimumSize(textSize);
+        textArea.setPreferredSize(textSize);
+        textArea.setMaximumSize(textSize);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addPawn(final PawnView pawn) {
+        this.addPawn((PawnViewImpl) pawn);
+    }
+
+    /**
+     * Adds a pawn from the cell.
+     * 
+     * @param pawn the pawn to add
+     */
+    public void addPawn(final PawnViewImpl pawn) {
+        this.add(pawn, 0);
+        this.repaint();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePawn(final PawnView pawn) {
+        this.removePawn((PawnViewImpl) pawn);
+    }
+
+    /**
+     * Removes a pawn from the cell.
+     * 
+     * @param pawn the pawn to remove
+     */
+    public void removePawn(final PawnViewImpl pawn) {
+        this.remove(pawn);
+        this.repaint();
     }
 
     /**
@@ -63,15 +109,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      * {@inheritDoc}
      */
     @Override
-    public int getCellX() {
-        return SwingViewUtils.getGlobalPosition(this).x;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getCellY() {
-        return SwingViewUtils.getGlobalPosition(this).y;
+    public boolean isOptimizedDrawingEnabled() {
+        return false;
     }
 }
