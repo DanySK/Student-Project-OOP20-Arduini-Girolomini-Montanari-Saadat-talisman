@@ -9,7 +9,7 @@ import java.util.List;
  *
  */
 public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAction> {
-    private static final long serialVersionUID = 8300744485501458316L;
+    private static final long serialVersionUID = 4757285566100287578L;
     private static final String DESCRIPTION_FORMAT = "Choose between:";
     private static final String SINGLE_ACTION_DESCRIPTION_FORMAT = "- %s";
 
@@ -39,6 +39,14 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
     public String getChoiceDescription(final int index) {
         return String.format(TalismanActionChoiceAction.SINGLE_ACTION_DESCRIPTION_FORMAT,
                 this.getChoice(index).getDescription());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Boolean isChoiceEnabled(final int index) {
+        return this.getChoice(index).canBeApplied();
     }
 
     /**

@@ -1,5 +1,10 @@
 package talisman.model.action;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import talisman.view.TalismanChoiceActionWindow;
+
 /**
  * Action that lets the user choose between sub-actions. It has the option to
  * have an empty action as the first one.
@@ -17,16 +22,7 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
      */
     @Override
     public void apply() {
-        boolean applied = false;
-        do {
-            // TODO: Ask user
-            final int reply = 0;
-            if (reply < 0 || reply >= this.getChoicesCount()) {
-                continue;
-            }
-            applied = this.applyChoice(reply);
-            // The loop is used to check if the choice is valid and if it has been applied
-        } while (!applied);
+        this.showChoicePanel();
     }
 
     /**
@@ -60,6 +56,15 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
     public abstract String getChoiceDescription(int index);
 
     /**
+     * Gets if the specified choice can be selected.
+     * 
+     * @param index the choice index
+     * 
+     * @return {@code true} if it's selectable, {@code false} otherwise
+     */
+    public abstract Boolean isChoiceEnabled(int index);
+
+    /**
      * Gets the actions count, excluding the empty one.
      * 
      * @return the actions count
@@ -81,4 +86,20 @@ public abstract class TalismanChoiceAction<X> implements TalismanAction {
      * @return if the choice has been applied or not
      */
     protected abstract boolean applyChoice(int choice);
+
+    private void showChoicePanel() {
+        final List<String> choices = new ArrayList<>();
+        final List<Boolean> statuses = new ArrayList<>();
+        for (int i = 0; i < this.getChoicesCount(); i++) {
+            choices.add(this.getChoiceDescription(i));
+            statuses.add(this.isChoiceEnabled(i));
+        }
+        TalismanChoiceActionWindow.show(choices, statuses, this::choiceChoosen);
+    }
+
+    private void choiceChoosen(final int choice) {
+        if (choice < 0 || choice >= this.getChoicesCount() || !this.applyChoice(choice)) {
+            this.showChoicePanel();
+        }
+    }
 }
