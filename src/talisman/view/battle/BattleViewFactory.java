@@ -8,16 +8,20 @@ import talisman.controller.battle.BattleController;
  * @author Alice Girolomini
  *
  */
-public class BattleViewFactory {
-    private BattleController controller;
+public final class BattleViewFactory {
+
+    private BattleViewFactory() {
+    }
 
     /**
-     * Initializes the factory.
+     * Creates the battleView view.
      * 
      * @param controller - the controller of the battle
      */
-    public BattleViewFactory(final BattleController controller) {
-        this.controller = controller;
+    public static void createBattleView(final BattleController controller) {
+        BattleTopView topView = createTopView(controller);
+        BattleBottomView bottomView = createBottomView(controller);
+        createCenterView(controller, topView, bottomView);
     }
 
     /**
@@ -26,7 +30,7 @@ public class BattleViewFactory {
      * @param controller - the controller of the battle
      * @return  the view
      */
-    public BattleTopView createTopView(final BattleController controller) {
+    private static BattleTopView createTopView(final BattleController controller) {
         BattleTopView view = BattleTopView.create(controller);
         return view;
     }
@@ -39,8 +43,8 @@ public class BattleViewFactory {
      * @param bottomView - the bottom view of the battle
      * @return  the view
      */
-    public BattleCenterView createCenterView(final BattleController controller, final BattleTopView topView, final BattleBottomView bottomView) {
-        BattleCenterView view = BattleCenterView.create(this.controller, topView, bottomView);
+    private static BattleCenterView createCenterView(final BattleController controller, final BattleTopView topView, final BattleBottomView bottomView) {
+        BattleCenterView view = BattleCenterView.create(controller, topView, bottomView);
         return view;
     }
 
@@ -50,7 +54,7 @@ public class BattleViewFactory {
      * @param controller - the controller of the battle
      * @return  the view
      */
-    public BattleBottomView createBottomView(final BattleController controller) {
+    private static BattleBottomView createBottomView(final BattleController controller) {
         BattleBottomView view = BattleBottomView.create(controller);
         return view;
     }
