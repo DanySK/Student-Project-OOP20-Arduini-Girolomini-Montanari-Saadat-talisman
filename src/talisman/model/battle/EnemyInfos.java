@@ -23,8 +23,23 @@ public final class EnemyInfos {
      * @param index - index of the enemy
      * @return the enemy
      */
-    public static EnemyModel getEnemy(final int index) {
+    public static EnemyModel getEnemyByIndex(final int index) {
         return EnemyInfos.enemies.get(index);
+    }
+
+    /**
+     * Gets the enemy with the specified name.
+     * 
+     * @param name - the enemie's name
+     * @return the enemy
+     */
+    public static EnemyModel getEnemyByName(final String name) {
+        for (int i = 0; i < getEnemyCount(); i++) {
+            if (getEnemyByIndex(i).getName().equals(name)) {
+                return getEnemyByIndex(i);
+            }
+        }
+        return null;
     }
 
     /**
@@ -40,10 +55,21 @@ public final class EnemyInfos {
 
     /**
      * Gets the number of enemies.
+     * 
      * @return the value
      */
     public static int getEnemyCount() {
         return EnemyInfos.enemies.size();
+    }
+
+    /**
+     * Checks whether the enemy uses strength or craft.
+     * 
+     * @param index - index of the enemy
+     * @return true if the enemy uses strength
+     */
+    public static boolean hasStrength(final int index) {
+        return (EnemyInfos.enemies.get(index).getStrength() > 0);
     }
 
 }
