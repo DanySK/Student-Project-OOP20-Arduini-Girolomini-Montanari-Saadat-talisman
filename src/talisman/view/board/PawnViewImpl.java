@@ -19,6 +19,8 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
     private static final long serialVersionUID = 1L;
     private static final int SIZE = 50;
 
+    private BoardCellView parentCell;
+
     /**
      * Creates a new pawn.
      * 
@@ -31,8 +33,6 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
         this.setSize(size);
         this.setMaximumSize(size);
         this.setPreferredSize(size);
-        this.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.setAlignmentY(Component.CENTER_ALIGNMENT);
     }
 
     /**
@@ -40,10 +40,11 @@ public class PawnViewImpl extends ImagePanel implements PawnView {
      */
     @Override
     public void moveToCell(final BoardCellView cell) {
-        if (this.getParent() != null) {
-            ((BoardCellView) this.getParent()).removePawn(this);
+        if (this.parentCell != null) {
+            this.parentCell.removePawn(this);
         }
-        cell.addPawn(this);
+        this.parentCell = cell;
+        this.parentCell.addPawn(this);
         this.revalidate();
     }
 }

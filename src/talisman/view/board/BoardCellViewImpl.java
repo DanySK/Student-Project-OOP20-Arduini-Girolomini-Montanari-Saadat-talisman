@@ -5,15 +5,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.OverlayLayout;
+import javax.swing.SwingConstants;
 
 import talisman.util.CellType;
-import talisman.util.SwingViewUtils;
+
 import talisman.view.ImagePanel;
 
 /**
@@ -26,7 +26,9 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
     private static final long serialVersionUID = 1L;
     private static final int SIZE_X = 275;
     private static final int SIZE_Y = 150;
+
     private final CellType type;
+    private final JPanel pawnsPanel;
 
     /**
      * Creates a new cell.
@@ -40,25 +42,21 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.type = type;
         final LayoutManager layout = new OverlayLayout(this);
         this.setLayout(layout);
-        final JTextArea textArea = new JTextArea(1, 1);
-        textArea.setText(text);
-        textArea.setForeground(Color.WHITE);
-        textArea.setBackground(Color.BLACK);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        textArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-        textArea.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-        this.add(textArea);
         final Dimension cellSize = new Dimension(BoardCellViewImpl.SIZE_X, BoardCellViewImpl.SIZE_Y);
         this.setMinimumSize(cellSize);
         this.setPreferredSize(cellSize);
         this.setMaximumSize(cellSize);
-        final Dimension textSize = new Dimension(BoardCellViewImpl.SIZE_X, textArea.getPreferredSize().height);
-        textArea.setMinimumSize(textSize);
-        textArea.setPreferredSize(textSize);
-        textArea.setMaximumSize(textSize);
+        // Pawns panel
+        this.pawnsPanel = new JPanel();
+        this.pawnsPanel.setOpaque(false);
+        this.pawnsPanel.setMinimumSize(cellSize);
+        this.pawnsPanel.setPreferredSize(cellSize);
+        this.pawnsPanel.setMaximumSize(cellSize);
+        this.pawnsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.pawnsPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        this.add(this.pawnsPanel);
+        // Description text area
+        this.add(this.createDescriptionTextArea(text, cellSize));
     }
 
     /**
@@ -75,8 +73,8 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      * @param pawn the pawn to add
      */
     public void addPawn(final PawnViewImpl pawn) {
-        this.add(pawn, 0);
-        this.repaint();
+        this.pawnsPanel.add(pawn);
+        this.pawnsPanel.repaint();
     }
 
     /**
@@ -93,8 +91,8 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      * @param pawn the pawn to remove
      */
     public void removePawn(final PawnViewImpl pawn) {
-        this.remove(pawn);
-        this.repaint();
+        this.pawnsPanel.remove(pawn);
+        this.pawnsPanel.repaint();
     }
 
     /**
@@ -111,5 +109,27 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
     @Override
     public boolean isOptimizedDrawingEnabled() {
         return false;
+    }
+
+    private JPanel createDescriptionTextArea(final String text, final Dimension wrapperDimension) {
+        final JTextArea textArea = new JTextArea(1, 1);
+        textArea.setText(text);
+        textArea.setForeground(Color.WHITE);
+        textArea.setBackground(Color.BLACK);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        final JPanel wrapper = new JPanel();
+        final LayoutManager layout = new BorderLayout();
+        wrapper.setLayout(layout);
+        wrapper.setOpaque(false);
+        wrapper.setMinimumSize(wrapperDimension);
+        wrapper.setPreferredSize(wrapperDimension);
+        wrapper.setMaximumSize(wrapperDimension);
+        wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
+        wrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
+        wrapper.add(textArea, BorderLayout.SOUTH);
+        return wrapper;
     }
 }
