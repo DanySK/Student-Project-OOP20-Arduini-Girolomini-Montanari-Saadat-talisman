@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import talisman.controller.cards.TalismanCardController;
-
+import talisman.model.cards.Deck;
 import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
 
@@ -36,7 +36,9 @@ public final class App {
         thirdconstraint.fill = GridBagConstraints.BOTH;
         thirdWindow.setLayout(thirdlayout);
         thirdWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        final JPanel card = (JPanel) TalismanCardController.createView(TalismanDeckFactory.createDeck(DeckType.ADVENTURE).draw());
+        Deck deck = TalismanDeckFactory.createDeck(DeckType.ADVENTURE);
+        deck.shuffle();
+        final JPanel card = (JPanel) TalismanCardController.createView(deck.draw());
         thirdWindow.getContentPane().add(card, thirdconstraint);
         thirdWindow.pack();
         thirdWindow.setResizable(false);
