@@ -2,10 +2,12 @@ package talisman.controller.battle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleState;
 import talisman.model.character.CharacterModel;
+import talisman.util.Pair;
 
 /**
  * The implementation of a MVC controller for the battle.
@@ -38,7 +40,7 @@ public class BattleControllerImpl implements BattleController {
         this.roll = true;
         countFate = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
-            countFate.set(i, 0);
+            countFate.add(0);
         }
     }
 
@@ -73,9 +75,8 @@ public class BattleControllerImpl implements BattleController {
      * {@inheritDoc}
      */
     @Override
-    public HashMap<Integer, Integer> initializeScores() {
-        HashMap<Integer, Integer> values = new HashMap<>();
-        values.put(this.model.getScore(1), this.model.getScore(2));
+    public Pair<Integer, Integer> initializeScores() {
+        Pair<Integer, Integer> values = new Pair<>(this.model.getScore(1), this.model.getScore(2));
         return values;
     }
 
@@ -118,7 +119,6 @@ public class BattleControllerImpl implements BattleController {
     public boolean requestedFate() {
         CharacterModel character = checkTurn();
         if (character.getFate() > 0) {
-            character.setFate(character.getFate() - 1);
             return true;
         }
         return false;
