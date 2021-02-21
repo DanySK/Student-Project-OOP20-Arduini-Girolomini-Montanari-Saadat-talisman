@@ -8,13 +8,25 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import talisman.controller.battle.BattleController;
+import talisman.controller.battle.BattleControllerImpl;
 import talisman.controller.cards.TalismanCardController;
-
+import talisman.model.battle.BattleModel;
+import talisman.model.battle.BattleModelImpl;
+import talisman.model.battle.EnemyModel;
+import talisman.model.battle.StrengthEnemy;
 import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
-
+import talisman.model.character.CharacterModel;
+import talisman.model.character.CharacterModelImpl;
 import talisman.util.GameSetupUtil;
-
+import talisman.view.BattleWindow;
+import talisman.view.battle.BattleBottomView;
+import talisman.view.battle.BattleBottomViewImpl;
+import talisman.view.battle.BattleCenterView;
+import talisman.view.battle.BattleCenterViewImpl;
+import talisman.view.battle.BattleTopView;
+import talisman.view.battle.BattleTopViewImpl;
 import talisman.view.menu.MainMenuWindow;
 
 public final class App {
@@ -42,28 +54,12 @@ public final class App {
         thirdWindow.setResizable(false);
         thirdWindow.setVisible(true);
         // test battle view
-        final JFrame secondWindow = new JFrame();
-        final LayoutManager secondLayout = new GridBagLayout();
-        final GridBagConstraints secondConstraint = new GridBagConstraints();
-        secondConstraint.gridx = 0;
-        secondConstraint.gridy = 0;
-        secondConstraint.fill = GridBagConstraints.BOTH;
-        secondWindow.setLayout(secondLayout);
-        secondWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        //final JPanel swingBattleTopView = new BattleTopViewImpl();
-        //final JPanel swingBattleCenterView = new BattleCenterViewImpl();
-        //final JPanel swingBattleBottomView = new BattleBottomViewImpl();
-        //secondWindow.getContentPane().add(swingBattleTopView, secondConstraint);
-        secondConstraint.gridx = 0;
-        secondConstraint.gridy = 1;
-        //secondWindow.getContentPane().add(swingBattleCenterView, secondConstraint);
-        secondConstraint.gridx = 0;
-        secondConstraint.gridy = 2;
-        //secondWindow.getContentPane().add(swingBattleBottomView, secondConstraint);
-        secondWindow.pack();
-        secondWindow.setResizable(false);
-        secondWindow.setVisible(true);
-
+        CharacterModel character1 = new CharacterModelImpl(1, 2, 3, 4, 0);
+        CharacterModel character2 = new CharacterModelImpl(6, 7, 8, 9, 10);
+        EnemyModel enemy1 = new StrengthEnemy(9, "Troll");
+        BattleModel battle = new BattleModelImpl(character1.getStrength(), enemy1.getStrength());
+        BattleController controller = new BattleControllerImpl(character1, enemy1, battle);
+        new BattleWindow(controller);
 
     }
 

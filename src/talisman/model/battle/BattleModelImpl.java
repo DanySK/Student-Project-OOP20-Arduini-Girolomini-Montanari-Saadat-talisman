@@ -49,19 +49,6 @@ public class BattleModelImpl implements BattleModel {
      * {@inheritDoc}
      */
     @Override
-    public boolean checkEvade() {
-        if (this.firstCharScore == 0 || this.secondCharScore == 0) {
-            this.currentState = BattleState.EVADE;
-            this.end = true;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void compareScore() {
         if (this.firstCharScore > this.secondCharScore) {
             this.currentState = BattleState.FIRST;
