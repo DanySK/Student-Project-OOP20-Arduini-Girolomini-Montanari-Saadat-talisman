@@ -19,7 +19,7 @@ import talisman.view.battle.BattleViewFactory;
  *
  */
 public class TalismanFightAction implements TalismanAction {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 4451903715879720847L;
     private static final String DESCRIPTION_FORMAT = "You have to fight a %s";
     private final int enemy;
 
@@ -37,7 +37,7 @@ public class TalismanFightAction implements TalismanAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanFightAction.DESCRIPTION_FORMAT, enemy);
+        return String.format(TalismanFightAction.DESCRIPTION_FORMAT, EnemyInfos.getEnemyByIndex(enemy).getName());
     }
 
     /**
