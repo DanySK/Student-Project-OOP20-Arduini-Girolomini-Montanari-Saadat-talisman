@@ -11,6 +11,7 @@ import talisman.controller.board.TalismanBoardControllerFactory;
 import talisman.controller.cards.TalismanDeckControllerImpl;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+import talisman.model.battle.CraftEnemy;
 import talisman.model.battle.EnemyInfos;
 import talisman.model.battle.EnemyModel;
 import talisman.model.battle.StrengthEnemy;
@@ -82,9 +83,13 @@ public final class GameSetupUtil {
          * creating, since it needs the enemy name to show cells descriptions
          */
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Wild Boar"));
+        EnemyInfos.addEnemy(new StrengthEnemy(2, "Wolf"));
+        EnemyInfos.addEnemy(new StrengthEnemy(4, "Serpent"));
+        EnemyInfos.addEnemy(new StrengthEnemy(7, "Dragon"));
+        EnemyInfos.addEnemy(new CraftEnemy(1, "Lemure"));
+        EnemyInfos.addEnemy(new CraftEnemy(2, "Shadow"));
+        EnemyInfos.addEnemy(new CraftEnemy(5, "Wraith"));
 
         // Setup board controller
         final TalismanBoardController boardController = TalismanBoardControllerFactory.createController(characters);
@@ -92,6 +97,7 @@ public final class GameSetupUtil {
 
         // Setup decks
         Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.ADVENTURE));
+        Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.TALISMAN));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
