@@ -177,9 +177,9 @@ public class BattleControllerImpl implements BattleController {
     public BattleState getResult() {
         if (this.model.isEnded()) {
             if (this.model.getState() == BattleState.FIRST) {
-                //this.secondCharacter.setHealth(this.secondCharacter.getHealth() - 1);
+                this.secondCharacter.setHealth(this.secondCharacter.getHealth() - 1);
             } else if (this.model.getState() == BattleState.SECOND) {
-            //this.firstCharacter.setHealth(this.firstCharacter.getHealth() - 1);
+                this.firstCharacter.setHealth(this.firstCharacter.getHealth() - 1);
             }
         }
         return this.model.getState();
