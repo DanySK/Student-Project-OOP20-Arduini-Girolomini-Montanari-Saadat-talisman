@@ -56,8 +56,7 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
      */
     @Override
     public S getCharacterSection(final int player) {
-        final int sectionIndex = this.getBoard().getPawnSectionIndex(player);
-        return this.getBoard().getSection(sectionIndex);
+        return this.getBoard().getSection(this.getCharacterPawn(player).getPositionSection());
     }
 
     /**
@@ -65,8 +64,7 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
      */
     @Override
     public C getCharacterCell(final int player) {
-        final int cellIndex = this.getBoard().getPawnCellIndex(player);
-        return this.getCharacterSection(player).getCell(cellIndex);
+        return this.getCharacterSection(player).getCell(this.getCharacterPawn(player).getPositionCell());
     }
 
     /**
@@ -102,7 +100,13 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
         }
     }
 
-    private void updatePawnViewPosition(final int index) {
+    /**
+     * Updates the position in the view of the specified pawn, to reflect changes in
+     * the respective model.
+     * 
+     * @param index the player index
+     */
+    protected void updatePawnViewPosition(final int index) {
         final P pawn = this.getCharacterPawn(index);
         this.getView().movePawnToCell(index, pawn.getPositionSection(), pawn.getPositionCell());
     }
