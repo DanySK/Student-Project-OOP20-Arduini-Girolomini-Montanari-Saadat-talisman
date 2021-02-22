@@ -1,6 +1,5 @@
 package talisman.view.board;
 
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +12,7 @@ import javax.swing.SwingUtilities;
 import talisman.util.Pair;
 
 import talisman.view.cards.TalismanCardView;
+import talisman.view.cards.TalismanCardViewImpl;
 
 public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements TalismanBoardView {
     private static final long serialVersionUID = 1L;
@@ -42,14 +42,14 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
 
         this.cards.put(new Pair<>(section, cell), card);
         final BoardCellView cellInstance = this.getSection(section).getCell(cell);
-        final Component swingCard = (Component) card;
+        final TalismanCardViewImpl swingCard = (TalismanCardViewImpl) card;
 
         SwingUtilities.invokeLater(() -> {
             swingCard.setVisible(false);
             this.add(swingCard, 0);
         });
 
-        ((Component) cellInstance).addMouseListener(new MouseAdapter() {
+        ((BoardCellViewImpl) cellInstance).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
                 swingCard.setLocation(e.getLocationOnScreen());
@@ -93,7 +93,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
             if (!this.cards.containsKey(position)) {
                 return;
             }
-            this.remove((Component) this.cards.get(position));
+            this.remove((TalismanCardViewImpl) this.cards.get(position));
             this.cards.remove(position);
         });
     }
