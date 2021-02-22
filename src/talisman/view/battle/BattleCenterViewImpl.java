@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import talisman.controller.battle.BattleController;
 import talisman.model.battle.BattleState;
@@ -54,7 +56,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                     topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
                 }
                 if (controller.getTurn() == 2) {
-                   // endBattle();
+                   endBattle();
                 }
                 fateButton.setEnabled(controller.requestedFate());
             } 
@@ -95,14 +97,21 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         return c;
     }
 
+    /**
+     * Shows a JOptionPane with the message associated to the outcome of the battle and closes the battle window.
+     */
     private void endBattle() {
+        Window win = SwingUtilities.getWindowAncestor(this.attackButton);
         BattleState status = this.controller.getResult();
         if (status.equals(BattleState.FIRST)) {
             JOptionPane.showMessageDialog(null, "First opponent wins!");
+            win.dispose();
         } else if (status.equals(BattleState.SECOND)) {
             JOptionPane.showMessageDialog(null, "Second opponent wins!");
+            win.dispose();
         } else if (status.equals(BattleState.STAND_OFF)) {
             JOptionPane.showMessageDialog(null, "It's a standoff!");
+            win.dispose();
         }
     }
 }

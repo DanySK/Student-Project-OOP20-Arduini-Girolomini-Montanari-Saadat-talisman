@@ -3,7 +3,6 @@ package talisman.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -39,6 +38,7 @@ public class BattleWindow extends JFrame {
         constraint.gridy = 0;
         constraint.fill = GridBagConstraints.BOTH;
         this.setLayout(layout);
+        //this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         BattleTopView topView = BattleViewFactory.createTopView(controller);
         BattleBottomView bottomView = BattleViewFactory.createBottomView(controller);
         BattleCenterView centerView = BattleViewFactory.createCenterView(controller, topView, bottomView);
