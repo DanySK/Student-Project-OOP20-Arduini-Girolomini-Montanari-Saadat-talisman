@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import talisman.model.menu.PlayerInfo;
 import talisman.util.PathUtils;
 
 /**
@@ -49,12 +50,9 @@ public class CharacterSelectionPanel extends JPanel {
         final LayoutManager layout = new BoxLayout(this, BoxLayout.X_AXIS);
         this.setLayout(layout);
 
-        // TODO: get characters count
-        final int count = 4;
-        for (int i = 0; i < count; i++) {
-            // TODO: get image path
-            final String imageName = "";
-            final JButton button = this.createCharacterButton(imageName);
+        final PlayerInfo.Character[] characters = PlayerInfo.Character.values();
+        for (int i = 0; i < PlayerInfo.Character.getCount(); i++) {
+            final JButton button = this.createCharacterButton(i);
             this.buttons.add(button);
             button.addActionListener(this::characterButtonPressed);
             final JPanel wrapper = this.wrapInPanel(button, i != 0);
@@ -80,10 +78,11 @@ public class CharacterSelectionPanel extends JPanel {
         this.buttons.get(index).setEnabled(false);
     }
 
-    private JButton createCharacterButton(final String imageName) {
-        // TODO: get image path
-        final String imagePath = PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true);
-        return new JButton(new ImageIcon(imagePath));
+    private JButton createCharacterButton(final int character) {
+        final String imagePath = PathUtils.getPathToCharacterIcon(character, true);
+        final JButton button = new JButton(new ImageIcon(imagePath));
+        button.setText(PlayerInfo.Character.values()[character].toString());
+        return button;
     }
 
     private JPanel wrapInPanel(final Component component, final boolean addLeftOffset) {

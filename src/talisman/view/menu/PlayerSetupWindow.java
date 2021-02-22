@@ -24,7 +24,7 @@ public class PlayerSetupWindow extends JFrame {
     private static final String FIRST_PLAYER_FORMAT = "Select character for player %d";
     private static final String CURRENT_PLAYER_FORMAT = "Select character for player %d or press start";
     private static final String LAST_PLAYER_FORMAT = "Press start to begin game";
-    private static final int MAX_PLAYERS = 4;
+    private static final int MAX_PLAYERS = PlayerInfo.Character.getCount();
 
     private final List<PlayerInfo> players;
 
@@ -75,28 +75,25 @@ public class PlayerSetupWindow extends JFrame {
     }
 
     private void finalizeCurrentPlayer(final int character) {
-        final PlayerInfo playerInfo = new PlayerInfo(character);
-        this.players.add(new PlayerInfo(character));
+        final PlayerInfo playerInfo = new PlayerInfo(PlayerInfo.Character.values()[character]);
+        this.players.add(playerInfo);
         this.charactersPanel.disableCharacter(character);
-        this.currentPlayersPanel.addPlayer(playerInfo.getCharacter(), Integer.toString(this.players.size()));
+        this.currentPlayersPanel.addPlayer(playerInfo.getCharacter().getIndex(), Integer.toString(this.players.size()));
         this.pack();
     }
 
     private void addPlayer() {
         final String text;
-        switch (this.players.size()) {
-        case 0:
-            text = String.format(PlayerSetupWindow.FIRST_PLAYER_FORMAT, this.players.size() + 1);
+        final int playerCount = this.players.size();
+        if (playerCount == 0) {
+            text = String.format(PlayerSetupWindow.FIRST_PLAYER_FORMAT, playerCount + 1);
             this.startButton.setEnabled(false);
-            break;
-        case PlayerSetupWindow.MAX_PLAYERS:
+        } else if (playerCount == PlayerSetupWindow.MAX_PLAYERS) {
             text = PlayerSetupWindow.LAST_PLAYER_FORMAT;
             this.startButton.setEnabled(true);
-            break;
-        default:
-            text = String.format(PlayerSetupWindow.CURRENT_PLAYER_FORMAT, this.players.size() + 1);
+        } else {
+            text = String.format(PlayerSetupWindow.CURRENT_PLAYER_FORMAT, playerCount + 1);
             this.startButton.setEnabled(true);
-            break;
         }
         this.currentPlayerIndexLabel.setText(text);
     }

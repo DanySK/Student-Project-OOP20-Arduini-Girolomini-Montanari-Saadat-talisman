@@ -9,6 +9,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import talisman.model.menu.PlayerInfo;
 import talisman.util.PathUtils;
 
 /**
@@ -46,8 +47,7 @@ public class PlayersInfoPanel extends JPanel {
     }
 
     private PlayerInfoPanel createPlayerPanel(final int character, final String name) {
-        // TODO: get image path
-        final String imagePath = PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true);
+        final String imagePath = PathUtils.getPathToCharacterIcon(character, true);
         final PlayerInfoPanel panel = new PlayerInfoPanel(imagePath, name);
         if (this.playerPanels.size() > 0) {
             panel.setBorder(BorderFactory.createEmptyBorder(0, PlayersInfoPanel.OFFSET, 0, 0));
