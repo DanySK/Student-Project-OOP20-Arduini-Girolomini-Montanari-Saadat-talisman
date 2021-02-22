@@ -3,6 +3,8 @@ package talisman;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,6 +24,7 @@ import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
 import talisman.util.GameSetupUtil;
 import talisman.view.BattleWindow;
+import talisman.view.OpponentChoiceWindow;
 import talisman.view.battle.BattleBottomView;
 import talisman.view.battle.BattleBottomViewImpl;
 import talisman.view.battle.BattleCenterView;
@@ -63,6 +66,12 @@ public final class App {
         BattleModel battle = new BattleModelImpl(character1.getStrength(), enemy1.getStrength());
         BattleController controller = new BattleControllerImpl(character1, enemy1, battle);
         new BattleWindow(controller);
+        //test opponent window
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            list.add(i);
+        }
+        OpponentChoiceWindow.show(list);
 
     }
 
