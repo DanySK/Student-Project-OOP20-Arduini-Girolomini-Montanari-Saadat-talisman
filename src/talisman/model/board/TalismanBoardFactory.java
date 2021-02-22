@@ -16,11 +16,15 @@ import talisman.model.action.TalismanModifyStatisticAction;
 import talisman.model.action.TalismanMoveAction;
 import talisman.model.action.TalismanPayAction;
 import talisman.model.action.TalismanQuestChoiceAction;
-import talisman.model.action.TalismanRequireItemAction;
+import talisman.model.action.TalismanRequireTalismanAction;
 import talisman.model.action.TalismanRollAction;
 import talisman.model.action.TalismanRollActionSection;
 import talisman.model.action.TalismanSkipTurnAction;
 import talisman.model.cards.DeckType;
+import talisman.model.quests.DeliverObject;
+import talisman.model.quests.KillEnemy;
+import talisman.model.quests.QuestObjectType;
+import talisman.model.quests.TakePlayerLife;
 import talisman.util.CellType;
 import talisman.util.DiceType;
 import talisman.util.PathUtils;
@@ -85,8 +89,7 @@ public final class TalismanBoardFactory {
                 TalismanBoardFactory.createCell("Woods_Top", "Woods", CellType.UP, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Sentinel", "Sentinel", CellType.UP, TalismanCellType.MONSTER,
-                        // TODO: set parameter to the correct strength value in the enemies list
-                        new TalismanRollAction(4, TalismanActionStatistic.STRENGTH, new TalismanMoveAction(1, 3),
+                        new TalismanRollAction(9, TalismanActionStatistic.STRENGTH, new TalismanMoveAction(1, 3),
                                 new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH))),
                 TalismanBoardFactory.createCell("Hills_Top", "Hills", CellType.UP, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
@@ -99,8 +102,8 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Crags", "Crags", CellType.RIGHT, TalismanCellType.ZONE,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
-                                // TODO: set index to spirit
-                                List.of(new TalismanRollActionSection(1, new TalismanFightAction(1)),
+                                // This index should be spirit
+                                List.of(new TalismanRollActionSection(7, new TalismanFightAction(1)),
                                         new TalismanRollActionSection(2, new TalismanSkipTurnAction()),
                                         new TalismanRollActionSection(4, new TalismanEmptyAction()),
                                         new TalismanRollActionSection(6,
@@ -140,8 +143,8 @@ public final class TalismanBoardFactory {
                 TalismanBoardFactory.createCell("Tavern", "Tavern", CellType.DOWN, TalismanCellType.ZONE,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
                                 List.of(new TalismanRollActionSection(1, new TalismanSkipTurnAction()),
-                                        // TODO: set index to farmer's one
-                                        new TalismanRollActionSection(2, new TalismanFightAction(2)),
+                                        // index should be the farmer's one
+                                        new TalismanRollActionSection(1, new TalismanFightAction(2)),
                                         new TalismanRollActionSection(3,
                                                 new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD)),
                                         new TalismanRollActionSection(4,
@@ -153,8 +156,8 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Woods_Left", "Forest", CellType.LEFT, TalismanCellType.BIOME,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
-                                // TODO: set to the brigand's index
-                                List.of(new TalismanRollActionSection(1, new TalismanFightAction(3)),
+                                // index should be the brigand's one
+                                List.of(new TalismanRollActionSection(2, new TalismanFightAction(3)),
                                         new TalismanRollActionSection(2, new TalismanSkipTurnAction()),
                                         new TalismanRollActionSection(4, new TalismanEmptyAction()),
                                         new TalismanRollActionSection(6,
@@ -198,8 +201,11 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("WarlocksCave", "Warlock's Cave", CellType.DOWN, TalismanCellType.ZONE,
-                        // TODO: add quests when they are done
-                        new TalismanQuestChoiceAction(List.of())),
+                        new TalismanQuestChoiceAction(List.of(new TakePlayerLife(), new KillEnemy(),
+                                new DeliverObject(QuestObjectType.FOLLOWER),
+                                new DeliverObject(QuestObjectType.MAGIC_OBJECT),
+                                new DeliverObject(QuestObjectType.THREE_COINS),
+                                new DeliverObject(QuestObjectType.TWO_COINS)))),
                 TalismanBoardFactory.createCell("Desert_Bottom", "Desert", CellType.DOWN, TalismanCellType.BIOME,
                         Set.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH),
                                 new TalismanDrawCardAction(DeckType.ADVENTURE))),
@@ -217,8 +223,7 @@ public final class TalismanBoardFactory {
                                         new TalismanModifyStatisticAction(1, TalismanActionStatistic.CRAFT)),
                                 new TalismanRollActionSection(8,
                                         new TalismanModifyStatisticAction(1, TalismanActionStatistic.STRENGTH)),
-                                // TODO: set talisman item index
-                                new TalismanRollActionSection(10, new TalismanGiveItemAction(0)),
+                                new TalismanRollActionSection(10, new TalismanDrawCardAction(DeckType.TALISMAN)),
                                 new TalismanRollActionSection(11,
                                         new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH))))),
                 // Left column (bottom -> up)
@@ -248,14 +253,12 @@ public final class TalismanBoardFactory {
                                 new TalismanModifyStatisticAction(-3, TalismanActionStatistic.HEALTH))),
                 // Right column
                 TalismanBoardFactory.createCell("Pits", "Pits", CellType.RIGHT, TalismanCellType.MONSTER,
-                        // TODO: set to the pitfiend's index
                         new TalismanFightAction(0)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
-                        new TalismanRequireItemAction(0, new TalismanMoveAction(0, 3), new TalismanEmptyAction())),
+                        new TalismanRequireTalismanAction(new TalismanMoveAction(0, 3), new TalismanEmptyAction())),
                 TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
-                        // TODO: set minimum to the werewolf's strength
-                        new TalismanRollAction(5, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
+                        new TalismanRollAction(6, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
                                 new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))),
                 TalismanBoardFactory.createCell("DiceWithDeath", "Dice with Death", CellType.DOWN,
                         TalismanCellType.MONSTER,

@@ -6,7 +6,9 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -22,9 +24,6 @@ import talisman.view.ImagePanel;
  * @author Alice Girolomini
  */
 public class BattleTopViewImpl extends JPanel implements BattleTopView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int XCOORDINATEIMAGE = 4;
@@ -44,13 +43,21 @@ public class BattleTopViewImpl extends JPanel implements BattleTopView {
         this.controller = controller;
         Pair<Integer, Integer> values = this.controller.initializeScores();
         this.firstCharDamage = new JLabel(String.valueOf(values.getX()));
+        this.firstCharDamage.setForeground(Color.BLACK);
         this.secondCharDamage = new JLabel(String.valueOf(values.getY()));
+        this.secondCharDamage.setForeground(Color.BLACK);
         this.add(this.firstCharDamage, this.setConstraints(2, 2, 1));
         this.add(this.secondCharDamage, this.setConstraints(XCOORDINATELABEL, 2, 1));
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(new JLabel("Attack score 1 :"));
+        labels.add(new JLabel("Attack score 2 :"));
+        for (int i = 0; i < labels.size(); i++) {
+            labels.get(i).setForeground(Color.BLACK);
+        }
         this.add(new JLabel(new ImageIcon("res/imgs/battle/banner.png")), this.setConstraints(3, 0, 1));
-        this.add(new JLabel("Attack score 1 :"), this.setConstraints(0, 1, 1));
+        this.add(labels.get(0), this.setConstraints(0, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(0, 2, 1));
-        this.add(new JLabel("Attack score 2 :"), this.setConstraints(XCOORDINATEIMAGE, 1, 1));
+        this.add(labels.get(1), this.setConstraints(XCOORDINATEIMAGE, 1, 1));
         this.add(new JLabel(new ImageIcon("res/imgs/battle/sword.png")), this.setConstraints(XCOORDINATEIMAGE, 2, 1));
         this.setBackground(Color.darkGray);
     }

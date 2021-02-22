@@ -94,4 +94,12 @@ public interface BattleController {
      */
     int requestedAttack();
 
+    /**
+     * Calls the death controller on the defeated character.
+     * 
+     * @param character - the character that has been defeated
+     * @return true if the character died
+     */
+    boolean checkDeath(CharacterModel character);
+
 }

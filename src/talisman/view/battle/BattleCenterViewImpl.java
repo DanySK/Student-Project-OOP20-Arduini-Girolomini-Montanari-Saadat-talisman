@@ -5,27 +5,28 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import talisman.controller.battle.BattleController;
 import talisman.model.battle.BattleState;
 
 /**
- * Swing implementation of the battle's center view.
+ * Swing implementation of the center view of the battle.
  * 
  * @author Alice Girolomini
  */
 public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int YCOORDINATEBUTTON = 5;
@@ -54,12 +55,18 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                     topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
                 }
                 if (controller.getTurn() == 2) {
-                   // endBattle();
+                   endBattle();
                 }
                 fateButton.setEnabled(controller.requestedFate());
             } 
         });
-        this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(new JLabel("Attack"));
+        labels.add(new JLabel("Fate"));
+        for (int i = 0; i < labels.size(); i++) {
+            labels.get(i).setForeground(Color.BLACK);
+        }
+        this.add(labels.get(0), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
         fateButton.setEnabled(this.controller.requestedFate());
         this.fateButton.addActionListener(new ActionListener() {
@@ -71,7 +78,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                 }
             } 
         });
-        this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
+        this.add(labels.get(1), this.setConstraints(1, 4, 1));
         this.setBackground(Color.darkGray);
     }
 
@@ -95,14 +102,21 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         return c;
     }
 
+    /**
+     * Shows a JOptionPane with the message associated to the outcome of the battle and closes the battle window.
+     */
     private void endBattle() {
+        Window win = SwingUtilities.getWindowAncestor(this.attackButton);
         BattleState status = this.controller.getResult();
         if (status.equals(BattleState.FIRST)) {
             JOptionPane.showMessageDialog(null, "First opponent wins!");
+            win.dispose();
         } else if (status.equals(BattleState.SECOND)) {
             JOptionPane.showMessageDialog(null, "Second opponent wins!");
+            win.dispose();
         } else if (status.equals(BattleState.STAND_OFF)) {
             JOptionPane.showMessageDialog(null, "It's a standoff!");
+            win.dispose();
         }
     }
 }

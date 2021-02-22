@@ -1,9 +1,6 @@
 package talisman.controller.battle;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleState;
 import talisman.model.character.CharacterModel;
@@ -178,11 +175,22 @@ public class BattleControllerImpl implements BattleController {
         if (this.model.isEnded()) {
             if (this.model.getState() == BattleState.FIRST) {
                 this.secondCharacter.setHealth(this.secondCharacter.getHealth() - 1);
+                //checkDeath(this.secondCharacter);
             } else if (this.model.getState() == BattleState.SECOND) {
                 this.firstCharacter.setHealth(this.firstCharacter.getHealth() - 1);
+                //checkDeath(this.firstCharacter);
             }
         }
         return this.model.getState();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean checkDeath(final CharacterModel character) {
+        DeathController deathController = new DeathControllerImpl(character);
+        return deathController.death();
     }
 
 }
