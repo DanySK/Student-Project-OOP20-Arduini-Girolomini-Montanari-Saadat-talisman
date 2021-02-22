@@ -2,16 +2,17 @@ package talisman.model.action;
 
 import java.util.List;
 
+import talisman.Controllers;
+import talisman.model.quests.TalismanQuest;
+
 /**
  * Models an action that lets the player choose a quest, if he can and if he
  * wants to.
  * 
  * @author Alberto Arduini
- *
- * @param <TalismanQuest>
  */
-// TODO: Set X to the quest type
-public class TalismanQuestChoiceAction<TalismanQuest> extends TalismanChoiceAction<TalismanQuest> {
+public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQuest> {
+    private static final long serialVersionUID = 2235915833077645617L;
     private static final String DESCRIPTION_FORMAT = "You may take a quest:";
     private static final String QUEST_DESCRIPTION_FORMAT = "- %s";
 
@@ -40,8 +41,7 @@ public class TalismanQuestChoiceAction<TalismanQuest> extends TalismanChoiceActi
      */
     @Override
     public String getChoiceDescription(final int index) {
-        // TODO: Print quest description
-        return String.format(TalismanQuestChoiceAction.QUEST_DESCRIPTION_FORMAT, Integer.toString(index));
+        return String.format(TalismanQuestChoiceAction.QUEST_DESCRIPTION_FORMAT, this.quests.get(index));
     }
 
     /**
@@ -68,7 +68,7 @@ public class TalismanQuestChoiceAction<TalismanQuest> extends TalismanChoiceActi
         if (choice == 0) {
             return true;
         }
-        // TODO: Start quest
+        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().
         return false;
     }
 
