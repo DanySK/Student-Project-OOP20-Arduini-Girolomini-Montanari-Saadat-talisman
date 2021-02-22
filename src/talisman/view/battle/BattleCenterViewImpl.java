@@ -8,6 +8,8 @@ import java.awt.LayoutManager;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -58,7 +60,13 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                 fateButton.setEnabled(controller.requestedFate());
             } 
         });
-        this.add(new JLabel("Attack"), this.setConstraints(1, 1, 1));
+        List<JLabel> labels = new ArrayList<>();
+        labels.add(new JLabel("Attack"));
+        labels.add(new JLabel("Fate"));
+        for (int i = 0; i < labels.size(); i++) {
+            labels.get(i).setForeground(Color.BLACK);
+        }
+        this.add(labels.get(0), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
         fateButton.setEnabled(this.controller.requestedFate());
         this.fateButton.addActionListener(new ActionListener() {
@@ -70,7 +78,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                 }
             } 
         });
-        this.add(new JLabel("Fate"), this.setConstraints(1, 4, 1));
+        this.add(labels.get(1), this.setConstraints(1, 4, 1));
         this.setBackground(Color.darkGray);
     }
 
