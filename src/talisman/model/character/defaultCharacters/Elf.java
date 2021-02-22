@@ -1,17 +1,17 @@
 package talisman.model.character.defaultCharacters;
 
-enum Druid implements Character {
+enum Elf implements Character {
     ;
 
     public static String getName() {
 
-        return "Druid";
+        return "Elf";
     }
 
 
     public static String[] getLore() {
 
-        return new String[] {"Druids serve as priests of nature.", "They use mistletoe as a holy symbol, and tend to be more involved with plants and animals than with humans."};
+        return new String[] {"Elves seem generally to have been thought of as beings with magical powers and supernatural beauty", "ambivalent towards everyday people and capable of either helping or hindering them."};
     }
 
 
@@ -23,7 +23,7 @@ enum Druid implements Character {
 
     public static int getStrength() {
 
-        return 2;
+        return 3;
     }
 
 
@@ -35,6 +35,6 @@ enum Druid implements Character {
 
     public static int getFate() {
 
-        return 4;
+        return 3;
     }
 }

@@ -1,40 +1,40 @@
 package talisman.model.character.defaultCharacters;
 
-enum Druid implements Character {
+enum Dwarf implements Character {
     ;
 
     public static String getName() {
 
-        return "Druid";
+        return "Dwarf";
     }
 
 
     public static String[] getLore() {
 
-        return new String[] {"Druids serve as priests of nature.", "They use mistletoe as a holy symbol, and tend to be more involved with plants and animals than with humans."};
+        return new String[] {"The Dwarf is an entity that dwells in mountains and in the earth", "The entity is variously associated with wisdom, smithing, mining, and crafting"};
     }
 
 
     public static int getHealth() {
 
-        return 4;
+        return 3;
     }
 
 
     public static int getStrength() {
 
-        return 2;
+        return 3;
     }
 
 
     public static int getCraft() {
 
-        return 4;
+        return 5;
     }
 
 
     public static int getFate() {
 
-        return 4;
+        return 5;
     }
 }

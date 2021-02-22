@@ -6,9 +6,27 @@ public class TalismanCharacterFactory {
 
     public static CharacterModelImpl createAssassinCharacter(){
 
-
-
         return new CharacterModelImpl(Assassin.getHealth(), Assassin.getStrength(), Assassin.getCraft(), 0, Assassin.getFate());
+    }
+
+    public static CharacterModelImpl createDruidCharacter(){
+
+        return new CharacterModelImpl(Druid.getHealth(), Druid.getStrength(), Druid.getCraft(), 0, Druid.getFate());
+    }
+
+    public static CharacterModelImpl createDwarfCharacter(){
+
+        return new CharacterModelImpl(Dwarf.getHealth(), Dwarf.getStrength(), Dwarf.getCraft(), 0, Dwarf.getFate());
+    }
+
+    public static CharacterModelImpl createElfCharacter(){
+
+        return new CharacterModelImpl(Elf.getHealth(), Elf.getStrength(), Elf.getCraft(), 0, Elf.getFate());
+    }
+
+    public static CharacterModelImpl createGhoulCharacter(){
+
+        return new CharacterModelImpl(Ghoul.getHealth(), Ghoul.getStrength(), Ghoul.getCraft(), 0, Ghoul.getFate());
     }
 }
 
