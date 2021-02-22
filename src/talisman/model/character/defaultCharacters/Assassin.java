@@ -1,6 +1,6 @@
 package talisman.model.character.defaultCharacters;
 
-public enum Assassin implements Character {
+enum Assassin implements Character {
     ;
 
     public static String getName() {

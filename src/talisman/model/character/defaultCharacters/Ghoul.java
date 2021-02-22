@@ -1,17 +1,17 @@
 package talisman.model.character.defaultCharacters;
 
-enum Druid implements Character {
+enum Ghoul implements Character {
     ;
 
     public static String getName() {
 
-        return "Druid";
+        return "Ghoul";
     }
 
 
     public static String[] getLore() {
 
-        return new String[] {"Druids serve as priests of nature.", "They use mistletoe as a holy symbol, and tend to be more involved with plants and animals than with humans."};
+        return new String[] {"The ghoul is a demon-like being or monstrous humanoid associated with graveyards and consuming human flesh"};
     }
 
 
