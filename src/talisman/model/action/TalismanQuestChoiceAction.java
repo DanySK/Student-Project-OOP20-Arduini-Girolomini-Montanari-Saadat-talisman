@@ -1,7 +1,5 @@
 package talisman.model.action;
 
-import talisman.model.quests.TalismanQuest;
-
 import java.util.List;
 
 /**
