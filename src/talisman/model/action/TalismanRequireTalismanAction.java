@@ -8,18 +8,15 @@ import java.util.Objects;
  * @author Alberto Arduini
  *
  */
-public class TalismanRequireItemAction implements TalismanAction {
+public class TalismanRequireTalismanAction implements TalismanAction {
     private static final long serialVersionUID = 3944869345872798127L;
-    private static final String DESCRIPTION_FORMAT = "If you have a %s then: %s"
-            + System.lineSeparator() + "otherwise: %s";
+    private static final String DESCRIPTION_FORMAT = "If you have a talisman then: %s; " + System.lineSeparator()
+            + "otherwise: %s";
 
-    private final int item;
     private final TalismanAction successAction;
     private final TalismanAction failedAction;
 
-    public TalismanRequireItemAction(final int item, final TalismanAction successAction,
-            final TalismanAction failedAction) {
-        this.item = Objects.requireNonNull(item);
+    public TalismanRequireTalismanAction(final TalismanAction successAction, final TalismanAction failedAction) {
         this.successAction = Objects.requireNonNull(successAction);
         this.failedAction = Objects.requireNonNull(failedAction);
     }
@@ -29,8 +26,8 @@ public class TalismanRequireItemAction implements TalismanAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanRequireItemAction.DESCRIPTION_FORMAT, this.getItem(),
-                this.successAction.getDescription(), this.failedAction.getDescription());
+        return String.format(TalismanRequireTalismanAction.DESCRIPTION_FORMAT, this.successAction.getDescription(),
+                this.failedAction.getDescription());
     }
 
     /**
@@ -45,14 +42,5 @@ public class TalismanRequireItemAction implements TalismanAction {
         } else {
             this.failedAction.apply();
         }
-    }
-
-    /**
-     * Gets the required item.
-     * 
-     * @return the item's index
-     */
-    public int getItem() {
-        return this.item;
     }
 }

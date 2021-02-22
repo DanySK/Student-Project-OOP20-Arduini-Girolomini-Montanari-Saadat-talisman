@@ -85,16 +85,16 @@ public final class Controllers {
     /**
      * Sets the active deck controller for the given deck type.
      * 
+     * @param type       the deck type
      * @param controller the controller to set
      * 
      * @throws IllegalStateException if the controller is already assigned
      */
-    // TODO: get deck type
-    public static void setDeckController(final TalismanDeckController controller) {
-        if (Controllers.deckControllers.containsKey(DeckType.ADVENTURE)) {
+    public static void setDeckController(final DeckType type, final TalismanDeckController controller) {
+        if (Controllers.deckControllers.containsKey(type)) {
             throw new IllegalStateException("The controller was already assigned");
         }
-        Controllers.deckControllers.put(DeckType.ADVENTURE, controller);
+        Controllers.deckControllers.put(type, controller);
     }
 
     /**
