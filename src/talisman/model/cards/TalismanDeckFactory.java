@@ -52,8 +52,15 @@ public final class TalismanDeckFactory {
     private static Queue<Card> createAdventureDeck(final Queue<Card> cards) {
         cards.add(TalismanDeckFactory.createCard("bag of gold", "get 1 gold", "BagOfGold", CardType.OBJECT,
                 List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
-        cards.add(TalismanDeckFactory.createCard("wild boar", "get 1 gold", "WildBoar", CardType.ENEMY,
-                List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
+        cards.add(TalismanDeckFactory.createCard("Pitfiend", "Enemy", "Pitfiend", CardType.ENEMY, List.of(new TalismanFightAction(0))));
+        cards.add(TalismanDeckFactory.createCard("Wild Boar", "Enemy", "WildBoar", CardType.ENEMY, List.of(new TalismanFightAction(1))));
+        cards.add(TalismanDeckFactory.createCard("Wolf", "Enemy", "Wolf", CardType.ENEMY, List.of(new TalismanFightAction(2))));
+        cards.add(TalismanDeckFactory.createCard("Serpent", "Enemy", "Serpent", CardType.ENEMY, List.of(new TalismanFightAction(3))));
+        cards.add(TalismanDeckFactory.createCard("Dragon", "Enemy", "Dragon", CardType.ENEMY, List.of(new TalismanFightAction(4))));
+        cards.add(TalismanDeckFactory.createCard("Lemure", "Enemy", "Lemure", CardType.ENEMY, List.of(new TalismanFightAction(5))));
+        cards.add(TalismanDeckFactory.createCard("Shadow", "Enemy", "Shadow", CardType.ENEMY, List.of(new TalismanFightAction(6))));
+        cards.add(TalismanDeckFactory.createCard("Wraith", "Enemy", "Wraith", CardType.ENEMY, List.of(new TalismanFightAction(7))));
+        cards.addAll(cards);
         return cards;
     }
 
@@ -72,5 +79,8 @@ public final class TalismanDeckFactory {
     public static Card createCard(final String name, final String text, final String imageName, final CardType type,
             final Collection<TalismanAction> actions) {
         return CardImpl.createCard(name, text, PathUtils.getPathToCard(type, imageName, true), type, actions);
+    }
+    public static void addMultiple(final Card card, final int nTimes) {
+        
     }
 }

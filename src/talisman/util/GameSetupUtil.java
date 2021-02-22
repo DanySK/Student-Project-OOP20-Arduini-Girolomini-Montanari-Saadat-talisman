@@ -11,6 +11,7 @@ import talisman.controller.board.TalismanBoardControllerFactory;
 import talisman.controller.cards.TalismanDeckControllerImpl;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+import talisman.model.battle.CraftEnemy;
 import talisman.model.battle.EnemyInfos;
 import talisman.model.battle.EnemyModel;
 import talisman.model.battle.StrengthEnemy;
@@ -19,6 +20,7 @@ import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
 import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
+import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.model.menu.PlayerInfo;
 
 import talisman.view.DebugView;
@@ -33,7 +35,6 @@ import talisman.view.GameWindow;
  */
 public final class GameSetupUtil {
     private static final int STARTING_GOLD = 1;
-    private static final int STARTING_HEALTH = 4;
     private static final boolean SHOW_DEBUG = true;
     private static final GameSetupUtil SINGLETON = new GameSetupUtil();
 
@@ -82,9 +83,13 @@ public final class GameSetupUtil {
          * creating, since it needs the enemy name to show cells descriptions
          */
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
-        EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
+        EnemyInfos.addEnemy(new StrengthEnemy(1, "Wild Boar"));
+        EnemyInfos.addEnemy(new StrengthEnemy(2, "Wolf"));
+        EnemyInfos.addEnemy(new StrengthEnemy(4, "Serpent"));
+        EnemyInfos.addEnemy(new StrengthEnemy(7, "Dragon"));
+        EnemyInfos.addEnemy(new CraftEnemy(1, "Lemure"));
+        EnemyInfos.addEnemy(new CraftEnemy(2, "Shadow"));
+        EnemyInfos.addEnemy(new CraftEnemy(5, "Wraith"));
 
         // Setup board controller
         final TalismanBoardController boardController = TalismanBoardControllerFactory.createController(characters);
@@ -92,6 +97,7 @@ public final class GameSetupUtil {
 
         // Setup decks
         Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.ADVENTURE));
+        //Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.TALISMAN));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
@@ -144,8 +150,10 @@ public final class GameSetupUtil {
     }
 
     private CharacterModelImpl createIngameCharacter(final PlayerInfo playerInfo) {
-        // TODO: get statistics from the character
-        return new CharacterModelImpl(GameSetupUtil.STARTING_HEALTH, 0, 0, GameSetupUtil.STARTING_GOLD, 0);
+        // TODO: when other characters are added, create based on the info
+        final CharacterModelImpl character = TalismanCharacterFactory.createAssassinCharacter();
+        character.setGold(GameSetupUtil.STARTING_GOLD);
+        return character;
     }
 
     /**

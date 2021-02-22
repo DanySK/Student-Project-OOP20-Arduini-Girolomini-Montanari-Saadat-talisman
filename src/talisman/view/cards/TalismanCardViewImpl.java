@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -38,5 +41,19 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
+        JButton button = new JButton("Click 0");
+        button.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // TODO Auto-generated method stub
+                button.setText("Wow");
+            }
+        });
+        this.add(button);
+    }
+    public void setView(final String imagePath, final String text2) {
+        this.image = new ImagePanel(imagePath);
+        this.text.setText(text2);
     }
 }
