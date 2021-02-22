@@ -20,14 +20,11 @@ import talisman.controller.battle.BattleController;
 import talisman.model.battle.BattleState;
 
 /**
- * Swing implementation of the battle's center view.
+ * Swing implementation of the center view of the battle.
  * 
  * @author Alice Girolomini
  */
 public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int YCOORDINATEBUTTON = 5;

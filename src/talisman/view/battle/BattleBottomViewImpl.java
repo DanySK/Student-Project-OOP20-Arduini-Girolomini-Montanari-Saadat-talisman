@@ -22,9 +22,6 @@ import talisman.controller.battle.BattleController;
  * @author Alice Girolomini
  */
 public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private final JButton diceButton;

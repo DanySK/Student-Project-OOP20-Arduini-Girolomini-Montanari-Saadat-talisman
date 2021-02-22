@@ -22,9 +22,6 @@ import talisman.view.ImagePanel;
  * @author Alice Girolomini
  */
 public class BattleTopViewImpl extends JPanel implements BattleTopView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int INSETSVALUE = 5;
     private static final int XCOORDINATEIMAGE = 4;
