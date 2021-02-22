@@ -1,5 +1,7 @@
 package talisman.model.action;
 
+import talisman.model.quests.TalismanQuest;
+
 import java.util.List;
 
 /**
@@ -8,21 +10,21 @@ import java.util.List;
  * 
  * @author Alberto Arduini
  *
- * @param <X>
+ * @param <TalismanQuest>
  */
 // TODO: Set X to the quest type
-public class TalismanQuestChoiceAction<X> extends TalismanChoiceAction<X> {
+public class TalismanQuestChoiceAction<TalismanQuest> extends TalismanChoiceAction<TalismanQuest> {
     private static final String DESCRIPTION_FORMAT = "You may take a quest:";
     private static final String QUEST_DESCRIPTION_FORMAT = "- %s";
 
-    private final List<X> quests;
+    private final List<TalismanQuest> quests;
 
     /**
      * Creates a new quest choice action.
      * 
      * @param quests the list of the possible quests
      */
-    public TalismanQuestChoiceAction(final List<X> quests) {
+    public TalismanQuestChoiceAction(final List<TalismanQuest> quests) {
         super();
         this.quests = List.copyOf(quests);
     }
@@ -31,7 +33,7 @@ public class TalismanQuestChoiceAction<X> extends TalismanChoiceAction<X> {
      * {@inheritDoc}
      */
     @Override
-    public X getChoice(final int index) {
+    public TalismanQuest getChoice(final int index) {
         return this.quests.get(index);
     }
 
