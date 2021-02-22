@@ -2,7 +2,7 @@ package talisman.model.character.defaultCharacters;
 
 interface Character {
 
-    static String getName() {
+    static String getType() {
 
         return null;
     }

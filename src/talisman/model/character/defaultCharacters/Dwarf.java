@@ -3,9 +3,9 @@ package talisman.model.character.defaultCharacters;
 enum Dwarf implements Character {
     ;
 
-    public static String getName() {
+    public static CharacterType getType() {
 
-        return "Dwarf";
+        return CharacterType.DWARF;
     }
 
 

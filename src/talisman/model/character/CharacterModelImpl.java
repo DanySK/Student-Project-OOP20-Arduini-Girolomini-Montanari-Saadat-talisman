@@ -1,5 +1,7 @@
 package talisman.model.character;
 
+import talisman.model.character.defaultCharacters.CharacterType;
+
 public class CharacterModelImpl implements CharacterModel {
 
     private int health;
@@ -8,6 +10,7 @@ public class CharacterModelImpl implements CharacterModel {
     private int gold;
     private int fate;
 
+    private final CharacterType type;
     private final InventoryModel inventory = new InventoryModelImpl();
 
     /**
@@ -19,13 +22,14 @@ public class CharacterModelImpl implements CharacterModel {
      * @param gold - the initial gold coin number
      * @param fate - the initial fate coin number
      */
-    public CharacterModelImpl(final int health, final int strength, final int craft, final int gold, final int fate) {
+    public CharacterModelImpl(final int health, final int strength, final int craft, final int gold, final int fate, final CharacterType type) {
 
         this.health = health;
         this.strength = strength;
         this.craft = craft;
         this.gold = gold;
         this.fate = fate;
+        this.type = type;
     }
 
     /**
@@ -126,5 +130,15 @@ public class CharacterModelImpl implements CharacterModel {
     public InventoryModel getInventory() {
 
         return inventory;
+    }
+
+    /**
+     * Returns the type of the base character
+     *
+     * @return the character
+     */
+    public CharacterType getType() {
+
+        return type;
     }
 }

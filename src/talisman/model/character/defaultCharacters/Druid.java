@@ -3,9 +3,9 @@ package talisman.model.character.defaultCharacters;
 enum Druid implements Character {
     ;
 
-    public static String getName() {
+    public static CharacterType getType() {
 
-        return "Druid";
+        return CharacterType.DRUID;
     }
 
 

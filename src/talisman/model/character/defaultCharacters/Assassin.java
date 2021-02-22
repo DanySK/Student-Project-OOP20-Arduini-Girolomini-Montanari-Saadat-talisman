@@ -3,9 +3,9 @@ package talisman.model.character.defaultCharacters;
 enum Assassin implements Character {
     ;
 
-    public static String getName() {
+    public static CharacterType getType() {
 
-        return "Assassin";
+        return CharacterType.ASSASSIN;
     }
 
 

@@ -3,9 +3,9 @@ package talisman.model.character.defaultCharacters;
 enum Elf implements Character {
     ;
 
-    public static String getName() {
+    public static CharacterType getType() {
 
-        return "Elf";
+        return CharacterType.ELF;
     }
 
 
