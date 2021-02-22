@@ -20,6 +20,7 @@ import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
 import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
+import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.model.menu.PlayerInfo;
 
 import talisman.view.DebugView;
@@ -34,7 +35,6 @@ import talisman.view.GameWindow;
  */
 public final class GameSetupUtil {
     private static final int STARTING_GOLD = 1;
-    private static final int STARTING_HEALTH = 4;
     private static final boolean SHOW_DEBUG = true;
     private static final GameSetupUtil SINGLETON = new GameSetupUtil();
 
@@ -150,8 +150,10 @@ public final class GameSetupUtil {
     }
 
     private CharacterModelImpl createIngameCharacter(final PlayerInfo playerInfo) {
-        // TODO: get statistics from the character
-        return new CharacterModelImpl(GameSetupUtil.STARTING_HEALTH, 0, 0, GameSetupUtil.STARTING_GOLD, 0);
+        // TODO: when other characters are added, create based on the info
+        final CharacterModelImpl character = TalismanCharacterFactory.createAssassinCharacter();
+        character.setGold(GameSetupUtil.STARTING_GOLD);
+        return character;
     }
 
     /**
