@@ -1,5 +1,8 @@
 package talisman.model.action;
 
+import talisman.Controllers;
+import talisman.model.cards.CardImpl;
+
 /**
  * An action that gives an item to a player.
  * 
@@ -11,9 +14,9 @@ public class TalismanGiveItemAction implements TalismanAction {
 
     private static final String DESCRIPTION_FORMAT = "You gain a %s";
 
-    private final int item;
+    private final CardImpl item;
 
-    public TalismanGiveItemAction(final int item) {
+    public TalismanGiveItemAction(final CardImpl item) {
         this.item = item;
     }
 
@@ -22,7 +25,7 @@ public class TalismanGiveItemAction implements TalismanAction {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanGiveItemAction.DESCRIPTION_FORMAT, this.getItem());
+        return String.format(TalismanGiveItemAction.DESCRIPTION_FORMAT, this.getItem().getName());
     }
 
     /**
@@ -30,7 +33,8 @@ public class TalismanGiveItemAction implements TalismanAction {
      */
     @Override
     public void apply() {
-        // TODO: give item
+        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory()
+                .addCard(this.getItem());
     }
 
     /**
@@ -38,7 +42,7 @@ public class TalismanGiveItemAction implements TalismanAction {
      * 
      * @return the item's index
      */
-    public int getItem() {
+    public CardImpl getItem() {
         return this.item;
     }
 }
