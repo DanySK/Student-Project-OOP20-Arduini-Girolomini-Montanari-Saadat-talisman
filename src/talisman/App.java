@@ -13,11 +13,11 @@ import javax.swing.WindowConstants;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
 import talisman.controller.cards.TalismanCardController;
-import talisman.model.cards.Deck;
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.EnemyModel;
 import talisman.model.battle.StrengthEnemy;
+import talisman.model.cards.Deck;
 import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
 import talisman.model.character.CharacterModel;
@@ -32,6 +32,9 @@ import talisman.view.battle.BattleCenterViewImpl;
 import talisman.view.battle.BattleTopView;
 import talisman.view.battle.BattleTopViewImpl;
 import talisman.view.menu.MainMenuWindow;
+
+import javax.swing.*;
+import java.awt.*;
 
 public final class App {
     private final MainMenuWindow mainMenu;
