@@ -2,51 +2,38 @@ package talisman.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 
 /**
- * Tests the battles.
+ * Tests the model of the battle.
  * 
  * @author Alice Girolomini
  *
  */
 public class BattleModelTests {
     /**
-     * Tests a basic battle between two character.
+     * Tests the battle model.
      */
     @Test
-    public void testBasicBattle() {
-        //Initialization of the two opponents
-        int first = 3;
-        int second = 1;
-        final BattleModelImpl battle = new BattleModelImpl(first, second);
+    public void testBattleModel() {
+        //Initialization of the two characters
+        int firstCharacterStrength = 3;
+        int secondCharacterStrength = 4;
+        final BattleModel battle = new BattleModelImpl(firstCharacterStrength, secondCharacterStrength);
+        //Checks the state of the battle
         Assertions.assertEquals(false, battle.isEnded());
         //first rolls the die
-        battle.firstDiceRoll();
-        first = first + battle.getFirstDice();
+        battle.diceRoll(1);
         //second rolls the die
-        battle.secondDiceRoll();
-        second = second + battle.getSecondDice();
-        //adds the dice to the initial strength or craft 
-        battle.addScore();
+        battle.diceRoll(2);
+        //adds the roll to the initial score
+        int firstCharacterScore = battle.getDiceRoll(1) + firstCharacterStrength;
+        int secondCharacterScore = battle.getDiceRoll(2) + secondCharacterStrength;
         battle.compareScore();
-        Assertions.assertEquals(first, battle.getFirstScore());
-        Assertions.assertEquals(second, battle.getSecondScore());
+        Assertions.assertEquals(firstCharacterScore, battle.getScore(1) + battle.getDiceRoll(1));
+        Assertions.assertEquals(secondCharacterScore, battle.getScore(2) + battle.getDiceRoll(2));
         Assertions.assertEquals(true, battle.isEnded());
     }
 
-    /**
-     * Tests a battle where on of the two players evades.
-     */
-    @Test
-    public void testEvadeCase() {
-        //Initialization of the two opponents
-        int first = 3;
-        int second = 0;
-        final BattleModelImpl battle = new BattleModelImpl(first, second);
-        Assertions.assertEquals(false, battle.isEnded());
-        battle.checkEvade();
-        Assertions.assertEquals(true, battle.isEnded());
-        System.out.println(battle.getState());
-    }
 }
