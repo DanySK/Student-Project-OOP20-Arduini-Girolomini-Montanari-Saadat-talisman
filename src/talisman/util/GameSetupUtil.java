@@ -97,7 +97,8 @@ public final class GameSetupUtil {
 
         // Setup decks
         Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.ADVENTURE));
-        //Controllers.setDeckController(new TalismanDeckControllerImpl(DeckType.TALISMAN));
+        // Controllers.setDeckController(new
+        // TalismanDeckControllerImpl(DeckType.TALISMAN));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
@@ -150,8 +151,27 @@ public final class GameSetupUtil {
     }
 
     private CharacterModelImpl createIngameCharacter(final PlayerInfo playerInfo) {
-        // TODO: when other characters are added, create based on the info
-        final CharacterModelImpl character = TalismanCharacterFactory.createAssassinCharacter();
+        final CharacterModelImpl character;
+        switch (playerInfo.getCharacter()) {
+        case ASSASSIN:
+            character = TalismanCharacterFactory.createAssassinCharacter();
+            break;
+        case DRUID:
+            character = TalismanCharacterFactory.createDruidCharacter();
+            break;
+        case DWARF:
+            character = TalismanCharacterFactory.createDwarfCharacter();
+            break;
+        case ELF:
+            character = TalismanCharacterFactory.createElfCharacter();
+            break;
+        case GHOUL:
+            character = TalismanCharacterFactory.createGhoulCharacter();
+            break;
+        default:
+            return null;
+        }
+        // Since the starting gold is the same for all characters i set it here
         character.setGold(GameSetupUtil.STARTING_GOLD);
         return character;
     }
