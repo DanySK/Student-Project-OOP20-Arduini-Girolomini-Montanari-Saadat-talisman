@@ -10,6 +10,7 @@ import talisman.model.character.CharacterModelImpl;
 
 import talisman.util.DiceType;
 import talisman.util.Utils;
+import talisman.view.TalismanRollActionResultWindow;
 
 /**
  * Action for rolling a dice, based on a statistic if needed.
@@ -119,7 +120,7 @@ public class TalismanRollAction implements TalismanAction {
         }
         for (final TalismanRollActionSection section : this.sections) {
             if (section.apply(actualValue) != ApplyResult.VALUE_NOT_ENOUGH) {
-                break;
+                TalismanRollActionResultWindow.show(this.getResult(), section.getAction().getDescription());
             }
         }
     }
