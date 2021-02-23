@@ -6,6 +6,7 @@ package talisman.model.quests;
  * @author Enrico Maria Montanari
  */
 public class KillEnemy extends TalismanQuest{
+    private static final long serialVersionUID = 8063773023888456165L;
 
     /**
      * Gets a description of the objective of the current quest

@@ -6,7 +6,8 @@ package talisman.model.quests;
  * @author Enrico Maria Montanari
  */
 public class DeliverObject extends TalismanQuest{
-
+    private static final long serialVersionUID = 522224177252193499L;
+    
     private final QuestObjectType objectType;
 
     /**
