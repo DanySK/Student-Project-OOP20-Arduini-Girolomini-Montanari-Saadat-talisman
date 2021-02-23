@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,7 @@ import talisman.controller.battle.BattleControllerImpl;
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.character.CharacterModel;
+import talisman.util.Pair;
 /**
  * Swing implementation of the view used to select an opponent to fight.
  * 
@@ -28,7 +31,7 @@ import talisman.model.character.CharacterModel;
  */
 public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWindow {
     private static final long serialVersionUID = 1L;
-    private final List<Integer> opponents;
+    private final List<Pair<Integer, String>> opponents;
     private final JTextField textField;
     private final JButton choiceButton;
     /**
@@ -37,7 +40,7 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
      * @param players - the list of players in the same cell
      */
     public OpponentChoiceWindowImpl(final List<Integer> players) {
-        this.opponents = players;
+        this.opponents = initializeOpponents(players);
         this.textField = new JTextField(10);
         this.choiceButton = new JButton("Continue");
         final BorderLayout layout = new BorderLayout();
@@ -100,14 +103,18 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
         return panel;
     }
 
+
     /**
      * Puts the integers of the list in a string.
      * 
      * @param list - the list of integers
      */
-    private String listToString(final List<Integer> list) {
-        String values = list.stream().map(String::valueOf).collect(Collectors.joining(", "));
-        return values;
+    private String listToString(final List<Pair<Integer, String>> list) {
+        int index = 0;
+        List<String> values = list.stream().map(e -> e.getY()).collect(Collectors.toList());
+        String strings = values.stream().map(String::valueOf).collect(Collectors.joining(" (" + index++ + "), "));
+        strings = strings.concat(" (" + index + "),");
+        return strings;
     }
 
     /**
@@ -116,7 +123,12 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
      * @param index - the opponents'index
      */
     private boolean checkOpponent(final int index) {
-        return this.opponents.contains(index);
+        for (int i = 0; i < this.opponents.size(); i++) {
+            if (this.opponents.get(i).getX().equals(index)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -125,9 +137,22 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
     private void startFight(final int index) {
         this.setVisible(false);
         CharacterModel firstcharacter = Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter();
-        CharacterModel secondcharacter = Controllers.getCharactersController().getPlayers()[index].getCurrentCharacter();
+        CharacterModel secondcharacter = Controllers.getCharactersController().getPlayers().get(index).getCurrentCharacter();
         BattleModel battleModel = new BattleModelImpl(firstcharacter.getStrength(), secondcharacter.getStrength());
         BattleController battleController = new BattleControllerImpl(firstcharacter, secondcharacter, battleModel);
         new BattleWindow(battleController);
+    }
+
+    /**
+     * Puts the player's index and his character type in a list.
+     * 
+     * @param list - the list
+     */
+    private List<Pair<Integer, String>> initializeOpponents(final List<Integer> list) {
+        List<Pair<Integer, String>> values = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            values.add(new Pair<Integer, String>(list.get(i), Controllers.getCharactersController().getPlayers().get(i).getCurrentCharacter().getType().toString()));
+        }
+        return values;
     }
 }
