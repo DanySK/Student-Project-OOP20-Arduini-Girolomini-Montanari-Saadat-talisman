@@ -64,6 +64,11 @@ public final class TalismanDeckFactory {
         cards.add(TalismanDeckFactory.createCard("Lemure", "LEMURE", "Lemure", CardType.ENEMY, List.of(new TalismanFightAction(5))));
         cards.add(TalismanDeckFactory.createCard("Shadow", "Enemy", "Shadow", CardType.ENEMY, List.of(new TalismanFightAction(6))));
         cards.add(TalismanDeckFactory.createCard("Wraith", "Enemy", "Wraith", CardType.ENEMY, List.of(new TalismanFightAction(7))));
+        //TODO Implementare le azioni delle seguenti carte
+        cards.add(TalismanDeckFactory.createCard("Mule", "Follower ", "Mule", CardType.FOLLOWER, null));
+        cards.add(TalismanDeckFactory.createCard("Princess", "Follower ", "Mule", CardType.FOLLOWER, null));
+        cards.add(TalismanDeckFactory.createCard("Sword", "Follower ", "Sword", CardType.OBJECT, null));
+        cards.add(TalismanDeckFactory.createCard("Magic Sword", "Follower ", "MagicSword", CardType.OBJECT, null));
         cards.addAll(cards);
         return cards;
     }
@@ -77,6 +82,8 @@ public final class TalismanDeckFactory {
     private static Queue<Card> createTalismanDeck(final Queue<Card> cards) {
         cards.add(TalismanDeckFactory.createCard(TALISMAN, "One of the legendary talismans", "Talisman", CardType.OBJECT,
                 List.of(new TalismanEmptyAction())));
+        cards.addAll(cards);
+        cards.addAll(cards);
         return cards;
     }
 

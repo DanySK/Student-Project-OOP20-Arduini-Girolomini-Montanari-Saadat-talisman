@@ -25,7 +25,7 @@ public class DeckImpl implements Deck {
     @Override
     public Card draw() {
         // TODO Auto-generated method stub
-        return cards.remove();
+        return cards.poll();
     }
     /**
      * {@inheritDoc}

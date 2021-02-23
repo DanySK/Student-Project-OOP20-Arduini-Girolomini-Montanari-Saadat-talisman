@@ -97,8 +97,7 @@ public final class GameSetupUtil {
 
         // Setup decks
         Controllers.setDeckController(DeckType.ADVENTURE, new TalismanDeckControllerImpl(DeckType.ADVENTURE));
-        // Controllers.setDeckController(DeckType.TALISMAN, new
-        // TalismanDeckControllerImpl(DeckType.TALISMAN));
+        Controllers.setDeckController(DeckType.TALISMAN, new TalismanDeckControllerImpl(DeckType.TALISMAN));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
