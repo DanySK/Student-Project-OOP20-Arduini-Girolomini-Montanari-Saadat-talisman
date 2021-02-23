@@ -115,7 +115,7 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public boolean requestedFate() {
         CharacterModel character = checkTurn();
-        if (character.getFate() > 0) {
+        if (character.getFate() > 0 && this.countFate.get(getTurn() - 1) == 0) {
             return true;
         }
         return false;
