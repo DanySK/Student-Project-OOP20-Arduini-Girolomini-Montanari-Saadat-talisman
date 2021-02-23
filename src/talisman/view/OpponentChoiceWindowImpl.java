@@ -46,7 +46,7 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
         final BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.setTitle("Choose your opponent:");
-        //this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.getContentPane().add(createTitlePanel(), BorderLayout.NORTH);
         this.getContentPane().add(createTextPanel(), BorderLayout.CENTER);
         this.getContentPane().add(createButtonPanel(), BorderLayout.SOUTH);
