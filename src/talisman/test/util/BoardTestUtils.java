@@ -16,7 +16,7 @@ import talisman.model.board.TalismanBoardPawn;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.board.TalismanCellType;
 import talisman.model.character.CharacterModelImpl;
-
+import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.util.CellType;
 
 import talisman.view.board.TalismanBoardViewBuilder;
@@ -72,17 +72,15 @@ public final class BoardTestUtils {
      * @param sectionsCount the number of sections
      * @param cellsCount    the number of cells of every section
      * @param pawnsCount    the number of pawns
-     * @param stats         the statistics that characters will all start with
-     * @return the cretead controller for the board
+     * @return the created controller for the board
      */
     public static TalismanBoardController setupControllers(final int sectionsCount, final int cellsCount,
-            final int pawnsCount, final CharacterModelImpl stats) {
+            final int pawnsCount) {
         Controllers.reset();
         final CharactersController characterController = new CharacterControllerImpl();
         Controllers.setCharactersController(characterController);
         for (int i = 0; i < pawnsCount; i++) {
-            Controllers.getCharactersController().addPlayer(new CharacterModelImpl(stats.getHealth(),
-                    stats.getStrength(), stats.getCraft(), stats.getGold(), stats.getFate()));
+            Controllers.getCharactersController().addPlayer(TalismanCharacterFactory.createAssassinCharacter());
         }
         Controllers.setBoardController(BoardTestUtils.createController(sectionsCount, cellsCount, pawnsCount));
         return Controllers.getBoardController();

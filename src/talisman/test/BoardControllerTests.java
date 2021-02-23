@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import talisman.test.util.BoardTestUtils;
 
 import talisman.controller.board.TalismanBoardController;
-import talisman.model.character.CharacterModelImpl;
 
 /**
  * Tests the talisman board's controller.
@@ -20,8 +19,7 @@ public class BoardControllerTests {
      */
     @Test
     public void testMovePawn() {
-        final TalismanBoardController controller = BoardTestUtils.setupControllers(2, 4, 1,
-                new CharacterModelImpl(0, 0, 0, 0, 0));
+        final TalismanBoardController controller = BoardTestUtils.setupControllers(2, 4, 1);
         // Move to cell of index two
         controller.moveCharacterCell(0, 2);
         // The player is now in cell 2, section 0
