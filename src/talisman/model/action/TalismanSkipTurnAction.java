@@ -1,5 +1,7 @@
 package talisman.model.action;
 
+import talisman.controller.character.CurrentPlayerChoicesController;
+
 /**
  * Models an action that skips to the next player turn.
  * 
@@ -25,6 +27,6 @@ public class TalismanSkipTurnAction implements TalismanAction {
      */
     @Override
     public void apply() {
-        // TODO: Skip turn
+        CurrentPlayerChoicesController.skipTurn();
     }
 }

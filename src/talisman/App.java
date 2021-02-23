@@ -15,6 +15,7 @@ import talisman.controller.battle.BattleControllerImpl;
 import talisman.controller.cards.TalismanCardController;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+import talisman.controller.character.CurrentPlayerChoicesController;
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.EnemyModel;
@@ -30,6 +31,7 @@ import talisman.model.character.defaultCharacters.CharacterType;
 import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.util.GameSetupUtil;
 import talisman.view.BattleWindow;
+import talisman.view.CurrentPlayerChoicesWindow;
 import talisman.view.OpponentChoiceWindow;
 import talisman.view.battle.BattleBottomView;
 import talisman.view.battle.BattleBottomViewImpl;
@@ -70,17 +72,20 @@ public final class App {
         thirdWindow.setVisible(true);
 
         //test opponent window
-        PlayerModel player1 = new PlayerModelImpl(1, 1, TalismanCharacterFactory.createAssassinCharacter());
-        PlayerModel player2 = new PlayerModelImpl(2, 2, TalismanCharacterFactory.createDruidCharacter());
+        PlayerModel player1 = new PlayerModelImpl(1, 0, TalismanCharacterFactory.createAssassinCharacter());
+        PlayerModel player2 = new PlayerModelImpl(2, 1, TalismanCharacterFactory.createDruidCharacter());
         CharactersController c = new CharacterControllerImpl();
         Controllers.setCharactersController(c);
         Controllers.getCharactersController().addPlayer((CharacterModelImpl) player1.getCurrentCharacter());
         Controllers.getCharactersController().addPlayer((CharacterModelImpl) player2.getCurrentCharacter());
+        Controllers.getCharactersController().setCurrentPlayer(0);
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             list.add(i);
         }
         OpponentChoiceWindow.show(list);
+
+        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(0));
 
     }
 
