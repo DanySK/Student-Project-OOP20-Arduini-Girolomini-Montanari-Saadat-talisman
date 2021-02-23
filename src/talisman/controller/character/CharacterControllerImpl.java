@@ -125,6 +125,6 @@ class Players {
 
     static PlayerModelImpl[] getPlayers(){
 
-        return (PlayerModelImpl[]) players.toArray();
+        return players.toArray(PlayerModelImpl[]::new);
     }
 }
