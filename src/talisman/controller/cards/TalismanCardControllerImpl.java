@@ -3,10 +3,10 @@ package talisman.controller.cards;
 import talisman.model.cards.Card;
 import talisman.view.cards.TalismanCardView;
 
-public class TalismanCardControllerImpl implements TalismanCardController {
-
-    public static final TalismanCardView createView(final Card card) {
-        // TODO Auto-generated method stub
+public final class TalismanCardControllerImpl implements TalismanCardController {
+    private TalismanCardControllerImpl() {
+    }
+    public static TalismanCardView createView(final Card card) {
         return TalismanCardView.create(card.getImagePath(), card.getText());
     }
 
