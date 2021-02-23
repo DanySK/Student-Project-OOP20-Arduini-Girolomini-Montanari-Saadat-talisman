@@ -61,12 +61,15 @@ public class BattleControllerTests {
         //Initialization of opponents
         createGame();
         CharacterModelImpl character = new CharacterModelImpl(1, 1, 3, 4, 0, CharacterType.DWARF);
+        //creates current character
         PlayerModel player3 = new PlayerModelImpl(3, 2, character);
         Controllers.getCharactersController().addPlayer((CharacterModelImpl) player3.getCurrentCharacter());
         Controllers.getCharactersController().setCurrentPlayer(2);
         Controllers.getBoardController().moveCharacterSection(2, 1, 1);
         EnemyModel enemy = new StrengthEnemy(10, "Wild Boar");
+        //creates battle
         final BattleModel battle = new BattleModelImpl(character.getStrength(), enemy.getStrength());
+        //creates controller
         final BattleController controller = new BattleControllerImpl(character, enemy, battle);
         Assertions.assertEquals(false, battle.isEnded());
         //first rolls the die
@@ -76,11 +79,16 @@ public class BattleControllerTests {
         //adds the roll to the initial score
         Assertions.assertEquals(controller.requestedAttack(), battle.getScore(1));
         Assertions.assertEquals(controller.requestedAttack(), battle.getScore(2));
+        //checks the winner
         Assertions.assertEquals(BattleState.SECOND, controller.getResult());
+        //checks the new player's position 
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionCell());
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionSection());
     }
 
+    /**
+     * Creates the board and other components.
+     */
     private void createGame() {
        TalismanBoardController boardController = BoardTestUtils.createController(2, 10, 3);
        Controllers.setBoardController(boardController);
