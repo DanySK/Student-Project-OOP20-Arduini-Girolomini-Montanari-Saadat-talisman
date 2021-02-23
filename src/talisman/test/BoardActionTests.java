@@ -20,8 +20,10 @@ public class BoardActionTests {
 
     @Test
     public void testMoveAction() {
-        final BoardPawn pawn = BoardTestUtils.setupControllers(BoardActionTests.SECTION_COUNT,
-                BoardActionTests.CELL_COUNT, 1, this.createStartingCharacterInfo()).getCharacterPawn(0);
+        final BoardPawn pawn = BoardTestUtils
+                .setupControllers(BoardActionTests.SECTION_COUNT, BoardActionTests.CELL_COUNT, 1).getCharacterPawn(0);
+        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter()
+                .setGold(BoardActionTests.STARTING_GOLD);
         TalismanAction action = new TalismanMoveAction(2, 3);
         // 0,0 -> 2,3
         action.apply();
@@ -36,8 +38,10 @@ public class BoardActionTests {
 
     @Test
     public void testPayAction() {
-        final BoardPawn pawn = BoardTestUtils.setupControllers(BoardActionTests.SECTION_COUNT,
-                BoardActionTests.CELL_COUNT, 1, this.createStartingCharacterInfo()).getCharacterPawn(0);
+        final BoardPawn pawn = BoardTestUtils
+                .setupControllers(BoardActionTests.SECTION_COUNT, BoardActionTests.CELL_COUNT, 1).getCharacterPawn(0);
+        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter()
+                .setGold(BoardActionTests.STARTING_GOLD);
         final TalismanAction action = new TalismanPayAction(1, new TalismanMoveAction(2, 3));
         // gold: 0, should move pawn to 2,3
         action.apply();
@@ -46,9 +50,5 @@ public class BoardActionTests {
                         .getGold());
         Assertions.assertEquals(2, pawn.getPositionSection());
         Assertions.assertEquals(3, pawn.getPositionCell());
-    }
-
-    private CharacterModelImpl createStartingCharacterInfo() {
-        return new CharacterModelImpl(0, 0, 0, BoardActionTests.STARTING_GOLD, 0);
     }
 }

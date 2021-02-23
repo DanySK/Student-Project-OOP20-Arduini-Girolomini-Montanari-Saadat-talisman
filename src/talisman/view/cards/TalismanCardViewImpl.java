@@ -10,12 +10,15 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import talisman.util.PathUtils;
 import talisman.view.ImagePanel;
-
+/**
+ * The implementation for TalismanCardView.
+ * @author Abtin Saadat
+ *
+ */
 public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView {
     private ImagePanel image;
     private JTextArea text;
@@ -52,6 +55,11 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
         });
         this.add(button);
     }
+    /**
+     * Used to change the viewing card.
+     * @param imagePath
+     * @param text2
+     */
     public void setView(final String imagePath, final String text2) {
         this.image = new ImagePanel(imagePath);
         this.text.setText(text2);
