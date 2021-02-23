@@ -13,6 +13,8 @@ import javax.swing.WindowConstants;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
 import talisman.controller.cards.TalismanCardController;
+import talisman.controller.character.CharacterControllerImpl;
+import talisman.controller.character.CharactersController;
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.EnemyModel;
@@ -22,6 +24,10 @@ import talisman.model.cards.DeckType;
 import talisman.model.cards.TalismanDeckFactory;
 import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
+import talisman.model.character.PlayerModel;
+import talisman.model.character.PlayerModelImpl;
+import talisman.model.character.defaultCharacters.CharacterType;
+import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.util.GameSetupUtil;
 import talisman.view.BattleWindow;
 import talisman.view.OpponentChoiceWindow;
@@ -62,19 +68,19 @@ public final class App {
         thirdWindow.pack();
         thirdWindow.setResizable(false);
         thirdWindow.setVisible(true);
-        // test battle view
-        CharacterModel character1 = new CharacterModelImpl(1, 2, 3, 4, 0);
-        CharacterModel character2 = new CharacterModelImpl(6, 7, 8, 9, 10);
-        EnemyModel enemy1 = new StrengthEnemy(9, "Troll");
-        BattleModel battle = new BattleModelImpl(character1.getStrength(), enemy1.getStrength());
-        BattleController controller = new BattleControllerImpl(character1, enemy1, battle);
-        new BattleWindow(controller);
+
         //test opponent window
+        /*PlayerModel player1 = new PlayerModelImpl(1, 1, TalismanCharacterFactory.createAssassinCharacter());
+        PlayerModel player2 = new PlayerModelImpl(2, 2, TalismanCharacterFactory.createDruidCharacter());
+        CharactersController c = new CharacterControllerImpl();
+        Controllers.setCharactersController(c);
+        Controllers.getCharactersController().addPlayer((CharacterModelImpl) player1.getCurrentCharacter());
+        Controllers.getCharactersController().addPlayer((CharacterModelImpl) player2.getCurrentCharacter());
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             list.add(i);
         }
-        OpponentChoiceWindow.show(list);
+        OpponentChoiceWindow.show(list);*/
 
     }
 
