@@ -22,7 +22,8 @@ import talisman.view.ImagePanel;
 public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView {
     private ImagePanel image;
     private JTextArea text;
-    public TalismanCardViewImpl(final String imagePath, final String text) {
+    private JTextArea name;
+    public TalismanCardViewImpl(final String imagePath, final String text, final String name) {
         super(PathUtils.getDevImagePath("cardbg", true));
         this.image = new ImagePanel(imagePath);
         final LayoutManager layout = new BoxLayout(this, BoxLayout.Y_AXIS);
@@ -37,14 +38,25 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
         this.text.setAlignmentX(CENTER_ALIGNMENT);
         this.text.setAlignmentY(CENTER_ALIGNMENT);
         this.text.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+        this.name = new JTextArea(1, 1);
+        this.name.setText(name);
+        this.name.setForeground(Color.WHITE);
+        this.name.setBackground(Color.BLACK);
+        this.name.setLineWrap(true);
+        this.name.setWrapStyleWord(true);
+        this.name.setEditable(false);
+        this.name.setAlignmentX(CENTER_ALIGNMENT);
+        this.name.setAlignmentY(CENTER_ALIGNMENT);
+        this.name.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
         this.setMaximumSize(new Dimension(50, 50));
+        this.add(this.name, BorderLayout.PAGE_START);
         this.add(this.image);
         this.add(this.text, BorderLayout.PAGE_END);
         final Dimension size = new Dimension(256, 384);
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
-        JButton button = new JButton("Click 0");
+        /*JButton button = new JButton("Click 0");
         button.addActionListener(new ActionListener(){
 
             @Override
@@ -53,7 +65,7 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
                 button.setText("Wow");
             }
         });
-        this.add(button);
+        this.add(button);*/
     }
     /**
      * Used to change the viewing card.

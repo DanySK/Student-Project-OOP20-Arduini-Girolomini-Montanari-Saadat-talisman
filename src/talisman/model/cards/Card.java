@@ -1,4 +1,5 @@
 package talisman.model.cards;
+
 /**
  * Interface that models a card.
  * 
@@ -6,10 +7,27 @@ package talisman.model.cards;
  * 
  */
 public interface Card {
+    /**
+     * 
+     * @return The name of the card
+     */
+    String getName();
 
-String getText();
+    /**
+     * 
+     * @return The text of the card
+     */
+    String getText();
 
-CardType getType();
+    /**
+     * 
+     * @return The type of the card
+     */
+    CardType getType();
 
-String getImagePath();
+    /**
+     * 
+     * @return The image path of the card
+     */
+    String getImagePath();
 }

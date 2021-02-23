@@ -11,7 +11,7 @@ import talisman.model.cards.Card;
 public interface TalismanDeckView {
     static void create(final List<Card> deck) {
         int index = 0;
-        TalismanCardViewImpl deckView = new TalismanCardViewImpl(deck.get(index).getImagePath(), deck.get(index).getText());
+        TalismanCardViewImpl deckView = new TalismanCardViewImpl(deck.get(index).getImagePath(), deck.get(index).getText(), deck.get(index).getName());
         JButton button = new JButton("Click 0");
         button.addActionListener(new ActionListener() {
 
