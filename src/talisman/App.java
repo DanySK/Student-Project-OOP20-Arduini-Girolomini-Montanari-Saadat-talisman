@@ -70,17 +70,17 @@ public final class App {
         thirdWindow.setVisible(true);
 
         //test opponent window
-        /*PlayerModel player1 = new PlayerModelImpl(1, 1, TalismanCharacterFactory.createAssassinCharacter());
+        PlayerModel player1 = new PlayerModelImpl(1, 1, TalismanCharacterFactory.createAssassinCharacter());
         PlayerModel player2 = new PlayerModelImpl(2, 2, TalismanCharacterFactory.createDruidCharacter());
         CharactersController c = new CharacterControllerImpl();
         Controllers.setCharactersController(c);
         Controllers.getCharactersController().addPlayer((CharacterModelImpl) player1.getCurrentCharacter());
         Controllers.getCharactersController().addPlayer((CharacterModelImpl) player2.getCurrentCharacter());
         List<Integer> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             list.add(i);
         }
-        OpponentChoiceWindow.show(list);*/
+        OpponentChoiceWindow.show(list);
 
     }
 

@@ -1,6 +1,6 @@
 package talisman.controller.battle;
 
-import talisman.model.character.CharacterModel;
+import talisman.model.character.CharacterModelImpl;
 
 /**
  * A MVC controller for the character's death.
@@ -19,8 +19,9 @@ public interface DeathController {
      * Resets the character's informations.
      * 
      * @param character - the character to reset
+     * @param index - the player's index
      */
-    void resetCharacterInfo(CharacterModel character);
+    void resetCharacterInfo(CharacterModelImpl character, int index);
 
     /**
      * Resets the character's position on the board.
