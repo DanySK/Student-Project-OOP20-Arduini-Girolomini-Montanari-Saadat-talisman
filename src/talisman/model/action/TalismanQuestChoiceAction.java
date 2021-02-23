@@ -14,7 +14,7 @@ import talisman.model.quests.TalismanQuest;
 public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQuest> {
     private static final long serialVersionUID = 2235915833077645617L;
     private static final String DESCRIPTION_FORMAT = "You may take a quest:";
-    private static final String QUEST_DESCRIPTION_FORMAT = "- %s";
+    private static final String QUEST_DESCRIPTION_FORMAT = "- %s ";
 
     private final List<TalismanQuest> quests;
 
@@ -68,7 +68,8 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
         if (choice == 0) {
             return true;
         }
-        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().
+        // TODO: start quest
+        // Controllers.getCharactersController().getCurrentPlayer().
         return false;
     }
 
