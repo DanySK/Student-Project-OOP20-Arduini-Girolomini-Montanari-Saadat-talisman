@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import talisman.Controllers;
+import talisman.model.action.ActionEndedListener;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardSection;
 import talisman.model.cards.Card;
@@ -46,6 +47,13 @@ public interface TalismanBoardController
      * @return an optional containing the card that was on the cell
      */
     Optional<Card> collectCurrentCharacterCellCard();
+
+    /**
+     * Sets the listener waiting for an action to end.
+     * 
+     * @param listener the listener
+     */
+    void setActionEndedListener(ActionEndedListener listener);
 
     /**
      * Gets the characters opponents on the current player cell.
