@@ -75,6 +75,7 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
                 if (!controller.canRoll()) {
                     controller.updateFate();
                     bottomView.setAttackRoll(controller.getTurn(), 0);
+                    fateButton.setEnabled(controller.requestedFate());
                 }
             } 
         });
