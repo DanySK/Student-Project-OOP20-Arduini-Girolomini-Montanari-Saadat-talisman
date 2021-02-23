@@ -67,7 +67,7 @@ public class CharacterControllerImpl implements CharactersController {
     }
 
     @Override
-    public PlayerModelImpl[] getPlayers(){
+    public List<PlayerModelImpl> getPlayers(){
 
         return Players.getPlayers();
     }
@@ -123,8 +123,8 @@ class Players {
         players.remove(index);
     }
 
-    static PlayerModelImpl[] getPlayers(){
+    static List<PlayerModelImpl> getPlayers(){
 
-        return players.toArray(PlayerModelImpl[]::new);
+        return List.copyOf(players);
     }
 }

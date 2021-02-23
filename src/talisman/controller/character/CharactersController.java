@@ -3,6 +3,8 @@ package talisman.controller.character;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModelImpl;
 
+import java.util.List;
+
 /**
  * An MVC Controller for the players
  *
@@ -51,7 +53,7 @@ public interface CharactersController {
      *
      * @return the array of players
      */
-    PlayerModelImpl[] getPlayers();
+    List<PlayerModelImpl> getPlayers();
 
     /**
      * Gets the player who currently owns a crown
