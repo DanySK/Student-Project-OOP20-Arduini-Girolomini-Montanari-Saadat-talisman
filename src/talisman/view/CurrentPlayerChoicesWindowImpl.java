@@ -57,7 +57,6 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         this.moveButton.setEnabled(false);
         this.attackButton.setEnabled(false);
         this.cellEventButton.setEnabled(false);
-        this.passTurnButton.setEnabled(false);
         this.getContentPane().add(createInfoAndDicePanel(), BorderLayout.NORTH);
         this.getContentPane().add(createChoicesPanel(), BorderLayout.CENTER);
         this.setSize(WIDTH, HEIGHT);
@@ -111,7 +110,6 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
                 moveButton.setEnabled(false);
                 attackButton.setEnabled(controller.checkOpponents());
                 cellEventButton.setEnabled(true);
-                passTurnButton.setEnabled(false);
             }
         });
         panel.add(this.cellEventButton, this.setConstraints(0, 1, 1));
@@ -138,8 +136,10 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                controller.passTurn();
-                closeWindow();
+                if (controller.checkRoll()) {
+                    controller.passTurn();
+                    closeWindow();
+                }
             }
         });
         panel.setBackground(Color.darkGray);
@@ -170,7 +170,7 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
      * Closes this window.
      */
     private void closeWindow() {
-        this.closeWindow();
+        this.dispose();
     }
 
 }
