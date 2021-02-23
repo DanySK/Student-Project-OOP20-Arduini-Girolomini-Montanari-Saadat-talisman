@@ -7,14 +7,20 @@ import talisman.model.cards.TalismanDeckFactory;
 import talisman.view.cards.TalismanDeckView;
 
 public class TalismanDeckControllerImpl implements TalismanDeckController {
-    private final Deck deck;
+    private Deck deck;
     public TalismanDeckControllerImpl(final DeckType type) {
         this.deck = TalismanDeckFactory.createDeck(type);
     }
 
     @Override
     public Card draw() {
-        return deck.draw();
+        Card drawnCard;
+        drawnCard = deck.draw();
+        if (drawnCard == null) {
+            this.deck = TalismanDeckFactory.createDeck(this.deck.getType());
+            drawnCard = deck.draw();
+        }
+        return drawnCard;
     }
 
     @Override
