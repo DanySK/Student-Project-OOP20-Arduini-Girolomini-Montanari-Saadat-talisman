@@ -1,5 +1,8 @@
 package talisman.model.action;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JFrame;
 
 import talisman.Controllers;
@@ -21,7 +24,7 @@ import talisman.view.battle.BattleViewFactory;
  * @author Alberto Arduini
  *
  */
-public class TalismanFightAction implements TalismanAction {
+public class TalismanFightAction  extends TalismanActionImpl {
     private static final long serialVersionUID = 4451903715879720847L;
     private static final String DESCRIPTION_FORMAT = "You have to fight a %s";
     private final int enemy;
@@ -57,7 +60,13 @@ public class TalismanFightAction implements TalismanAction {
             battleModel = new BattleModelImpl(characterModel.getCraft(), enemyModel.getCraft());
         }
         BattleController battleController = new BattleControllerImpl(characterModel, enemyModel, battleModel);
-        new BattleWindow(battleController);
+        final BattleWindow window = new BattleWindow(battleController);
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(final WindowEvent e) {
+                TalismanFightAction.this.actionEnded();
+            }
+        });
     }
 
     /**

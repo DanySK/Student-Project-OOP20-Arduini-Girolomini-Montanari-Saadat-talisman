@@ -6,7 +6,7 @@ package talisman.model.action;
  * @author Alberto Arduini
  *
  */
-public abstract class TalismanAmountAction implements TalismanAction {
+public abstract class TalismanAmountAction extends TalismanActionImpl {
     private static final long serialVersionUID = 834721071654192282L;
 
     private final int amount;

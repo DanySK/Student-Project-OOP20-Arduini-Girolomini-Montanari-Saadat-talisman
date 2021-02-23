@@ -32,6 +32,13 @@ public interface TalismanAction extends Serializable {
     void apply();
 
     /**
+     * Sets the listener waiting for the action to end.
+     * 
+     * @param listener the listener
+     */
+    void setActionEndedListener(ActionEndedListener listener);
+    
+    /**
      * Checks if the action can be applied to the current player.
      * 
      * @return if the action can be applied

@@ -1,5 +1,7 @@
 package talisman.model.action;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +20,7 @@ import talisman.view.TalismanRollActionResultWindow;
  * @author Alberto Arduini
  *
  */
-public class TalismanRollAction implements TalismanAction {
+public class TalismanRollAction extends TalismanActionImpl {
     private static final long serialVersionUID = 2847596850734221682L;
     private static final String ABSOLUTE_DESCRIPTION_FORMAT = "Roll 1 dice. If the result is at least:";
     private static final String RELATIVE_DESCRIPTION_FORMAT = "Roll 1 dice on %s. If the result is at least:";
@@ -28,7 +30,7 @@ public class TalismanRollAction implements TalismanAction {
     private final TalismanActionStatistic statistic;
     private final DiceType diceType;
     private final List<TalismanRollActionSection> sections;
-    private int lastResult;
+    private transient int lastResult;
 
     /**
      * Creates a new roll action.
@@ -53,9 +55,7 @@ public class TalismanRollAction implements TalismanAction {
      */
     public TalismanRollAction(final TalismanActionStatistic statistic,
             final List<TalismanRollActionSection> resultSections) {
-        this.diceType = DiceType.SEVEN;
-        this.statistic = statistic;
-        this.sections = List.copyOf(resultSections);
+        this(DiceType.SEVEN, statistic, resultSections);
     }
 
     /**
@@ -71,6 +71,7 @@ public class TalismanRollAction implements TalismanAction {
         this.diceType = dice;
         this.statistic = statistic;
         this.sections = List.copyOf(resultSections);
+        this.sections.stream().map(s -> s.getAction()).forEach(a -> a.setActionEndedListener(this::actionEnded));
     }
 
     /**
@@ -121,6 +122,8 @@ public class TalismanRollAction implements TalismanAction {
         for (final TalismanRollActionSection section : this.sections) {
             if (section.apply(actualValue) != ApplyResult.VALUE_NOT_ENOUGH) {
                 TalismanRollActionResultWindow.show(this.getResult(), section.getAction().getDescription());
+                this.actionEnded();
+                break;
             }
         }
     }
@@ -150,5 +153,10 @@ public class TalismanRollAction implements TalismanAction {
         } else {
             return String.format(format, section.getAction().getDescription());
         }
+    }
+
+    private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        this.sections.stream().map(s -> s.getAction()).forEach(a -> a.setActionEndedListener(this::actionEnded));
     }
 }

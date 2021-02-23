@@ -10,7 +10,7 @@ import talisman.model.cards.DeckType;
  * @author Alberto Arduini
  *
  */
-public class TalismanDrawCardAction implements TalismanAction {
+public class TalismanDrawCardAction  extends TalismanActionImpl {
     private static final long serialVersionUID = 1L;
     private static final String DESCRIPTION_FORMAT = "Draw a card if there isn't already one in this space";
 
@@ -43,6 +43,7 @@ public class TalismanDrawCardAction implements TalismanAction {
         }
         final Card card = Controllers.getDeckController(this.deck).draw();
         Controllers.getBoardController().setCurrentCharacterCellCard(card);
+        this.actionEnded();
     }
 
     /**

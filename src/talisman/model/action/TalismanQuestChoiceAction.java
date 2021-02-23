@@ -66,11 +66,11 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
     @Override
     protected boolean applyChoice(final int choice) {
         if (choice == 0) {
-            return true;
+            // TODO: start quest
+            // Controllers.getCharactersController().getCurrentPlayer().
         }
-        // TODO: start quest
-        // Controllers.getCharactersController().getCurrentPlayer().
-        return false;
+        this.actionEnded();
+        return true;
     }
 
     /**

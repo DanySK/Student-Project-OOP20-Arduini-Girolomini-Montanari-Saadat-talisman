@@ -8,10 +8,8 @@ import talisman.controller.character.CurrentPlayerChoicesController;
  * @author Alberto Arduini
  *
  */
-public class TalismanSkipTurnAction implements TalismanAction {
-    /**
-     * Gets what to show if no action is present.
-     */
+public class TalismanSkipTurnAction extends TalismanActionImpl {
+    private static final long serialVersionUID = 7490593320775050948L;
     private static final String DESCRIPTION = "Skip your turn";
 
     /**
@@ -28,5 +26,6 @@ public class TalismanSkipTurnAction implements TalismanAction {
     @Override
     public void apply() {
         CurrentPlayerChoicesController.skipTurn();
+        this.actionEnded();
     }
 }
