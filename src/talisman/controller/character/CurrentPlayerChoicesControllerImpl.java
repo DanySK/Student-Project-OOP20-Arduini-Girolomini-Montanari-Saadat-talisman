@@ -1,9 +1,11 @@
 package talisman.controller.character;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.List;
 
 import talisman.Controllers;
+import talisman.controller.character.CurrentPlayerChoicesController.EventEndedListener;
 import talisman.util.DiceType;
 import talisman.util.Utils;
 import talisman.view.CurrentPlayerChoicesWindow;
@@ -17,8 +19,10 @@ import talisman.view.OpponentChoiceWindow;
  */
 public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesController {
     private final int currentPlayerIndex;
-    private int rollDice; 
-    private final List<Integer> opponents  = new ArrayList<>();
+    private int rollDice;
+    private final List<Integer> opponents = new ArrayList<>();
+    private EventEndedListener eventEnded;
+
     /**
      * Creates the controller for the current player's choices.
      * 
@@ -27,21 +31,22 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     public CurrentPlayerChoicesControllerImpl(final int index) {
         this.currentPlayerIndex = index;
         this.rollDice = 0;
-        //this.opponents = new ArrayList<>(Controllers.getBoardController().getCurrentCharacterOpponents());
+        // this.opponents = new
+        // ArrayList<>(Controllers.getBoardController().getCurrentCharacterOpponents());
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean checkRoll() {
-        return (this.rollDice != 0);
+        return this.rollDice != 0;
     }
 
     /**
      * {@inheritDoc}
      */
     public boolean checkOpponents() {
-        return !(this.opponents.isEmpty());
+        return !this.opponents.isEmpty();
     }
 
     /**
@@ -66,9 +71,12 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
      */
     @Override
     public void movePawn() {
-        int currentPosition = Controllers.getBoardController().getCharacterPawn(this.currentPlayerIndex).getPositionCell();
+        final int currentPosition = Controllers.getBoardController().getCharacterPawn(this.currentPlayerIndex)
+                .getPositionCell();
         if (checkRoll()) {
-            Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex, currentPosition + this.rollDice);
+            Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex,
+                    currentPosition + this.rollDice);
+            this.eventEnded.eventEnded();
         }
     }
 
@@ -79,7 +87,8 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     public void passTurn() {
         if (checkRoll()) {
             Controllers.getCharactersController().setCurrentPlayer(this.currentPlayerIndex + 1);
-            CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(Controllers.getCharactersController().getCurrentPlayer().getIndex()));
+            CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController
+                    .create(Controllers.getCharactersController().getCurrentPlayer().getIndex()));
         }
     }
 
@@ -89,7 +98,9 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     @Override
     public void cellEvent() {
         if (checkRoll()) {
+            Controllers.getBoardController().setActionEndedListener(this.eventEnded::eventEnded);
             Controllers.getBoardController().applyCurrentPlayerCellActions();
+            Controllers.getBoardController().setActionEndedListener(null);
         }
     }
 
@@ -103,4 +114,11 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setEventEndedListener(final EventEndedListener listener) {
+        this.eventEnded = listener;
+    }
 }

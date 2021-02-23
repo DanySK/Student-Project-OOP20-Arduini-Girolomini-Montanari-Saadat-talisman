@@ -44,6 +44,9 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
      */
     public CurrentPlayerChoicesWindowImpl(final CurrentPlayerChoicesController controller) {
         this.controller = controller;
+        this.controller.setEventEndedListener(() -> {
+            this.setCanPass(true);
+        });
         final BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.diceButton = new JButton(new ImageIcon("res/imgs/battle/diceButton.png"));
@@ -57,11 +60,20 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         this.moveButton.setEnabled(false);
         this.attackButton.setEnabled(false);
         this.cellEventButton.setEnabled(false);
+        this.passTurnButton.setEnabled(false);
         this.getContentPane().add(createInfoAndDicePanel(), BorderLayout.NORTH);
         this.getContentPane().add(createChoicesPanel(), BorderLayout.CENTER);
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCanPass(final boolean enabled) {
+        this.passTurnButton.setEnabled(enabled);
     }
 
     /**
@@ -149,10 +161,10 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
     /**
      * Sets new constraints for the specified component.
      * 
-     * @param x - the x coordinate of the component
-     * @param y - the y coordinate of the component
+     * @param x     - the x coordinate of the component
+     * @param y     - the y coordinate of the component
      * @param width - the width of the component
-     *@return the bottom view
+     * @return the bottom view
      */
     private GridBagConstraints setConstraints(final int x, final int y, final int width) {
         GridBagConstraints c = new GridBagConstraints();
@@ -172,5 +184,4 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
     private void closeWindow() {
         this.dispose();
     }
-
 }
