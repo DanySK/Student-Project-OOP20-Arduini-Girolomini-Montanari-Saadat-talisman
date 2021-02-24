@@ -18,6 +18,8 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
     private static final long serialVersionUID = 1L;
     private final Map<Pair<Integer, Integer>, TalismanCardView> cards;
 
+    private boolean hideCardOnLeave = true;
+
     /**
      * Creates a new talisman board view.
      * 
@@ -52,19 +54,28 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         ((BoardCellViewImpl) cellInstance).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
-                swingCard.setLocation(e.getLocationOnScreen());
+                TalismanBoardViewImpl.this.hideCardOnLeave = true;
                 swingCard.setVisible(true);
             }
 
             @Override
             public void mouseExited(final MouseEvent e) {
-                swingCard.setVisible(false);
+                if (TalismanBoardViewImpl.this.hideCardOnLeave) {
+                    swingCard.setVisible(false);
+                }
+            }
+
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                TalismanBoardViewImpl.this.hideCardOnLeave = false;
+                swingCard.setVisible(true);
             }
         });
 
         swingCard.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseExited(final MouseEvent e) {
+            public void mouseClicked(final MouseEvent e) {
+                TalismanBoardViewImpl.this.hideCardOnLeave = true;
                 swingCard.setVisible(false);
             }
         });
