@@ -1,6 +1,6 @@
 package talisman.model.board;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * A section of the talisman board.
