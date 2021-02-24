@@ -49,9 +49,6 @@ public final class App {
         thirdWindow.setResizable(false);
         thirdWindow.setVisible(true);
 
-        //test CurrentPlayerChoicesWindow
-        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(0));
-
     }
 
     private void showMainMenu() {
