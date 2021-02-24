@@ -142,6 +142,10 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
             public void mouseExited(final MouseEvent e) {
                 BoardCellViewImpl.this.processMouseEvent(e);
             }
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
         });
         final JPanel wrapper = new JPanel();
         final LayoutManager layout = new BorderLayout();
@@ -160,6 +164,10 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
             }
             @Override
             public void mouseExited(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+            @Override
+            public void mouseClicked(final MouseEvent e) {
                 BoardCellViewImpl.this.processMouseEvent(e);
             }
         });

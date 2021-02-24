@@ -25,6 +25,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
     private final Map<Pair<Integer, Integer>, TalismanCardView> cards;
 
     private boolean hideCardOnLeave = true;
+    private boolean isShowingCard = false;
     private CardPickupListener listener;
 
     /**
@@ -99,21 +100,23 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         ((BoardCellViewImpl) cellInstance).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
-                TalismanBoardViewImpl.this.hideCardOnLeave = true;
-                cardPanel.setVisible(true);
+                if (!TalismanBoardViewImpl.this.isShowingCard) {
+                    cardPanel.setVisible(true);
+                    TalismanBoardViewImpl.this.isShowingCard = true;
+                }
             }
 
             @Override
             public void mouseExited(final MouseEvent e) {
                 if (TalismanBoardViewImpl.this.hideCardOnLeave) {
                     cardPanel.setVisible(false);
+                    TalismanBoardViewImpl.this.isShowingCard = false;
                 }
             }
 
             @Override
             public void mouseClicked(final MouseEvent e) {
                 TalismanBoardViewImpl.this.hideCardOnLeave = false;
-                cardPanel.setVisible(true);
             }
         });
 
@@ -122,6 +125,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
             public void mouseClicked(final MouseEvent e) {
                 TalismanBoardViewImpl.this.hideCardOnLeave = true;
                 cardPanel.setVisible(false);
+                TalismanBoardViewImpl.this.isShowingCard = false;
             }
         });
     }
