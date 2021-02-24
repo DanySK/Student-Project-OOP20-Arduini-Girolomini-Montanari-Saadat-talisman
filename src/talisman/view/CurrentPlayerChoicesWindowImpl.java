@@ -44,11 +44,9 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
      */
     public CurrentPlayerChoicesWindowImpl(final CurrentPlayerChoicesController controller) {
         this.controller = controller;
-        this.controller.setEventEndedListener(() -> {
-            this.setCanPass(true);
-        });
         final BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.diceButton = new JButton(new ImageIcon("res/imgs/battle/diceButton.png"));
         this.passTurnButton = new JButton("Pass");
         this.moveButton = new JButton("Move");
@@ -72,8 +70,17 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
      * {@inheritDoc}
      */
     @Override
-    public void setCanPass(final boolean enabled) {
-        this.passTurnButton.setEnabled(enabled);
+    public void setInteractible(final boolean enabled) {
+        this.getContentPane().setEnabled(enabled);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void closeWindow() {
+        this.setVisible(false);
+        this.dispose();
     }
 
     /**
@@ -83,21 +90,18 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         JPanel panel = new JPanel();
         LayoutManager layout = new GridBagLayout();
         panel.setLayout(layout);
-        JLabel title = new JLabel("It's your turn player " + controller.getCurrentPlayerIndex() + 1);
+        int index = controller.getCurrentPlayerIndex() + 1;
+        JLabel title = new JLabel("It's your turn player " + index);
         title.setForeground(Color.BLACK);
         this.infos.setForeground(Color.BLACK);
         this.rollResult.setForeground(Color.BLACK);
         panel.add(title, this.setConstraints(3, 0, 1));
         panel.add(this.diceButton, this.setConstraints(0, 1, 1));
-        this.diceButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        this.diceButton.addActionListener(e -> {
                 rollResult.setText(String.valueOf(controller.getDiceRoll()));
                 infos.setText("Move your pawn");
                 diceButton.setEnabled(!controller.checkRoll());
                 moveButton.setEnabled(true);
-            }
         });
         panel.add(this.rollResult, this.setConstraints(1, 1, 1));
         panel.add(this.infos, this.setConstraints(LASTXCOORDINATE, 1, 1));
@@ -113,45 +117,31 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         LayoutManager layout = new GridBagLayout();
         panel.setLayout(layout);
         panel.add(this.moveButton, this.setConstraints(0, 0, 1));
-        this.moveButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.movePawn();
-                infos.setText("Choose action");
-                moveButton.setEnabled(false);
-                attackButton.setEnabled(controller.checkOpponents());
-                cellEventButton.setEnabled(true);
-            }
+        this.moveButton.addActionListener(e -> {
+            controller.movePawn();
+            infos.setText("Choose action");
+            moveButton.setEnabled(false);
+            attackButton.setEnabled(controller.checkOpponents());
+            cellEventButton.setEnabled(true);
         });
         panel.add(this.cellEventButton, this.setConstraints(0, 1, 1));
-        this.cellEventButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.cellEvent();
-                attackButton.setEnabled(false);
-            }
+        this.cellEventButton.addActionListener(e -> {
+            controller.cellEvent();
+            attackButton.setEnabled(false);
+            cellEventButton.setEnabled(false);
+            passTurnButton.setEnabled(true);
         });
         panel.add(this.attackButton, this.setConstraints(0, 2, 1));
-        this.attackButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.challengeCharacter();
-                attackButton.setEnabled(false);
-                cellEventButton.setEnabled(false);
-            }
+        this.attackButton.addActionListener(e -> {
+            controller.challengeCharacter();
+            attackButton.setEnabled(false);
+            cellEventButton.setEnabled(false);
+            passTurnButton.setEnabled(true);
         });
         panel.add(this.passTurnButton, this.setConstraints(LASTXCOORDINATE, 1, 1));
-        this.passTurnButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (controller.checkRoll()) {
-                    controller.passTurn();
-                    closeWindow();
-                }
+        this.passTurnButton.addActionListener(e -> {
+            if (controller.checkRoll()) {
+                controller.passTurn();
             }
         });
         panel.setBackground(Color.darkGray);
@@ -176,12 +166,5 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         c.anchor = GridBagConstraints.CENTER;
         c.insets = new Insets(10, INSETSVALUE, INSETSVALUE, INSETSVALUE);
         return c;
-    }
-
-    /**
-     * Closes this window.
-     */
-    private void closeWindow() {
-        this.dispose();
     }
 }

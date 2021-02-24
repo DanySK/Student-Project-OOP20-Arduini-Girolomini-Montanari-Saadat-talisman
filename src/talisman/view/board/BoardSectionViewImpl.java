@@ -3,6 +3,7 @@ package talisman.view.board;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -114,6 +115,7 @@ public class BoardSectionViewImpl extends JPanel implements BoardSectionView {
                 : BoxLayout.Y_AXIS;
         final LayoutManager layout = new BoxLayout(panel, boxOrientation);
         panel.setLayout(layout);
+        panel.setBackground(Color.DARK_GRAY);
         return panel;
     }
 

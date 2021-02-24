@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,12 +19,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import talisman.Controllers;
+import talisman.EventEndedListener;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.character.CharacterModel;
 import talisman.util.Pair;
+
 /**
  * Swing implementation of the view used to select an opponent to fight.
  * 
@@ -34,12 +38,16 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
     private final List<Pair<Integer, String>> opponents;
     private final JTextField textField;
     private final JButton choiceButton;
+    private final EventEndedListener listener;
+
     /**
      * Creates the window.
      * 
-     * @param players - the list of players in the same cell
+     * @param players             - the list of players in the same cell
+     * @param battleEndedListener - a listener to call for when the battle ends.
      */
-    public OpponentChoiceWindowImpl(final List<Integer> players) {
+    public OpponentChoiceWindowImpl(final List<Integer> players, final EventEndedListener battleEndedListener) {
+        this.listener = battleEndedListener;
         this.opponents = initializeOpponents(players);
         this.textField = new JTextField(10);
         this.choiceButton = new JButton("Continue");
@@ -82,10 +90,8 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
      */
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
-        choiceButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        choiceButton.addActionListener(e -> {
+            try {
                 if (!textField.getText().equals("")) {
                     if (checkOpponent(Integer.parseInt(textField.getText()))) {
                         startFight(Integer.parseInt(textField.getText()));
@@ -95,14 +101,14 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
                 } else {
                     JOptionPane.showMessageDialog(null, "You have to choose one of the opponents before you continue.");
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "This opponent is not valid!.");
             }
-
         });
         panel.setBackground(Color.darkGray);
         panel.add(choiceButton);
         return panel;
     }
-
 
     /**
      * Puts the integers of the list in a string.
@@ -137,10 +143,17 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
     private void startFight(final int index) {
         this.setVisible(false);
         CharacterModel firstcharacter = Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter();
-        CharacterModel secondcharacter = Controllers.getCharactersController().getPlayers().get(index).getCurrentCharacter();
+        CharacterModel secondcharacter = Controllers.getCharactersController().getPlayers().get(index)
+                .getCurrentCharacter();
         BattleModel battleModel = new BattleModelImpl(firstcharacter.getStrength(), secondcharacter.getStrength());
         BattleController battleController = new BattleControllerImpl(firstcharacter, secondcharacter, battleModel);
-        new BattleWindow(battleController);
+        final BattleWindow window = new BattleWindow(battleController);
+        window.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(final WindowEvent e) {
+                OpponentChoiceWindowImpl.this.notifyBattleEnd();
+            }
+        });
     }
 
     /**
@@ -151,8 +164,13 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
     private List<Pair<Integer, String>> initializeOpponents(final List<Integer> list) {
         List<Pair<Integer, String>> values = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            values.add(new Pair<Integer, String>(list.get(i), Controllers.getCharactersController().getPlayers().get(i).getCurrentCharacter().getType().toString()));
+            values.add(new Pair<Integer, String>(list.get(i), Controllers.getCharactersController().getPlayers().get(i)
+                    .getCurrentCharacter().getType().toString()));
         }
         return values;
+    }
+
+    private void notifyBattleEnd() {
+        this.listener.eventEnded();
     }
 }

@@ -6,7 +6,7 @@ import java.util.Map;
 import talisman.controller.board.TalismanBoardController;
 import talisman.controller.cards.TalismanDeckController;
 import talisman.controller.character.CharactersController;
-
+import talisman.controller.character.CurrentPlayerChoicesController;
 import talisman.model.cards.DeckType;
 
 /**
@@ -21,6 +21,7 @@ public final class Controllers {
     private static TalismanBoardController boardController;
     private static CharactersController charactersController;
     private static Map<DeckType, TalismanDeckController> deckControllers = new HashMap<>();
+    private static CurrentPlayerChoicesController choiceController;
 
     private Controllers() {
     }
@@ -52,6 +53,15 @@ public final class Controllers {
      */
     public static TalismanDeckController getDeckController(final DeckType type) {
         return Controllers.deckControllers.get(type);
+    }
+
+    /**
+     * Gets the active choice controller.
+     * 
+     * @return the controller
+     */
+    public static CurrentPlayerChoicesController getChoiceController() {
+        return Controllers.choiceController;
     }
 
     /**
@@ -98,11 +108,21 @@ public final class Controllers {
     }
 
     /**
+     * Sets the active choice controller.
+     * 
+     * @param controller the controller to set
+     */
+    public static void setChoiceController(final CurrentPlayerChoicesController controller) {
+        Controllers.choiceController = controller;
+    }
+
+    /**
      * Resets the controller references. This should be called when ending a game.
      */
     public static void reset() {
         Controllers.boardController = null;
         Controllers.charactersController = null;
         Controllers.deckControllers.clear();
+        Controllers.choiceController = null;
     }
 }

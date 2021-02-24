@@ -31,6 +31,13 @@ public interface BoardCellView {
     void removePawn(PawnView pawn);
 
     /**
+     * Sets if the cell's text is visible.
+     * 
+     * @param visible is the text visible
+     */
+    void setTextVisiblity(boolean visible);
+
+    /**
      * Creates a new cell.
      * 
      * @param imagePath the path to the background image

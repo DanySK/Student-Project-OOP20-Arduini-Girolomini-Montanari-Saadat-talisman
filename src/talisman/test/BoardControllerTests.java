@@ -1,5 +1,7 @@
 package talisman.test;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +38,16 @@ public class BoardControllerTests {
         controller.moveCharacterSection(0, 0, 3);
         // The player is now in cell 3, section 0
         this.assertCellAndSection(controller, 0, 3, 0);
+    }
+
+    /**
+     */
+    @Test
+    public void testGetOpponents() {
+        final TalismanBoardController controller = BoardTestUtils.setupControllers(2, 4, 3);
+        Assertions.assertEquals(Set.of(1, 2), controller.getCurrentCharacterOpponents());
+        controller.moveCharacterCell(0, 1);
+        Assertions.assertEquals(Set.<Integer>of(), controller.getCurrentCharacterOpponents());
     }
 
     private void assertCellAndSection(final TalismanBoardController controller, final int player, final int cell,

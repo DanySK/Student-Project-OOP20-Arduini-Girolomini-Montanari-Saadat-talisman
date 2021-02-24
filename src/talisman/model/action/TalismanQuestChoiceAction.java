@@ -14,6 +14,7 @@ import talisman.model.quests.TalismanQuest;
 public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQuest> {
     private static final long serialVersionUID = 2235915833077645617L;
     private static final String DESCRIPTION_FORMAT = "You may take a quest:";
+    private static final String NO_QUEST_DESCRIPTION = "Dont' take any quest";
     private static final String QUEST_DESCRIPTION_FORMAT = "- %s ";
 
     private final List<TalismanQuest> quests;
@@ -33,7 +34,7 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
      */
     @Override
     public TalismanQuest getChoice(final int index) {
-        return this.quests.get(index);
+        return index == 0 ? null : this.quests.get(index - 1);
     }
 
     /**
@@ -41,7 +42,8 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
      */
     @Override
     public String getChoiceDescription(final int index) {
-        return String.format(TalismanQuestChoiceAction.QUEST_DESCRIPTION_FORMAT, this.quests.get(index));
+        return String.format(TalismanQuestChoiceAction.QUEST_DESCRIPTION_FORMAT,
+                index == 0 ? TalismanQuestChoiceAction.NO_QUEST_DESCRIPTION : this.getChoice(index));
     }
 
     /**
@@ -66,10 +68,9 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
     @Override
     protected boolean applyChoice(final int choice) {
         if (choice == 0) {
-            // TODO: start quest
-            // Controllers.getCharactersController().getCurrentPlayer().
+            return true;
         }
-        this.actionEnded();
+        Controllers.getCharactersController().getCurrentPlayer().giveTalismanQuest(this.getChoice(choice));
         return true;
     }
 
@@ -78,6 +79,6 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
      */
     @Override
     public int getChoicesCount() {
-        return this.quests.size();
+        return this.quests.size() + 1;
     }
 }

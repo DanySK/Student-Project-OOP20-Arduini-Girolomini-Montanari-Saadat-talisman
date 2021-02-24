@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.LayoutManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -29,6 +31,7 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
 
     private final CellType type;
     private final JPanel pawnsPanel;
+    private final JPanel textPanel;
 
     /**
      * Creates a new cell.
@@ -56,7 +59,9 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         this.pawnsPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         this.add(this.pawnsPanel);
         // Description text area
-        this.add(this.createDescriptionTextArea(text, cellSize));
+        this.textPanel = this.createDescriptionTextArea(text, cellSize);
+        this.setTextVisiblity(false);
+        this.add(this.textPanel);
     }
 
     /**
@@ -107,6 +112,14 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
      * {@inheritDoc}
      */
     @Override
+    public void setTextVisiblity(final boolean visible) {
+        this.textPanel.setVisible(visible);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean isOptimizedDrawingEnabled() {
         return false;
     }
@@ -120,6 +133,20 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
         textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        textArea.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+            @Override
+            public void mouseExited(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+        });
         final JPanel wrapper = new JPanel();
         final LayoutManager layout = new BorderLayout();
         wrapper.setLayout(layout);
@@ -130,6 +157,20 @@ public final class BoardCellViewImpl extends ImagePanel implements BoardCellView
         wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
         wrapper.setAlignmentY(Component.CENTER_ALIGNMENT);
         wrapper.add(textArea, BorderLayout.SOUTH);
+        wrapper.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+            @Override
+            public void mouseExited(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+            @Override
+            public void mouseClicked(final MouseEvent e) {
+                BoardCellViewImpl.this.processMouseEvent(e);
+            }
+        });
         return wrapper;
     }
 }

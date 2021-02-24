@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 import talisman.Controllers;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
-import talisman.controller.battle.DeathController;
-import talisman.controller.battle.DeathControllerImpl;
 import talisman.controller.board.TalismanBoardController;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
@@ -16,7 +14,6 @@ import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.BattleState;
 import talisman.model.battle.EnemyModel;
 import talisman.model.battle.StrengthEnemy;
-import talisman.model.board.TalismanBoard;
 import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModel;
@@ -84,6 +81,8 @@ public class BattleControllerTests {
         //checks the new player's position 
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionCell());
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionSection());
+        //checks the reset of the player's character
+        Assertions.assertEquals(TalismanCharacterFactory.createDwarfCharacter().getHealth(), Controllers.getCharactersController().getPlayers().get(2).getCurrentCharacter().getHealth());
     }
 
     /**

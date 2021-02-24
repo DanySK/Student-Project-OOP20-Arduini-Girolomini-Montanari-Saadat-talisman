@@ -1,6 +1,12 @@
 package talisman.model.action;
 
+import java.util.Arrays;
 import java.util.Objects;
+
+import talisman.Controllers;
+
+import talisman.model.cards.TalismanDeckFactory;
+import talisman.model.character.CharacterModelImpl;
 
 /**
  * An action that checks if the player has a specific item.
@@ -37,9 +43,10 @@ public class TalismanRequireTalismanAction extends TalismanActionImpl {
      */
     @Override
     public void apply() {
-        // TODO: Check for item
-        final boolean hasItem = true;
-        if (hasItem) {
+        final CharacterModelImpl character = Controllers.getCharactersController().getCurrentPlayer()
+                .getCurrentCharacter();
+        if (Arrays.stream(character.getInventory().listCards())
+                .anyMatch(c -> c.getName() == TalismanDeckFactory.TALISMAN)) {
             this.successAction.apply();
         } else {
             this.failedAction.apply();

@@ -119,7 +119,8 @@ public class TalismanRollAction extends TalismanActionImpl {
         default:
             break;
         }
-        for (final TalismanRollActionSection section : this.sections) {
+        for (int i = this.sections.size() - 1; i >= 0; i--) {
+            final TalismanRollActionSection section = this.sections.get(i);
             if (section.apply(actualValue) != ApplyResult.VALUE_NOT_ENOUGH) {
                 TalismanRollActionResultWindow.show(this.getResult(), section.getAction().getDescription());
                 this.actionEnded();

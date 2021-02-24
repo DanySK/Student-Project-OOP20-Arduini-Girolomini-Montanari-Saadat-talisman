@@ -99,6 +99,7 @@ public final class GameSetupUtil {
         // Setup decks
         Controllers.setDeckController(DeckType.ADVENTURE, new TalismanDeckControllerImpl(DeckType.ADVENTURE));
         Controllers.setDeckController(DeckType.TALISMAN, new TalismanDeckControllerImpl(DeckType.TALISMAN));
+        Controllers.setDeckController(DeckType.SHOP, new TalismanDeckControllerImpl(DeckType.SHOP));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
@@ -124,7 +125,7 @@ public final class GameSetupUtil {
             debugView.setVisible(true);
         }
 
-        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(0));
+        Controllers.setChoiceController(CurrentPlayerChoicesController.create(0));
 
         return this;
     }
@@ -147,6 +148,7 @@ public final class GameSetupUtil {
      */
     public GameSetupUtil endGame() {
         this.mainWindow.close();
+        Controllers.getChoiceController().getView().closeWindow();
         Controllers.reset();
         this.ready = false;
         this.endedListener.gameEnded();
