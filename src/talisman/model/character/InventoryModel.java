@@ -3,6 +3,8 @@ package talisman.model.character;
 import talisman.model.cards.Card;
 import talisman.model.cards.CardImpl;
 
+import java.util.List;
+
 /**
  * Interface model of the inventory of a character
  *
@@ -37,7 +39,7 @@ public interface InventoryModel {
      *
      * @return an array of the instances in the inventory
      */
-    Card[] listCards();
+    List<Card> listCards();
 
     /**
      * Check if players has the "Mule" card in the inventory
