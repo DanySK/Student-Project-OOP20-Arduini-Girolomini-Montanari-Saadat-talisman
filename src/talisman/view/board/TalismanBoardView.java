@@ -14,13 +14,12 @@ public interface TalismanBoardView extends PopulatedBoardView {
      * Adds a card on top of the specified cell. If the card is already present on
      * the board it does nothing.
      * 
-     * @param section    the section of the cell
-     * @param cell       the cell
-     * @param card       the card view to add
-     * @param actionName the name of the action that the user will be able to do on
-     *                   the card
+     * @param section       the section of the cell
+     * @param cell          the cell
+     * @param card          the card view to add
+     * @param canBePickedUp if the card is something the player can pick up
      */
-    void addOverlayedCard(int section, int cell, TalismanCardView card, String actionName);
+    void addOverlayedCard(int section, int cell, TalismanCardView card, boolean canBePickedUp);
 
     /**
      * Removes a card from the board. If the card is not present it does nothing.

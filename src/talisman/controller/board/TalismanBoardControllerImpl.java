@@ -15,6 +15,7 @@ import talisman.model.board.TalismanBoardSection;
 
 import talisman.model.cards.Card;
 import talisman.model.cards.CardImpl;
+import talisman.model.cards.CardType;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModel;
 import talisman.view.board.TalismanBoardView;
@@ -72,7 +73,7 @@ public final class TalismanBoardControllerImpl
         this.getCharacterCell(playerIndex).setCard(Objects.requireNonNull(card));
         final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
         this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView,
-                card.getType().getActionName());
+                card.getType() != CardType.ENEMY);
     }
 
     /**

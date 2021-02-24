@@ -1,6 +1,7 @@
 package talisman.view.board;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import talisman.Controllers;
+import talisman.model.board.TalismanBoardPawn;
 import talisman.util.Pair;
 
 import talisman.view.cards.TalismanCardView;
@@ -64,7 +67,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
      */
     @Override
     public void addOverlayedCard(final int section, final int cell, final TalismanCardView card,
-            final String actionName) {
+            final boolean canBePickedUp) {
         if (this.cards.containsValue(card)) {
             return;
         }
@@ -77,15 +80,17 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         final LayoutManager panelManager = new BoxLayout(cardPanel, BoxLayout.Y_AXIS);
         cardPanel.setLayout(panelManager);
         cardPanel.add(swingCard);
-        final JButton pickupButton = new JButton(actionName);
-        pickupButton.addActionListener((e) -> {
-            this.hideCardOnLeave = true;
-            cardPanel.setVisible(false);
-            this.pickupCard(card);
-        });
-        cardPanel.add(pickupButton);
+        if (canBePickedUp) {
+            final JButton pickupButton = new JButton("Pickup");
+            pickupButton.addActionListener((e) -> {
+                this.hideCardOnLeave = true;
+                cardPanel.setVisible(false);
+                this.pickupCard(card);
+            });
+            cardPanel.add(pickupButton);
+        }
         final JButton hideButton = new JButton("Close");
-        pickupButton.addActionListener((e) -> {
+        hideButton.addActionListener((e) -> {
             this.hideCardOnLeave = true;
             cardPanel.setVisible(false);
         });
@@ -100,7 +105,8 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         ((BoardCellViewImpl) cellInstance).addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
-                if (!TalismanBoardViewImpl.this.isShowingCard) {
+                if (!TalismanBoardViewImpl.this.isShowingCard
+                        && TalismanBoardViewImpl.this.canShowCard(section, cell)) {
                     cardPanel.setVisible(true);
                     TalismanBoardViewImpl.this.isShowingCard = true;
                 }
@@ -116,7 +122,9 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
 
             @Override
             public void mouseClicked(final MouseEvent e) {
-                TalismanBoardViewImpl.this.hideCardOnLeave = false;
+                if (TalismanBoardViewImpl.this.isShowingCard) {
+                    TalismanBoardViewImpl.this.hideCardOnLeave = false;
+                }
             }
         });
 
@@ -153,7 +161,12 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
             if (!this.cards.containsKey(position)) {
                 return;
             }
-            this.remove(((TalismanCardViewImpl) this.cards.get(position)).getParent());
+            final Container cardPanel = ((TalismanCardViewImpl) this.cards.get(position)).getParent();
+            if (this.isShowingCard && cardPanel.isVisible()) {
+                this.isShowingCard = false;
+                this.hideCardOnLeave = true;
+            }
+            this.remove(cardPanel);
             this.cards.remove(position);
         });
     }
@@ -164,10 +177,17 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
     @Override
     public void setCardPickupListener(final CardPickupListener listener) {
         this.listener = listener;
+    }
 
+    private boolean canShowCard(final int section, final int cell) {
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        final TalismanBoardPawn pawn = Controllers.getBoardController().getCharacterPawn(playerIndex);
+        return pawn.getPositionSection() == section && pawn.getPositionCell() == cell;
     }
 
     private void pickupCard(final TalismanCardView card) {
-        this.listener.pickupCard(card);
+        if (this.listener != null) {
+            this.listener.pickupCard(card);
+        }
     }
 }
