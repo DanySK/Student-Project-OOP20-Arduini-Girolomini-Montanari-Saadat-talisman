@@ -74,6 +74,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         if (checkRoll()) {
             Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex,
                     currentPosition + this.rollDice);
+            this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
             this.getView().setInteractible(true);
         }
     }
@@ -130,7 +131,6 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         this.currentPlayerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.rollDice = 0;
         this.opponents.clear();
-        this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
         this.window = CurrentPlayerChoicesWindow.show(this);
     }
 
