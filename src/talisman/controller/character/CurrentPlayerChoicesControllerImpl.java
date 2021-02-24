@@ -128,6 +128,9 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         return this.window;
     }
 
+    /**
+     * Initializes the current player's turn. 
+     */
     private void initializeTurn() {
         this.currentPlayerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.rollDice = 0;
@@ -135,6 +138,9 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         this.window = CurrentPlayerChoicesWindow.show(this);
     }
 
+    /**
+     * Passes the current player's turn. 
+     */
     private void advanceTurn() {
         this.getView().closeWindow();
         final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();

@@ -92,11 +92,20 @@ public final class TalismanBoardControllerImpl
      * {@inheritDoc}
      */
     @Override
+    public Optional<Card> getCurrentCellCard() {
+        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        return this.getCharacterCell(playerIndex).getCard();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void tryCollectCurrentCellCard() {
         final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
         final int playerIndex = player.getIndex();
         final TalismanBoardCell cell = this.getCharacterCell(playerIndex);
-        final Optional<Card> card = cell.getCard();
+        final Optional<Card> card = this.getCurrentCellCard();
         cell.clearCard();
         card.ifPresent((c) -> {
             final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);

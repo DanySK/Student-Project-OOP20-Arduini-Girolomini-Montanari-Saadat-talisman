@@ -44,7 +44,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
      * {@inheritDoc}
      */
     @Override
-    public void addOverlayedCard(final int section, final int cell, final TalismanCardView card) {
+    public void addOverlayedCard(final int section, final int cell, final TalismanCardView card, final String actionName) {
         if (this.cards.containsValue(card)) {
             return;
         }
@@ -57,7 +57,7 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
         final LayoutManager panelManager = new BoxLayout(cardPanel, BoxLayout.Y_AXIS);
         cardPanel.setLayout(panelManager);
         cardPanel.add(swingCard);
-        final JButton pickupButton = new JButton("Pickup");
+        final JButton pickupButton = new JButton(actionName);
         pickupButton.addActionListener((e) -> {
             this.hideCardOnLeave = true;
             cardPanel.setVisible(false);

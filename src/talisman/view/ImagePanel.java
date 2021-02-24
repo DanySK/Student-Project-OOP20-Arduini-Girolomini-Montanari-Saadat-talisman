@@ -62,6 +62,7 @@ public class ImagePanel extends JPanel {
             e.printStackTrace();
         }
         this.backgroundImage = loadedImage;
+        this.repaint();
     }
 
     /**
