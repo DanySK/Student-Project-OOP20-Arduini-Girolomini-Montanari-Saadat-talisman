@@ -1,8 +1,7 @@
 package talisman.controller.character;
 
-import talisman.model.action.TalismanAction;
-import talisman.model.action.TalismanQuestChoiceAction;
-import talisman.model.character.*;
+import talisman.model.character.CharacterModelImpl;
+import talisman.model.character.PlayerModelImpl;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -32,9 +32,9 @@ public class InventoryModelImpl implements InventoryModel {
     }
 
     @Override
-    public Card[] listCards() {
+    public List<Card> listCards() {
 
-        return (Card[]) cards.toArray();
+        return cards;
     }
 
     @Override
