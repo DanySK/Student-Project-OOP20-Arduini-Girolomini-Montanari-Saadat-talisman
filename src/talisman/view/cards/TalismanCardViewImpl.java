@@ -14,8 +14,10 @@ import javax.swing.JTextArea;
 
 import talisman.util.PathUtils;
 import talisman.view.ImagePanel;
+
 /**
  * The implementation for TalismanCardView.
+ * 
  * @author Abtin Saadat
  *
  */
@@ -23,6 +25,7 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
     private ImagePanel image;
     private JTextArea text;
     private JTextArea name;
+
     public TalismanCardViewImpl(final String imagePath, final String text, final String name) {
         super(PathUtils.getDevImagePath("cardbg", true));
         this.image = new ImagePanel(imagePath);
@@ -56,24 +59,26 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
         this.setMinimumSize(size);
         this.setPreferredSize(size);
         this.setMaximumSize(size);
-        /*JButton button = new JButton("Click 0");
-        button.addActionListener(new ActionListener(){
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                button.setText("Wow");
-            }
-        });
-        this.add(button);*/
+        this.setBorder(BorderFactory.createLineBorder(Color.white, 5));
+        /*
+         * JButton button = new JButton("Click 0"); button.addActionListener(new
+         * ActionListener(){
+         * 
+         * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
+         * method stub button.setText("Wow"); } }); this.add(button);
+         */
     }
+
     /**
      * Used to change the viewing card.
+     * 
      * @param imagePath
-     * @param text2
+     * @param text
+     * @param name
      */
-    public void setView(final String imagePath, final String text2) {
-        this.image = new ImagePanel(imagePath);
-        this.text.setText(text2);
+    public void setView(final String imagePath, final String text, final String name) {
+        this.image.setImage(imagePath);
+        this.text.setText(text);
+        this.name.setText(name);
     }
 }
