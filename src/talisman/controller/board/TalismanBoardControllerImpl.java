@@ -18,6 +18,7 @@ import talisman.model.cards.CardImpl;
 import talisman.model.cards.CardType;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModel;
+import talisman.util.GameSetupUtil;
 import talisman.view.board.TalismanBoardView;
 import talisman.view.cards.TalismanCardView;
 
@@ -43,6 +44,17 @@ public final class TalismanBoardControllerImpl
         super(board, view);
         cardViews = new HashMap<>();
         this.getView().setCardPickupListener((c) -> this.tryCollectCurrentCellCard());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void moveCharacterSection(final int player, final int section, final int cell) {
+        super.moveCharacterSection(player, section, cell);
+        if (section == this.getBoard().getSectionCount() - 1) {
+            GameSetupUtil.getSingleton().winGame(player).endGame();
+        }
     }
 
     /**
@@ -107,8 +119,6 @@ public final class TalismanBoardControllerImpl
         final int playerIndex = player.getIndex();
         final Optional<Card> card = this.removeCurrentCellCard();
         card.ifPresent((c) -> {
-            final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
-            this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
             ((CharacterModelImpl) player.getCurrentCharacter()).getInventory().addCard((CardImpl) c);
         });
     }
@@ -120,6 +130,12 @@ public final class TalismanBoardControllerImpl
     public Optional<Card> removeCurrentCellCard() {
         final Optional<Card> card = this.getCurrentCellCard();
         this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex()).clearCard();
+        card.ifPresent(c -> {
+            final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+            final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
+            this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
+            this.cardViews.remove(c);
+        });
         return card;
     }
 }
