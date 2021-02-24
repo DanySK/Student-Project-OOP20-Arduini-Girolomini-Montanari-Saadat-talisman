@@ -19,26 +19,20 @@ import talisman.view.battle.BattleViewFactory;
  *
  */
 public class BattleWindow extends JFrame {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
-    private final BattleController controller;
-
     /**
      * Creates a new battle window.
      * 
      * @param controller - the controller of the battle
      */
     public BattleWindow(final BattleController controller) {
-        this.controller = controller;
         final LayoutManager layout = new GridBagLayout();
         final GridBagConstraints constraint = new GridBagConstraints();
         constraint.gridx = 0;
         constraint.gridy = 0;
         constraint.fill = GridBagConstraints.BOTH;
         this.setLayout(layout);
-        //this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         BattleTopView topView = BattleViewFactory.createTopView(controller);
         BattleBottomView bottomView = BattleViewFactory.createBottomView(controller);
         BattleCenterView centerView = BattleViewFactory.createCenterView(controller, topView, bottomView);
