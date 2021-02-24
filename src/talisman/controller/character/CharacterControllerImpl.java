@@ -71,31 +71,6 @@ public class CharacterControllerImpl implements CharactersController {
 
         return Players.getPlayers();
     }
-
-    public void movePlayerTo(int cells){
-
-
-    }
-
-    public void movePlayerToSection(int section){
-
-
-    }
-
-    public void movePlayerToSection(int section, int cells){
-
-
-    }
-
-    public void makePlayerAction(TalismanAction action){
-
-        if (action instanceof TalismanQuestChoiceAction){
-
-            //TODO Resolve quest
-        }
-
-        if (action.canBeApplied()) action.apply();
-    }
 }
 
 /**
