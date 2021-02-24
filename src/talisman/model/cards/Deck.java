@@ -1,4 +1,8 @@
 package talisman.model.cards;
+
+import java.util.List;
+import java.util.Queue;
+
 /**
  * Interface that models a deck.
  * 
@@ -15,6 +19,7 @@ public interface Deck {
      * 
      * @return The number of cards in the deck.
      */
+    List<Card> getCards();
     int getNumberOfCards();
     DeckType getType();
     void shuffle();
