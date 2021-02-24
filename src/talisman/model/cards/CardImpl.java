@@ -23,27 +23,27 @@ public class CardImpl implements Card {
      * @return The name of the card.
      */
     public String getName() {
-        return name;
+        return this.name;
     }
     /**
      * {@inheritDoc}
      */
     public String getText() {
-        return text;
+        return this.text;
     }
 
     /**
      * {@inheritDoc}
      */
     public CardType getType() {
-        return type;
+        return this.type;
     }
     /**
      * 
      * @return a list of actions the card does.
      */
     public Collection<TalismanAction> getActions() {
-        return actions;
+        return this.actions;
     }
     /**
      * 

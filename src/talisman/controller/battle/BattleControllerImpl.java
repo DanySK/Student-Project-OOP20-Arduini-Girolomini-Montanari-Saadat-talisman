@@ -115,7 +115,7 @@ public class BattleControllerImpl implements BattleController {
     @Override
     public boolean requestedFate() {
         CharacterModel character = checkTurn();
-        if (character.getFate() > 0) {
+        if (character.getFate() > 0 && this.countFate.get(getTurn() - 1) == 0) {
             return true;
         }
         return false;
@@ -175,10 +175,10 @@ public class BattleControllerImpl implements BattleController {
         if (this.model.isEnded()) {
             if (this.model.getState() == BattleState.FIRST) {
                 this.secondCharacter.setHealth(this.secondCharacter.getHealth() - 1);
-                //checkDeath(this.secondCharacter);
+                checkDeath(this.secondCharacter);
             } else if (this.model.getState() == BattleState.SECOND) {
                 this.firstCharacter.setHealth(this.firstCharacter.getHealth() - 1);
-                //checkDeath(this.firstCharacter);
+                checkDeath(this.firstCharacter);
             }
         }
         return this.model.getState();

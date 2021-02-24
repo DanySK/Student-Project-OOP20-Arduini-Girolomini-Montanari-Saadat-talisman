@@ -8,7 +8,10 @@ import talisman.controller.board.TalismanBoardController;
 import talisman.controller.character.CharactersController;
 import talisman.model.battle.EnemyModel;
 import talisman.model.character.CharacterModel;
+import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModelImpl;
+import talisman.model.character.defaultCharacters.CharacterType;
+import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 
 /**
  * The implementation of a MVC controller for the character's death.
@@ -48,9 +51,9 @@ public class DeathControllerImpl implements DeathController {
      */
     private int findPlayer() {
         List<Integer> indexes = new ArrayList<>(this.boardController.getCurrentCharacterOpponents());
-        PlayerModelImpl[] players = this.characterController.getPlayers();
+        List<PlayerModelImpl> players = this.characterController.getPlayers();
         for (int i = 0; i < indexes.size(); i++) {
-            if (players[indexes.get(i) - 1].getCurrentCharacter().equals(character)) {
+            if (players.get(indexes.get(i)).getCurrentCharacter().equals(character)) {
                 return indexes.get(i);
             }
         }
@@ -66,8 +69,9 @@ public class DeathControllerImpl implements DeathController {
             return false;
         }
         if (checkHealth()) {
-            resetCharacterInfo(this.character);
-            resetCharacterPosition(findPlayer());
+            int index = findPlayer();
+            resetCharacterInfo((CharacterModelImpl) this.character, index);
+            resetCharacterPosition(index);
             return true;
         }
         return false;
@@ -77,8 +81,27 @@ public class DeathControllerImpl implements DeathController {
      * {@inheritDoc}
      */
     @Override
-    public void resetCharacterInfo(final CharacterModel character) {
-        //TODO : assign new character;
+    public void resetCharacterInfo(final CharacterModelImpl character, final int index) {
+        CharacterType type = character.getType();
+        switch (type) {
+        case ASSASSIN:
+            this.characterController.getPlayers().get(index).setCurrentCharacter(TalismanCharacterFactory.createAssassinCharacter());
+            break;
+        case DRUID:
+            this.characterController.getPlayers().get(index).setCurrentCharacter(TalismanCharacterFactory.createDruidCharacter());
+            break;
+        case DWARF:
+            this.characterController.getPlayers().get(index).setCurrentCharacter(TalismanCharacterFactory.createDwarfCharacter());
+            break;
+        case ELF:
+            this.characterController.getPlayers().get(index).setCurrentCharacter(TalismanCharacterFactory.createElfCharacter());
+            break;
+        case GHOUL:
+            this.characterController.getPlayers().get(index).setCurrentCharacter(TalismanCharacterFactory.createGhoulCharacter());
+            break;
+        default:
+
+        }
     }
 
     /**

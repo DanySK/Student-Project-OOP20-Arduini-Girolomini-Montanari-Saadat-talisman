@@ -11,6 +11,7 @@ import talisman.controller.board.TalismanBoardControllerFactory;
 import talisman.controller.cards.TalismanDeckControllerImpl;
 import talisman.controller.character.CharacterControllerImpl;
 import talisman.controller.character.CharactersController;
+import talisman.controller.character.CurrentPlayerChoicesController;
 import talisman.model.battle.CraftEnemy;
 import talisman.model.battle.EnemyInfos;
 import talisman.model.battle.EnemyModel;
@@ -22,7 +23,7 @@ import talisman.model.character.CharacterModel;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.model.menu.PlayerInfo;
-
+import talisman.view.CurrentPlayerChoicesWindow;
 import talisman.view.DebugView;
 import talisman.view.GameWindow;
 
@@ -97,8 +98,7 @@ public final class GameSetupUtil {
 
         // Setup decks
         Controllers.setDeckController(DeckType.ADVENTURE, new TalismanDeckControllerImpl(DeckType.ADVENTURE));
-        // Controllers.setDeckController(DeckType.TALISMAN, new
-        // TalismanDeckControllerImpl(DeckType.TALISMAN));
+        Controllers.setDeckController(DeckType.TALISMAN, new TalismanDeckControllerImpl(DeckType.TALISMAN));
 
         // Setup window
         this.mainWindow = new GameWindow(boardController.getView());
@@ -123,6 +123,9 @@ public final class GameSetupUtil {
             final DebugView debugView = new DebugView(Controllers.getBoardController());
             debugView.setVisible(true);
         }
+
+        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(0));
+
         return this;
     }
 

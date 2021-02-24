@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import talisman.Controllers;
 import talisman.controller.cards.TalismanCardController;
+import talisman.model.action.ActionEndedListener;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
 import talisman.model.board.TalismanBoardPawn;
@@ -24,6 +25,8 @@ import talisman.view.cards.TalismanCardView;
 public final class TalismanBoardControllerImpl
         extends PopulatedBoardControllerImpl<TalismanBoard, TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn>
         implements TalismanBoardController {
+    private ActionEndedListener actionListener;
+
     /**
      * Creates a new controller.
      * 
@@ -61,6 +64,20 @@ public final class TalismanBoardControllerImpl
         this.getCharacterCell(playerIndex).setCard(Objects.requireNonNull(card));
         final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
         this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setActionEndedListener(final ActionEndedListener listener) {
+        this.actionListener = listener;
+        for (int i = 0; i < this.getBoard().getSectionCount(); i++) {
+            final TalismanBoardSection section = this.getBoard().getSection(i);
+            for (int j = 0; j < section.getCellCount(); j++) {
+                section.getCell(j).getActions().stream().forEach(a -> a.setActionEndedListener(this.actionListener));
+            }
+        }
     }
 
     /**

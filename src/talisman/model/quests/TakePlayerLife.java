@@ -6,6 +6,7 @@ package talisman.model.quests;
  * @author Enrico Maria Montanari
  */
 public class TakePlayerLife extends TalismanQuest{
+    private static final long serialVersionUID = -8195555077417150985L;
 
     /**
      * Gets a description of the objective of the current quest

@@ -11,6 +11,7 @@ import talisman.model.character.CharacterModelImpl;
  *
  */
 public class TalismanModifyStatisticAction extends TalismanAmountAction {
+    private static final long serialVersionUID = -54189424904145602L;
     private static final String DESCRIPTION_FORMAT = "You %s %d %s";
     private static final String GAIN_NAME = "gain";
     private static final String LOSE_NAME = "lose";
@@ -63,6 +64,7 @@ public class TalismanModifyStatisticAction extends TalismanAmountAction {
     public void apply() {
         final int currentValue = this.getCurrentPlayerStatistic(this.getStatistic());
         this.setCurrentPlayerStatistic(this.getStatistic(), currentValue + this.getAmount());
+        this.actionEnded();
     }
 
     /**

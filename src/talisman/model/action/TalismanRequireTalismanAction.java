@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author Alberto Arduini
  *
  */
-public class TalismanRequireTalismanAction implements TalismanAction {
+public class TalismanRequireTalismanAction extends TalismanActionImpl {
     private static final long serialVersionUID = 3944869345872798127L;
     private static final String DESCRIPTION_FORMAT = "If you have a talisman then: %s; " + System.lineSeparator()
             + "otherwise: %s";
@@ -19,6 +19,8 @@ public class TalismanRequireTalismanAction implements TalismanAction {
     public TalismanRequireTalismanAction(final TalismanAction successAction, final TalismanAction failedAction) {
         this.successAction = Objects.requireNonNull(successAction);
         this.failedAction = Objects.requireNonNull(failedAction);
+        this.successAction.setActionEndedListener(this::actionEnded);
+        this.failedAction.setActionEndedListener(this::actionEnded);
     }
 
     /**

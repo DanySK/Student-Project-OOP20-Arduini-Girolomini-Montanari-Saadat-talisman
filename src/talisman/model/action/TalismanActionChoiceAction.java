@@ -1,5 +1,7 @@
 package talisman.model.action;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.List;
 
 /**
@@ -18,10 +20,11 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
     /**
      * Creates a new choice actions.
      * 
-     * @param actions    the list of possible actions
+     * @param actions the list of possible actions
      */
     public TalismanActionChoiceAction(final List<TalismanAction> actions) {
         this.actions = List.copyOf(actions);
+        this.actions.stream().forEach(a -> a.setActionEndedListener(this::actionEnded));
     }
 
     /**
@@ -75,5 +78,10 @@ public class TalismanActionChoiceAction extends TalismanChoiceAction<TalismanAct
     @Override
     public int getChoicesCount() {
         return this.actions.size();
+    }
+
+    private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        this.actions.stream().forEach(a -> a.setActionEndedListener(this::actionEnded));
     }
 }

@@ -10,7 +10,7 @@ import talisman.util.Pair;
  * @author Alberto Arduini
  *
  */
-public class TalismanMoveAction implements TalismanAction {
+public class TalismanMoveAction extends TalismanActionImpl {
     private static final long serialVersionUID = 4969624574046845867L;
     private static final String DESCRIPTION_FORMAT = "Go cell %d in the %s section";
     private static final String[] SECTION_NAMES = { "outside", "middle", "inner", "crown" };
@@ -43,6 +43,7 @@ public class TalismanMoveAction implements TalismanAction {
     public void apply() {
         final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         Controllers.getBoardController().getCharacterPawn(playerIndex).setPosition(this.getSection(), this.getCell());
+        this.actionEnded();
     }
 
     /**

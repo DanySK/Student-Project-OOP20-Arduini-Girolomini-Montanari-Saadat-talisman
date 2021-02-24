@@ -9,7 +9,7 @@ import talisman.model.cards.CardImpl;
  * @author Alberto Arduini
  *
  */
-public class TalismanGiveItemAction implements TalismanAction {
+public class TalismanGiveItemAction extends TalismanActionImpl {
     private static final long serialVersionUID = -428031478841638174L;
 
     private static final String DESCRIPTION_FORMAT = "You gain a %s";
@@ -35,6 +35,7 @@ public class TalismanGiveItemAction implements TalismanAction {
     public void apply() {
         Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory()
                 .addCard(this.getItem());
+        this.actionEnded();
     }
 
     /**

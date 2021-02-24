@@ -6,7 +6,7 @@ package talisman.model.action;
  * @author Alberto Arduini
  *
  */
-public class TalismanEmptyAction implements TalismanAction {
+public class TalismanEmptyAction  extends TalismanActionImpl {
     /**
      * Gets what to show if no action is present.
      */
@@ -25,5 +25,6 @@ public class TalismanEmptyAction implements TalismanAction {
      */
     @Override
     public void apply() {
+        this.actionEnded();
     }
 }

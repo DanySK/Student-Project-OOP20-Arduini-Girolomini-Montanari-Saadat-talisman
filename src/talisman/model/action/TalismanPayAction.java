@@ -1,5 +1,8 @@
 package talisman.model.action;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import talisman.Controllers;
 import talisman.model.character.CharacterModelImpl;
 
@@ -24,6 +27,7 @@ public class TalismanPayAction extends TalismanAmountAction {
     public TalismanPayAction(final int amount, final TalismanAction action) {
         super(amount);
         this.actionToApply = action;
+        this.actionToApply.setActionEndedListener(this::actionEnded);
     }
 
     /**
@@ -66,5 +70,10 @@ public class TalismanPayAction extends TalismanAmountAction {
      */
     public TalismanAction getActionToApply() {
         return this.actionToApply;
+    }
+
+    private void readObject(final ObjectInputStream stream) throws ClassNotFoundException, IOException {
+        stream.defaultReadObject();
+        this.actionToApply.setActionEndedListener(this::actionEnded);
     }
 }

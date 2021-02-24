@@ -14,7 +14,7 @@ import talisman.view.TalismanChoiceActionWindow;
  * @param <X> the type of item to be chosen
  *
  */
-public abstract class TalismanChoiceAction<X> implements TalismanAction {
+public abstract class TalismanChoiceAction<X>  extends TalismanActionImpl {
     private static final long serialVersionUID = 6981329627204017530L;
 
     /**
