@@ -73,8 +73,7 @@ public final class TalismanBoardFactory {
                 // Top row (left -> right)
                 TalismanBoardFactory.createCell("Village", "Village", CellType.UP, TalismanCellType.ZONE,
                         new TalismanActionChoiceAction(List.of(new TalismanEmptyAction(),
-                                new TalismanPayAction(2,
-                                        new TalismanModifyStatisticAction(1, TalismanActionStatistic.STRENGTH)),
+                                new TalismanPayAction(3, new TalismanGiveItemAction(DeckType.SHOP)),
                                 new TalismanPayAction(1,
                                         new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH)),
                                 new TalismanRollAction(4, TalismanActionStatistic.FAITH,
@@ -90,7 +89,7 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Sentinel", "Sentinel", CellType.UP, TalismanCellType.MONSTER,
                         new TalismanRollAction(9, TalismanActionStatistic.STRENGTH, new TalismanMoveAction(1, 3),
-                                new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH))),
+                                new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))),
                 TalismanBoardFactory.createCell("Hills_Top", "Hills", CellType.UP, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Chapel", "Chapel", CellType.UP, TalismanCellType.ZONE,
@@ -117,7 +116,7 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("City", "City", CellType.DOWN, TalismanCellType.ZONE,
-                        new TalismanActionChoiceAction(List.of(
+                        new TalismanActionChoiceAction(List.of(new TalismanEmptyAction(),
                                 new TalismanRollAction(TalismanActionStatistic.NONE, List.of(
                                         new TalismanRollActionSection(0,
                                                 new TalismanModifyStatisticAction(-1,

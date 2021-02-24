@@ -42,7 +42,7 @@ public class TalismanMoveAction extends TalismanActionImpl {
     @Override
     public void apply() {
         final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
-        Controllers.getBoardController().getCharacterPawn(playerIndex).setPosition(this.getSection(), this.getCell());
+        Controllers.getBoardController().moveCharacterSection(playerIndex, this.getSection(), this.getCell());
         this.actionEnded();
     }
 

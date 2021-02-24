@@ -1,15 +1,13 @@
 package talisman.model.action;
 
 /**
- * Models an ampty action.
+ * Models an empty action.
  * 
  * @author Alberto Arduini
  *
  */
 public class TalismanEmptyAction  extends TalismanActionImpl {
-    /**
-     * Gets what to show if no action is present.
-     */
+    private static final long serialVersionUID = -2549899951117195372L;
     private static final String DESCRIPTION = "Do nothing";
 
     /**

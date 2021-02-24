@@ -1,7 +1,10 @@
 package talisman.model.action;
 
+import java.util.Locale;
+
 import talisman.Controllers;
 import talisman.model.cards.CardImpl;
+import talisman.model.cards.DeckType;
 
 /**
  * An action that gives an item to a player.
@@ -10,14 +13,13 @@ import talisman.model.cards.CardImpl;
  *
  */
 public class TalismanGiveItemAction extends TalismanActionImpl {
-    private static final long serialVersionUID = -428031478841638174L;
+    private static final long serialVersionUID = -1469065542993618344L;
+    private static final String DESCRIPTION_FORMAT = "You gain an item from the %s deck";
 
-    private static final String DESCRIPTION_FORMAT = "You gain a %s";
+    private final DeckType fromDeck;
 
-    private final CardImpl item;
-
-    public TalismanGiveItemAction(final CardImpl item) {
-        this.item = item;
+    public TalismanGiveItemAction(final DeckType fromDeck) {
+        this.fromDeck = fromDeck;
     }
 
     /**
@@ -25,7 +27,8 @@ public class TalismanGiveItemAction extends TalismanActionImpl {
      */
     @Override
     public String getDescription() {
-        return String.format(TalismanGiveItemAction.DESCRIPTION_FORMAT, this.getItem().getName());
+        return String.format(TalismanGiveItemAction.DESCRIPTION_FORMAT,
+                this.getDeckType().toString().toLowerCase(Locale.ENGLISH));
     }
 
     /**
@@ -34,16 +37,16 @@ public class TalismanGiveItemAction extends TalismanActionImpl {
     @Override
     public void apply() {
         Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory()
-                .addCard(this.getItem());
+                .addCard((CardImpl) Controllers.getDeckController(this.getDeckType()).draw());
         this.actionEnded();
     }
 
     /**
-     * Gets the item that will be given.
+     * Gets the deck from which the item will be drawn.
      * 
      * @return the item's index
      */
-    public CardImpl getItem() {
-        return this.item;
+    public DeckType getDeckType() {
+        return this.fromDeck;
     }
 }

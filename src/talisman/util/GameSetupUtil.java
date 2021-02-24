@@ -124,7 +124,7 @@ public final class GameSetupUtil {
             debugView.setVisible(true);
         }
 
-        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController.create(0));
+        Controllers.setChoiceController(CurrentPlayerChoicesController.create(0));
 
         return this;
     }
@@ -147,6 +147,7 @@ public final class GameSetupUtil {
      */
     public GameSetupUtil endGame() {
         this.mainWindow.close();
+        Controllers.getChoiceController().getView().closeWindow();
         Controllers.reset();
         this.ready = false;
         this.endedListener.gameEnded();

@@ -1,11 +1,10 @@
 package talisman.controller.character;
 
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.List;
 
 import talisman.Controllers;
-import talisman.controller.character.CurrentPlayerChoicesController.EventEndedListener;
+
 import talisman.util.DiceType;
 import talisman.util.Utils;
 import talisman.view.CurrentPlayerChoicesWindow;
@@ -18,10 +17,10 @@ import talisman.view.OpponentChoiceWindow;
  *
  */
 public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesController {
-    private final int currentPlayerIndex;
+    private final List<Integer> opponents;
+    private int currentPlayerIndex;
     private int rollDice;
-    private final List<Integer> opponents = new ArrayList<>();
-    private EventEndedListener eventEnded;
+    private CurrentPlayerChoicesWindow window;
 
     /**
      * Creates the controller for the current player's choices.
@@ -29,10 +28,9 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
      * @param index - current player's index
      */
     public CurrentPlayerChoicesControllerImpl(final int index) {
-        this.currentPlayerIndex = index;
-        this.rollDice = 0;
-        // this.opponents = new
-        // ArrayList<>(Controllers.getBoardController().getCurrentCharacterOpponents());
+        Controllers.getCharactersController().setCurrentPlayer(index);
+        this.opponents = new ArrayList<>();
+        this.initializeTurn();
     }
 
     /**
@@ -76,7 +74,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         if (checkRoll()) {
             Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex,
                     currentPosition + this.rollDice);
-            this.eventEnded.eventEnded();
+            this.getView().setInteractible(true);
         }
     }
 
@@ -86,9 +84,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     @Override
     public void passTurn() {
         if (checkRoll()) {
-            Controllers.getCharactersController().setCurrentPlayer(this.currentPlayerIndex + 1);
-            CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController
-                    .create(Controllers.getCharactersController().getCurrentPlayer().getIndex()));
+            this.advanceTurn();
         }
     }
 
@@ -98,7 +94,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     @Override
     public void cellEvent() {
         if (checkRoll()) {
-            Controllers.getBoardController().setActionEndedListener(this.eventEnded::eventEnded);
+            Controllers.getBoardController().setActionEndedListener(() -> this.getView().setInteractible(true));
             Controllers.getBoardController().applyCurrentPlayerCellActions();
             Controllers.getBoardController().setActionEndedListener(null);
         }
@@ -110,7 +106,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     @Override
     public void challengeCharacter() {
         if (checkRoll() && checkOpponents()) {
-            OpponentChoiceWindow.show(this.opponents);
+            OpponentChoiceWindow.show(this.opponents, () -> this.getView().setInteractible(true));
         }
     }
 
@@ -118,7 +114,31 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
      * {@inheritDoc}
      */
     @Override
-    public void setEventEndedListener(final EventEndedListener listener) {
-        this.eventEnded = listener;
+    public void skipTurn() {
+        this.advanceTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CurrentPlayerChoicesWindow getView() {
+        return this.window;
+    }
+
+    private void initializeTurn() {
+        this.currentPlayerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+        this.rollDice = 0;
+        this.opponents.clear();
+        this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
+        this.window = CurrentPlayerChoicesWindow.show(this);
+    }
+
+    private void advanceTurn() {
+        this.getView().closeWindow();
+        Controllers.getCharactersController().getCurrentPlayer().resolveActiveQuest();
+        Controllers.getCharactersController()
+                .setCurrentPlayer(Controllers.getCharactersController().getCurrentPlayer().getIndex() + 1);
+        this.initializeTurn();
     }
 }

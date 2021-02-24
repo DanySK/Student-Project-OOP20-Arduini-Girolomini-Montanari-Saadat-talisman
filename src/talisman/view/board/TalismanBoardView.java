@@ -1,10 +1,15 @@
 package talisman.view.board;
 
+import java.util.EventListener;
 import java.util.List;
 
 import talisman.view.cards.TalismanCardView;
 
 public interface TalismanBoardView extends PopulatedBoardView {
+    interface CardPickupListener extends EventListener {
+        void pickupCard(TalismanCardView card);
+    }
+
     /**
      * Adds a card on top of the specified cell. If the card is already present on
      * the board it does nothing.
@@ -30,6 +35,13 @@ public interface TalismanBoardView extends PopulatedBoardView {
      * @param cell    the cell
      */
     void removeOverlayedCard(int section, int cell);
+
+    /**
+     * Sets the listener to call when a card is picked up.
+     * 
+     * @param listener
+     */
+    void setCardPickupListener(CardPickupListener listener);
 
     /**
      * Constructs a new talisman board.

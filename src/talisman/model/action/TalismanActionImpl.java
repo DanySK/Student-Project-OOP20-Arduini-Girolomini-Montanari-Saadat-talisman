@@ -29,7 +29,7 @@ public abstract class TalismanActionImpl implements TalismanAction {
      * Invokes the listener for when an action ends.
      */
     protected void actionEnded() {
-        if (this.actionListener == null) {
+        if (this.actionListener != null) {
             this.actionListener.actionEnded();
         }
     }

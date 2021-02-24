@@ -38,7 +38,7 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
      */
     @Override
     public void moveCharacterCell(final int player, final int cell) {
-        this.getBoard().movePawnTo(player, cell);
+        this.getBoard().movePawnTo(player, cell % this.getCharacterSection(player).getCellCount());
         this.updatePawnViewPosition(player);
     }
 
@@ -47,7 +47,8 @@ public class PopulatedBoardControllerImpl<B extends PopulatedBoard<S, C, P>, S e
      */
     @Override
     public void moveCharacterSection(final int player, final int section, final int cell) {
-        this.getBoard().changePawnSection(player, section, cell);
+        this.getBoard().changePawnSection(player, section % this.getBoard().getSectionCount(),
+                cell % this.getBoard().getSection(section).getCellCount());
         this.updatePawnViewPosition(player);
     }
 
