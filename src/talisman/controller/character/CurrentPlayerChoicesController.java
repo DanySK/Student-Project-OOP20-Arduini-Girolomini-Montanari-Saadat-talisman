@@ -59,6 +59,11 @@ public interface CurrentPlayerChoicesController {
     void challengeCharacter();
 
     /**
+     * If there is an enemy on the current cell, start the fight with it.
+     */
+    void challengeEnemy();
+
+    /**
      * Skips the current turn.
      */
     void skipTurn();
