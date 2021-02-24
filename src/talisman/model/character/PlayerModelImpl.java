@@ -1,5 +1,8 @@
 package talisman.model.character;
 
+import talisman.model.quests.TalismanQuest;
+import talisman.model.quests.exceptions.NoActiveQuestException;
+
 /**
  * Implementation of the player.
  * 
@@ -10,7 +13,9 @@ public class PlayerModelImpl implements PlayerModel {
     private int numPlayers;
     private int id;
     private CharacterModelImpl currentCharacter;
+    private TalismanQuest quest;
     private boolean crown;
+    private boolean talisman;
 
     /**
      * Creates the enemy's informations.
@@ -24,6 +29,8 @@ public class PlayerModelImpl implements PlayerModel {
         this.id = id;
         this.currentCharacter = character;
         this.crown = false;
+        this.talisman = false;
+        this.quest = null;
     }
 
     /**
@@ -81,11 +88,75 @@ public class PlayerModelImpl implements PlayerModel {
     }
 
     /**
+     * Gives to the player a new quest
+     *
+     * @param questType the instance of the quest
+     */
+    @Override
+    public void giveTalismanQuest(TalismanQuest questType) {
+
+        quest = questType;
+    }
+
+    /**
+     * Complete the active quest
+     */
+    @Override
+    public void resolveActiveQuest() {
+
+        if (hasQuest()){
+
+            quest = null;
+            talisman = true;
+
+        } else {
+
+            throw new NoActiveQuestException("player n. " + id + " doesn't have an active quest");
+        }
+    }
+
+    /**
+     * Gets the active quest
+     *
+     * @return the quest
+     */
+    @Override
+    public TalismanQuest getActiveQuest() {
+
+        return quest;
+    }
+
+    /**
+     *  Checks if player has an active quest
+     *
+     * @return true if the player has a quest
+     */
+    @Override
+    public boolean hasQuest() {
+
+        return quest != null;
+    }
+
+    /**
      * Checks whether the players has the crown of command.
+     *
      * @return true if the player has the crown
      */
     public boolean hasCrown() {
+
         return this.crown;
     }
+
+    /**
+     * Checks if the player owns a talisman
+     *
+     * @return true if the player owns a talisman
+     */
+    @Override
+    public boolean hasTalisman() {
+
+        return talisman;
+    }
+
 
 }

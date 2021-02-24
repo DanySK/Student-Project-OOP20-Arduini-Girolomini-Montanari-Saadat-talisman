@@ -68,7 +68,7 @@ public class TalismanQuestChoiceAction extends TalismanChoiceAction<TalismanQues
         if (choice == 0) {
             return true;
         }
-        Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().
+        Controllers.getCharactersController().getCurrentPlayer().giveTalismanQuest(quests.get(choice));
         return false;
     }
 

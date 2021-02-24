@@ -1,5 +1,7 @@
 package talisman.model.character;
 
+import talisman.model.quests.TalismanQuest;
+
 /**
  * Interface that models the player.
  * 
@@ -50,9 +52,44 @@ public interface PlayerModel {
     void setCurrentCharacter(CharacterModelImpl character);
 
     /**
+     * Gives to the player a quest to complete
+     *
+     * @param questType the instance of the quest
+     */
+    void giveTalismanQuest(TalismanQuest questType);
+
+    /**
+     * Resolve the active quest for the player
+     *
+     *
+     */
+    void resolveActiveQuest();
+
+    /**
+     * Gets the active quest for the player
+     *
+     * @return the instance of the quest, null if there isn't any
+     */
+    TalismanQuest getActiveQuest();
+
+    /**
+     * Checks if the player has a quest active
+     *
+     * @return true if the player has a quest
+     */
+    boolean hasQuest();
+
+    /**
      * Checks whether the players has the crown of command.
      * @return true if the player has the crown
      */
     boolean hasCrown();
+
+    /**
+     * Checks if player owns a talisman
+     *
+     * @return true if the player owns the talisman
+     */
+    boolean hasTalisman();
 
 }

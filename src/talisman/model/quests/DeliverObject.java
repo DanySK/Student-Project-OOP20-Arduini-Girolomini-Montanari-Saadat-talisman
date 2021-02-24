@@ -5,7 +5,7 @@ package talisman.model.quests;
  *
  * @author Enrico Maria Montanari
  */
-public class DeliverObject extends TalismanQuest{
+public class DeliverObject extends TalismanQuest {
 
     private final QuestObjectType objectType;
 
