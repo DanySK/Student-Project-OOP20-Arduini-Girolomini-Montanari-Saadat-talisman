@@ -5,7 +5,7 @@ import talisman.model.quests.TalismanQuest;
 /**
  * Interface that models the player.
  * 
- * @author Alice Girolomini
+ * @author Enrico Maria Montanari
  *
  */
 public interface PlayerModel {
@@ -50,6 +50,11 @@ public interface PlayerModel {
      @param character - the character to be set
      */
     void setCurrentCharacter(CharacterModelImpl character);
+
+    /**
+     * Give to the player the crown of command
+     */
+    void setCrownPlayer();
 
     /**
      * Gives to the player a quest to complete

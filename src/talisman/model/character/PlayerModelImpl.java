@@ -6,7 +6,7 @@ import talisman.model.quests.exceptions.NoActiveQuestException;
 /**
  * Implementation of the player.
  * 
- * @author Alice Girolomini
+ * @author Enrico Maria Montanari
  *
  */
 public class PlayerModelImpl implements PlayerModel {
@@ -85,6 +85,15 @@ public class PlayerModelImpl implements PlayerModel {
      */
     public void setCurrentCharacter(final CharacterModelImpl character) {
         this.currentCharacter = character;
+    }
+
+    /**
+     * Give to the player the crown of command
+     */
+    @Override
+    public void setCrownPlayer() {
+
+        crown = true;
     }
 
     /**
