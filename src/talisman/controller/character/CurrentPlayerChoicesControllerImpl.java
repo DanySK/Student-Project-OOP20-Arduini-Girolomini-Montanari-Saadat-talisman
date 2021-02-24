@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import talisman.Controllers;
-
+import talisman.model.character.PlayerModel;
 import talisman.util.DiceType;
 import talisman.util.Utils;
 import talisman.view.CurrentPlayerChoicesWindow;
@@ -136,9 +136,11 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
 
     private void advanceTurn() {
         this.getView().closeWindow();
-        Controllers.getCharactersController().getCurrentPlayer().resolveActiveQuest();
-        Controllers.getCharactersController()
-                .setCurrentPlayer(Controllers.getCharactersController().getCurrentPlayer().getIndex() + 1);
+        final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
+        if (player.hasQuest()) {
+            player.resolveActiveQuest();
+        }
+        Controllers.getCharactersController().setCurrentPlayer(player.getIndex() + 1);
         this.initializeTurn();
     }
 }
