@@ -88,8 +88,12 @@ public final class TalismanDeckFactory {
     }
 
     private static Queue<Card> createShopDeck(final Queue<Card> cards) {
-        cards.add(TalismanDeckFactory.createCard("bag of gold", "get 1 gold", "BagOfGold", CardType.OBJECT,
-                List.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.GOLD))));
+        cards.add(TalismanDeckFactory.createCard("Axe", "Equipment", "Axe", CardType.OBJECT,
+                List.of(new TalismanModifyStatisticAction(2, TalismanActionStatistic.STRENGTH))));
+        cards.add(TalismanDeckFactory.createCard("Sword", "Equipment ", "Sword", CardType.OBJECT,
+                List.of(new TalismanModifyStatisticAction(1, TalismanActionStatistic.STRENGTH))));
+        cards.add(TalismanDeckFactory.createCard("Magic Sword", "Equipment ", "MagicSword", CardType.OBJECT,
+                List.of(new TalismanModifyStatisticAction(1, TalismanActionStatistic.CRAFT))));
         return cards;
     }
 

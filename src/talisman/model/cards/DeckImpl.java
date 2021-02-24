@@ -16,8 +16,8 @@ public class DeckImpl implements Deck {
     /**
      * {@inheritDoc}
      */
-    public Queue<Card> getCards() {
-        return this.cards;
+    public List<Card> getCards() {
+        return List.copyOf(this.cards);
     }
     /**
      * {@inheritDoc}
