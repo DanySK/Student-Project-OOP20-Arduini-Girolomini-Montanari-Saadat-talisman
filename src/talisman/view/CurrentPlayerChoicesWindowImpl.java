@@ -14,7 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import talisman.Controllers;
 import talisman.controller.character.CurrentPlayerChoicesController;
+import talisman.view.cards.TalismanDeckView;
 
 /**
  * Swing implementation of the view used to display the player's choices.
@@ -61,6 +63,7 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         this.passTurnButton.setEnabled(false);
         this.getContentPane().add(createInfoAndDicePanel(), BorderLayout.NORTH);
         this.getContentPane().add(createChoicesPanel(), BorderLayout.CENTER);
+        this.getContentPane().add(createInventoryPanel(), BorderLayout.SOUTH);
         this.setSize(WIDTH, HEIGHT);
         this.setResizable(false);
         this.setVisible(true);
@@ -98,10 +101,10 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         panel.add(title, this.setConstraints(3, 0, 1));
         panel.add(this.diceButton, this.setConstraints(0, 1, 1));
         this.diceButton.addActionListener(e -> {
-                rollResult.setText(String.valueOf(controller.getDiceRoll()));
-                infos.setText("Move your pawn");
-                diceButton.setEnabled(!controller.checkRoll());
-                moveButton.setEnabled(true);
+            rollResult.setText(String.valueOf(controller.getDiceRoll()));
+            infos.setText("Move your pawn");
+            diceButton.setEnabled(!controller.checkRoll());
+            moveButton.setEnabled(true);
         });
         panel.add(this.rollResult, this.setConstraints(1, 1, 1));
         panel.add(this.infos, this.setConstraints(LASTXCOORDINATE, 1, 1));
@@ -146,6 +149,11 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         });
         panel.setBackground(Color.darkGray);
         return panel;
+    }
+
+    private JPanel createInventoryPanel() {
+        return (JPanel) TalismanDeckView.create(controller.getCurrentCharacterCards());
+
     }
 
     /**
