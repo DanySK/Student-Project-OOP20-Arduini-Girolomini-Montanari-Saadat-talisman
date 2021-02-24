@@ -56,13 +56,9 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         this.add(secondRoll, this.setConstraints(3, 1, 1));
         this.add(labels.get(2), this.setConstraints(3, 0, 1));
         this.setBackground(Color.darkGray);
-        this.diceButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (getAttackRoll(controller.getTurn()) == 0 && controller.canRoll()) {
-                    setAttackRoll(controller.getTurn(), controller.updateRoll());
-                }
+        this.diceButton.addActionListener(e -> {
+            if (getAttackRoll(controller.getTurn()) == 0 && controller.canRoll()) {
+                setAttackRoll(controller.getTurn(), controller.updateRoll());
             }
         });
     }

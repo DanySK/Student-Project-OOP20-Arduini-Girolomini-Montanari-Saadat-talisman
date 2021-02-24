@@ -48,17 +48,14 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.attackButton = new JButton(new ImageIcon("res/imgs/battle/attackButton.png"));
         this.fateButton = new JButton(new ImageIcon("res/imgs/battle/fateButton.png"));
         this.add(attackButton, this.setConstraints(1, 2, 1));
-        this.attackButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (!controller.canRoll()) {
-                    topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
-                }
-                if (controller.getTurn() == 2) {
-                   endBattle();
-                }
-                fateButton.setEnabled(controller.requestedFate());
-            } 
+        this.attackButton.addActionListener(e -> {
+            if (!controller.canRoll()) {
+                topView.setAttackScore(controller.getTurn(), controller.requestedAttack());
+            }
+            if (controller.getTurn() == 2) {
+                endBattle();
+            }
+            fateButton.setEnabled(controller.requestedFate()); 
         });
         List<JLabel> labels = new ArrayList<>();
         labels.add(new JLabel("Attack"));
@@ -69,14 +66,11 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         this.add(labels.get(0), this.setConstraints(1, 1, 1));
         this.add(fateButton, this.setConstraints(1, YCOORDINATEBUTTON, 1));
         fateButton.setEnabled(this.controller.requestedFate());
-        this.fateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (!controller.canRoll()) {
-                    controller.updateFate();
-                    bottomView.setAttackRoll(controller.getTurn(), 0);
-                    fateButton.setEnabled(controller.requestedFate());
-                }
+        this.fateButton.addActionListener(e -> {
+            if (!controller.canRoll()) {
+                controller.updateFate();
+                bottomView.setAttackRoll(controller.getTurn(), 0);
+                fateButton.setEnabled(controller.requestedFate());
             } 
         });
         this.add(labels.get(1), this.setConstraints(1, 4, 1));
