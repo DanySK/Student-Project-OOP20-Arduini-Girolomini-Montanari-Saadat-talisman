@@ -71,7 +71,8 @@ public final class TalismanBoardControllerImpl
         final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.getCharacterCell(playerIndex).setCard(Objects.requireNonNull(card));
         final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
-        this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView);
+        this.getView().addOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell(), cardView,
+                card.getType().getActionName());
     }
 
     /**
@@ -93,8 +94,7 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public Optional<Card> getCurrentCellCard() {
-        final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
-        return this.getCharacterCell(playerIndex).getCard();
+        return this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex()).getCard();
     }
 
     /**
@@ -104,13 +104,21 @@ public final class TalismanBoardControllerImpl
     public void tryCollectCurrentCellCard() {
         final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
         final int playerIndex = player.getIndex();
-        final TalismanBoardCell cell = this.getCharacterCell(playerIndex);
-        final Optional<Card> card = this.getCurrentCellCard();
-        cell.clearCard();
+        final Optional<Card> card = this.removeCurrentCellCard();
         card.ifPresent((c) -> {
             final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
             this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
             ((CharacterModelImpl) player.getCurrentCharacter()).getInventory().addCard((CardImpl) c);
         });
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Card> removeCurrentCellCard() {
+        final Optional<Card> card = this.getCurrentCellCard();
+        this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex()).clearCard();
+        return card;
     }
 }
