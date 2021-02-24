@@ -32,7 +32,6 @@ public final class TalismanBoardControllerImpl
         extends PopulatedBoardControllerImpl<TalismanBoard, TalismanBoardSection, TalismanBoardCell, TalismanBoardPawn>
         implements TalismanBoardController {
     private ActionEndedListener actionListener;
-    private final Map<Card, TalismanCardView> cardViews;
 
     /**
      * Creates a new controller.
@@ -42,7 +41,6 @@ public final class TalismanBoardControllerImpl
      */
     public TalismanBoardControllerImpl(final TalismanBoard board, final TalismanBoardView view) {
         super(board, view);
-        cardViews = new HashMap<>();
         this.getView().setCardPickupListener((c) -> this.tryCollectCurrentCellCard());
     }
 
@@ -80,7 +78,6 @@ public final class TalismanBoardControllerImpl
     @Override
     public void setCurrentCharacterCellCard(final Card card) {
         final TalismanCardView cardView = TalismanCardController.createView(card);
-        this.cardViews.put(card, cardView);
         final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.getCharacterCell(playerIndex).setCard(Objects.requireNonNull(card));
         final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
@@ -115,10 +112,9 @@ public final class TalismanBoardControllerImpl
      */
     @Override
     public void tryCollectCurrentCellCard() {
-        final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
-        final int playerIndex = player.getIndex();
         final Optional<Card> card = this.removeCurrentCellCard();
         card.ifPresent((c) -> {
+            final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
             ((CharacterModelImpl) player.getCurrentCharacter()).getInventory().addCard((CardImpl) c);
         });
     }
@@ -129,12 +125,11 @@ public final class TalismanBoardControllerImpl
     @Override
     public Optional<Card> removeCurrentCellCard() {
         final Optional<Card> card = this.getCurrentCellCard();
-        this.getCharacterCell(Controllers.getCharactersController().getCurrentPlayer().getIndex()).clearCard();
         card.ifPresent(c -> {
             final int playerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+            this.getCharacterCell(playerIndex).clearCard();
             final TalismanBoardPawn currentPawn = this.getCharacterPawn(playerIndex);
             this.getView().removeOverlayedCard(currentPawn.getPositionSection(), currentPawn.getPositionCell());
-            this.cardViews.remove(c);
         });
         return card;
     }

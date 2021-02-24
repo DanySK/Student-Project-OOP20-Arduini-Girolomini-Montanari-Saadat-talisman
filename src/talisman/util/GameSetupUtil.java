@@ -80,10 +80,6 @@ public final class GameSetupUtil {
         }
 
         // Setup enemies
-        /*
-         * TODO: add actual enemy list, this is just to not crash the board when
-         * creating, since it needs the enemy name to show cells descriptions
-         */
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Wild Boar"));
         EnemyInfos.addEnemy(new StrengthEnemy(2, "Wolf"));
