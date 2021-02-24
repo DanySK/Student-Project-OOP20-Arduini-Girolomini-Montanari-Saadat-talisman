@@ -1,8 +1,7 @@
 package talisman.controller.character;
 
-import java.util.EventListener;
-
 import talisman.Controllers;
+import talisman.EventEndedListener;
 import talisman.view.CurrentPlayerChoicesWindow;
 
 /**
@@ -12,19 +11,6 @@ import talisman.view.CurrentPlayerChoicesWindow;
  *
  */
 public interface CurrentPlayerChoicesController {
-
-    /**
-     * Used to send an event for when any action done by the controller is ended.
-     * 
-     * @author Alberto Arduini
-     *
-     */
-    public static interface EventEndedListener extends EventListener {
-        /**
-         * Called on event end.
-         */
-        void eventEnded();
-    }
 
     /**
      * Checks whether the player rolled the dice or not.
