@@ -51,12 +51,15 @@ public class TalismanDeckViewImpl extends JPanel implements TalismanDeckView {
             }
         });
         this.add(button2);
+        this.updateCards(0);
+        this.setSize(this.cardsPanel.getPreferredSize());
     }
 
     private void updateCards(final int index) {
-        this.index = Math.min(Math.max(index, 0), this.cards.size() - MAX_SHOWN_CARDS);
+        this.index = Math.max(Math.min(index, this.cards.size() - MAX_SHOWN_CARDS), 0);
         this.cardsPanel.removeAll();
-        for (int i = this.index; i < this.index + MAX_SHOWN_CARDS; i++) {
+        final int lastIndex = Math.max(Math.min(this.cards.size(), this.index + MAX_SHOWN_CARDS), 0);
+        for (int i = this.index; i < lastIndex; i++) {
             this.cardsPanel.add((TalismanCardViewImpl) this.cards.get(i));
         }
     }

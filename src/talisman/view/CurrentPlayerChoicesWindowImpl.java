@@ -64,7 +64,7 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         this.getContentPane().add(createInfoAndDicePanel(), BorderLayout.NORTH);
         this.getContentPane().add(createChoicesPanel(), BorderLayout.CENTER);
         this.getContentPane().add(createInventoryPanel(), BorderLayout.SOUTH);
-        this.setSize(WIDTH, HEIGHT);
+        this.pack();
         this.setResizable(false);
         this.setVisible(true);
     }
