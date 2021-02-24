@@ -4,6 +4,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -211,5 +212,10 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         }
         Controllers.getCharactersController().setCurrentPlayer(player.getIndex() + 1);
         this.initializeTurn();
+    }
+
+    @Override
+    public List<Card> getCurrentCharacterCards() {
+        return List.copyOf(Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory().listCards());
     }
 }

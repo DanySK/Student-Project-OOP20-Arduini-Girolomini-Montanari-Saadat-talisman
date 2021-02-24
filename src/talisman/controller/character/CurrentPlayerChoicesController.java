@@ -1,5 +1,8 @@
 package talisman.controller.character;
 
+import java.util.List;
+
+import talisman.model.cards.Card;
 import talisman.view.CurrentPlayerChoicesWindow;
 
 /**
@@ -37,6 +40,8 @@ public interface CurrentPlayerChoicesController {
      * @return the index
      */
     int getCurrentPlayerIndex();
+
+    List<Card> getCurrentCharacterCards();
 
     /**
      * Moves the current player's pawn.

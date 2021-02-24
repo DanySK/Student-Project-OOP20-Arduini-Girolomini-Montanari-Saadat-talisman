@@ -5,7 +5,7 @@ import java.util.List;
 import talisman.model.cards.Card;
 
 public interface TalismanDeckView {
-    static TalismanCardView create(final List<Card> deck) {
-        return new TalismanDeckViewImpl(deck).createDeckView();
+    static TalismanDeckView create(final List<Card> deck) {
+        return new TalismanDeckViewImpl(deck);
     }
 }
