@@ -81,6 +81,8 @@ public class BattleControllerTests {
         //checks the new player's position 
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionCell());
         Assertions.assertEquals(0, Controllers.getBoardController().getCharacterPawn(2).getPositionSection());
+        //checks the reset of the player's character
+        Assertions.assertEquals(TalismanCharacterFactory.createDwarfCharacter().getHealth(), Controllers.getCharactersController().getPlayers().get(2).getCurrentCharacter().getHealth());
     }
 
     /**
