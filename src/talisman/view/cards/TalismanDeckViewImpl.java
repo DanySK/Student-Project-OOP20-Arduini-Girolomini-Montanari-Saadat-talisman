@@ -37,8 +37,8 @@ public class TalismanDeckViewImpl extends JPanel implements TalismanDeckView {
         this.add(button);
         cards = new ArrayList<>();
         for (final Card card : deck) {
-            cards.add(new TalismanCardViewImpl(deck.get(index).getImagePath(), deck.get(index).getText(),
-                    deck.get(index).getName()));
+            cards.add(new TalismanCardViewImpl(card.getImagePath(), card.getText(),
+                    card.getName()));
         }
         this.cardsPanel = new JPanel();
         this.add(this.cardsPanel);
