@@ -1,7 +1,5 @@
 package talisman.controller.character;
 
-import talisman.Controllers;
-import talisman.EventEndedListener;
 import talisman.view.CurrentPlayerChoicesWindow;
 
 /**
@@ -61,21 +59,16 @@ public interface CurrentPlayerChoicesController {
     void challengeCharacter();
 
     /**
-     * Sets the listener waiting for events to end.
-     * 
-     * @param listener the listener
-     */
-    void setEventEndedListener(EventEndedListener listener);
-
-    /**
      * Skips the current turn.
      */
-    static void skipTurn() {
-        Controllers.getCharactersController()
-                .setCurrentPlayer(Controllers.getCharactersController().getCurrentPlayer().getIndex() + 1);
-        CurrentPlayerChoicesWindow.show(CurrentPlayerChoicesController
-                .create(Controllers.getCharactersController().getCurrentPlayer().getIndex()));
-    }
+    void skipTurn();
+
+    /**
+     * Gets the current view.
+     * 
+     * @return the view
+     */
+    CurrentPlayerChoicesWindow getView();
 
     /**
      * Creates the current player's controller.
