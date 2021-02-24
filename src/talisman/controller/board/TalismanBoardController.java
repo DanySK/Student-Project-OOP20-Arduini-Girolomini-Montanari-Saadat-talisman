@@ -41,6 +41,13 @@ public interface TalismanBoardController
     void setCurrentCharacterCellCard(Card card);
 
     /**
+     * Returns an optional with the card in the cell where the current character is.
+     * 
+     * @return An optional with the card or an empty optional
+     */
+    Optional<Card> getCurrentCellCard();
+
+    /**
      * Removes the card from the cell that is on the current player's cell and adds
      * it to it's inventory.
      */
