@@ -25,6 +25,7 @@ import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.model.menu.PlayerInfo;
 import talisman.view.CurrentPlayerChoicesWindow;
 import talisman.view.DebugView;
+import talisman.view.GameVictoryWindow;
 import talisman.view.GameWindow;
 
 /**
@@ -138,6 +139,17 @@ public final class GameSetupUtil {
      */
     public GameSetupUtil setClosedListener(final EndedListener endedListener) {
         this.endedListener = endedListener;
+        return this;
+    }
+
+    /**
+     * Stops the game and sets who the winner of the game is.
+     * 
+     * @param winner the game winner
+     * @return this utility
+     */
+    public GameSetupUtil winGame(final int winner) {
+        GameVictoryWindow.show(winner);
         return this;
     }
 
