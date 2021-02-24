@@ -1,12 +1,34 @@
 package talisman.controller.character;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import talisman.Controllers;
+
+import talisman.controller.battle.BattleController;
+import talisman.controller.battle.BattleControllerImpl;
+
+import talisman.model.battle.BattleModel;
+import talisman.model.battle.BattleModelImpl;
+import talisman.model.battle.BattleState;
+import talisman.model.battle.EnemyInfos;
+import talisman.model.battle.EnemyModel;
+import talisman.model.battle.StrengthEnemy;
+
+import talisman.model.cards.Card;
+import talisman.model.cards.CardType;
+
+import talisman.model.character.CharacterModel;
 import talisman.model.character.PlayerModel;
+
 import talisman.util.DiceType;
 import talisman.util.Utils;
+
+import talisman.view.BattleWindow;
 import talisman.view.CurrentPlayerChoicesWindow;
 import talisman.view.OpponentChoiceWindow;
 
@@ -22,6 +44,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     private int currentPlayerIndex;
     private int rollDice;
     private CurrentPlayerChoicesWindow window;
+    private BattleController battleController;
 
     /**
      * Creates the controller for the current player's choices.
@@ -76,7 +99,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
             Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex,
                     currentPosition + this.rollDice);
             this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
-            this.getView().setInteractible(true);
+            this.challengeEnemy();
         }
     }
 
@@ -99,6 +122,9 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
             Controllers.getBoardController().setActionEndedListener(() -> this.getView().setInteractible(true));
             Controllers.getBoardController().applyCurrentPlayerCellActions();
             Controllers.getBoardController().setActionEndedListener(null);
+            // Since the action could place an enemy on the cell, i check i there is one
+            // after applying the action
+            this.challengeEnemy();
         }
     }
 
@@ -109,6 +135,38 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
     public void challengeCharacter() {
         if (checkRoll() && checkOpponents()) {
             OpponentChoiceWindow.show(this.opponents, () -> this.getView().setInteractible(true));
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void challengeEnemy() {
+        final Optional<Card> card = Controllers.getBoardController().getCurrentCellCard();
+        if (checkRoll() && card.isPresent() && card.get().getType() == CardType.ENEMY) {
+            final BattleModel battleModel;
+            final CharacterModel characterModel = Controllers.getCharactersController().getCurrentPlayer()
+                    .getCurrentCharacter();
+            final EnemyModel enemyModel = EnemyInfos.getEnemyByName(card.get().getName());
+            if (enemyModel instanceof StrengthEnemy) {
+                battleModel = new BattleModelImpl(characterModel.getStrength(), enemyModel.getStrength());
+            } else {
+                battleModel = new BattleModelImpl(characterModel.getCraft(), enemyModel.getCraft());
+            }
+
+            this.battleController = new BattleControllerImpl(characterModel, enemyModel, battleModel);
+
+            this.getView().setInteractible(true);
+            final BattleWindow window = new BattleWindow(battleController);
+            window.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(final WindowEvent e) {
+                    CurrentPlayerChoicesControllerImpl.this.checkChallengeEnemyReuslt();
+                }
+            });
+        } else {
+            this.getView().setInteractible(true);
         }
     }
 
@@ -128,9 +186,13 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         return this.window;
     }
 
-    /**
-     * Initializes the current player's turn. 
-     */
+    private void checkChallengeEnemyReuslt() {
+        if (this.battleController.getResult() == BattleState.FIRST) {
+            Controllers.getBoardController().removeCurrentCellCard();
+        }
+        this.getView().setInteractible(true);
+    }
+
     private void initializeTurn() {
         this.currentPlayerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.rollDice = 0;

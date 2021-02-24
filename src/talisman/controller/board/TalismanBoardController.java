@@ -54,6 +54,13 @@ public interface TalismanBoardController
     void tryCollectCurrentCellCard();
 
     /**
+     * Removes the card from the current cell, without collecting it.
+     * 
+     * @return the removed card, if present, or an empty optional
+     */
+    Optional<Card> removeCurrentCellCard();
+
+    /**
      * Sets the listener waiting for an action to end.
      * 
      * @param listener the listener
