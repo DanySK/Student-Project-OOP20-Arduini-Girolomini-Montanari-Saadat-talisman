@@ -89,10 +89,18 @@ public final class TalismanBoardCell extends BoardCellImpl {
         this.getActions().stream().forEach(a -> a.apply());
     }
 
+    /**
+     * Sets the card that is on this cell.
+     * 
+     * @param card the card
+     */
     public void setCard(final Card card) {
-        this.card = Optional.ofNullable(card);
+        this.card = Optional.of(card);
     }
 
+    /**
+     * Removes the card from this cell.
+     */
     public void clearCard() {
         this.card = Optional.empty();
     }

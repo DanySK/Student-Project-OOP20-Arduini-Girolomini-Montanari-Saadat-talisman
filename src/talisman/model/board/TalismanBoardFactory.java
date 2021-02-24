@@ -255,7 +255,7 @@ public final class TalismanBoardFactory {
                         new TalismanFightAction(0)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("ValleyOfFire", "Valley of Fire", CellType.DOWN, TalismanCellType.ZONE,
-                        new TalismanRequireTalismanAction(new TalismanMoveAction(0, 3), new TalismanEmptyAction())),
+                        new TalismanRequireTalismanAction(new TalismanMoveAction(3, 0), new TalismanEmptyAction())),
                 TalismanBoardFactory.createCell("WerewolfDen", "Werewolf Den", CellType.DOWN, TalismanCellType.MONSTER,
                         new TalismanRollAction(6, TalismanActionStatistic.NONE, new TalismanEmptyAction(),
                                 new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))),
