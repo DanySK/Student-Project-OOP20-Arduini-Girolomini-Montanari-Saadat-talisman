@@ -96,15 +96,11 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         this.rollResult.setForeground(Color.BLACK);
         panel.add(title, this.setConstraints(3, 0, 1));
         panel.add(this.diceButton, this.setConstraints(0, 1, 1));
-        this.diceButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        this.diceButton.addActionListener(e -> {
                 rollResult.setText(String.valueOf(controller.getDiceRoll()));
                 infos.setText("Move your pawn");
                 diceButton.setEnabled(!controller.checkRoll());
                 moveButton.setEnabled(true);
-            }
         });
         panel.add(this.rollResult, this.setConstraints(1, 1, 1));
         panel.add(this.infos, this.setConstraints(LASTXCOORDINATE, 1, 1));
@@ -120,44 +116,31 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         LayoutManager layout = new GridBagLayout();
         panel.setLayout(layout);
         panel.add(this.moveButton, this.setConstraints(0, 0, 1));
-        this.moveButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.movePawn();
-                infos.setText("Choose action");
-                moveButton.setEnabled(false);
-                attackButton.setEnabled(controller.checkOpponents());
-                cellEventButton.setEnabled(true);
-            }
+        this.moveButton.addActionListener(e -> {
+            controller.movePawn();
+            infos.setText("Choose action");
+            moveButton.setEnabled(false);
+            attackButton.setEnabled(controller.checkOpponents());
+            cellEventButton.setEnabled(true);
         });
         panel.add(this.cellEventButton, this.setConstraints(0, 1, 1));
-        this.cellEventButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.cellEvent();
-                attackButton.setEnabled(false);
-                cellEventButton.setEnabled(false);
-                passTurnButton.setEnabled(true);
-            }
+        this.cellEventButton.addActionListener(e -> {
+            controller.cellEvent();
+            attackButton.setEnabled(false);
+            cellEventButton.setEnabled(false);
+            passTurnButton.setEnabled(true);
         });
         panel.add(this.attackButton, this.setConstraints(0, 2, 1));
-        this.attackButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                controller.challengeCharacter();
-                attackButton.setEnabled(false);
-                cellEventButton.setEnabled(false);
-                passTurnButton.setEnabled(true);
-            }
+        this.attackButton.addActionListener(e -> {
+            controller.challengeCharacter();
+            attackButton.setEnabled(false);
+            cellEventButton.setEnabled(false);
+            passTurnButton.setEnabled(true);
         });
         panel.add(this.passTurnButton, this.setConstraints(LASTXCOORDINATE, 1, 1));
-        this.passTurnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                if (controller.checkRoll()) {
-                    controller.passTurn();
-                }
+        this.passTurnButton.addActionListener(e -> {
+            if (controller.checkRoll()) {
+                controller.passTurn();
             }
         });
         panel.setBackground(Color.darkGray);
