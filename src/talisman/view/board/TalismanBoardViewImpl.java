@@ -38,13 +38,32 @@ public class TalismanBoardViewImpl extends PopulatedBoardViewImpl implements Tal
             final List<PawnView> pawns) {
         super(sections, mainSection, pawns);
         this.cards = new HashMap<>();
+        for (int i = 0; i < this.getSectionCount(); i++) {
+            final BoardSectionView section = this.getSection(i);
+            for (int j = 0; j < section.getCellCount(); j++) {
+                final BoardCellViewImpl cell = (BoardCellViewImpl) section.getCell(j);
+                cell.addMouseListener(new MouseAdapter() {
+
+                    @Override
+                    public void mouseEntered(final MouseEvent e) {
+                        cell.setTextVisiblity(true);
+                    }
+
+                    @Override
+                    public void mouseExited(final MouseEvent e) {
+                        cell.setTextVisiblity(false);
+                    }
+                });
+            }
+        }
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addOverlayedCard(final int section, final int cell, final TalismanCardView card, final String actionName) {
+    public void addOverlayedCard(final int section, final int cell, final TalismanCardView card,
+            final String actionName) {
         if (this.cards.containsValue(card)) {
             return;
         }
