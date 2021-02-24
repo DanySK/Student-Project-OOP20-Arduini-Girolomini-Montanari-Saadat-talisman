@@ -25,6 +25,7 @@ import talisman.model.character.defaultCharacters.TalismanCharacterFactory;
 import talisman.test.util.BoardTestUtils;
 import talisman.util.GameSetupUtil;
 import talisman.view.CurrentPlayerChoicesWindow;
+import talisman.view.cards.TalismanDeckView;
 import talisman.view.menu.MainMenuWindow;
 
 import javax.swing.*;
@@ -51,12 +52,12 @@ public final class App {
         thirdWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Deck deck = TalismanDeckFactory.createDeck(DeckType.ADVENTURE);
         deck.shuffle();
-        final JPanel card = (JPanel) TalismanCardController.createView(deck.draw());
+        final JPanel card = (JPanel) TalismanDeckView.create(deck.getCards());
         thirdWindow.getContentPane().add(card, thirdconstraint);
         thirdWindow.pack();
         thirdWindow.setResizable(false);
         thirdWindow.setVisible(true);
-        
+
         //test CurrentPlayerChoicesWindow
         TalismanBoardController boardController = BoardTestUtils.createController(2, 10, 2);
         Controllers.setBoardController(boardController);
