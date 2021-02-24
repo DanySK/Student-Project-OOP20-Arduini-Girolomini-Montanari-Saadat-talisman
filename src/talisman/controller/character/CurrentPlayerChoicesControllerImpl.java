@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import talisman.Controllers;
-
+import talisman.model.character.PlayerModel;
 import talisman.util.DiceType;
 import talisman.util.Utils;
 import talisman.view.CurrentPlayerChoicesWindow;
@@ -75,6 +75,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         if (checkRoll()) {
             Controllers.getBoardController().moveCharacterCell(this.currentPlayerIndex,
                     currentPosition + this.rollDice);
+            this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
             this.getView().setInteractible(true);
         }
     }
@@ -131,15 +132,16 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
         this.currentPlayerIndex = Controllers.getCharactersController().getCurrentPlayer().getIndex();
         this.rollDice = 0;
         this.opponents.clear();
-        this.opponents.addAll(Controllers.getBoardController().getCurrentCharacterOpponents());
         this.window = CurrentPlayerChoicesWindow.show(this);
     }
 
     private void advanceTurn() {
         this.getView().closeWindow();
-        Controllers.getCharactersController().getCurrentPlayer().resolveActiveQuest();
-        Controllers.getCharactersController()
-                .setCurrentPlayer(Controllers.getCharactersController().getCurrentPlayer().getIndex() + 1);
+        final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
+        if (player.hasQuest()) {
+            player.resolveActiveQuest();
+        }
+        Controllers.getCharactersController().setCurrentPlayer(player.getIndex() + 1);
         this.initializeTurn();
     }
 }
