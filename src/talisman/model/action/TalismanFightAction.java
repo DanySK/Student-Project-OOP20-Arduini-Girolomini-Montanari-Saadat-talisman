@@ -3,20 +3,17 @@ package talisman.model.action;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-
 import talisman.Controllers;
 import talisman.controller.battle.BattleController;
 import talisman.controller.battle.BattleControllerImpl;
+
 import talisman.model.battle.BattleModel;
 import talisman.model.battle.BattleModelImpl;
 import talisman.model.battle.EnemyInfos;
 import talisman.model.battle.EnemyModel;
 import talisman.model.character.CharacterModel;
+
 import talisman.view.BattleWindow;
-import talisman.view.battle.BattleBottomView;
-import talisman.view.battle.BattleTopView;
-import talisman.view.battle.BattleViewFactory;
 
 /**
  * A action that makes the player battle with an enemy.
