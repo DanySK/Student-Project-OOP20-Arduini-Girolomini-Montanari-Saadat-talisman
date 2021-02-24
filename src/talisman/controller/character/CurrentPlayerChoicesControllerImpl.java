@@ -14,6 +14,7 @@ import talisman.view.OpponentChoiceWindow;
  * Implementation that controls the current player's choices.
  * 
  * @author Alice Girolomini
+ * @author Alberto Arduini
  *
  */
 public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesController {
