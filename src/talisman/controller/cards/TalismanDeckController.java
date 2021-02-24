@@ -9,6 +9,6 @@ import talisman.view.cards.TalismanDeckView;
  */
 public interface TalismanDeckController {
     Card draw();
-    void shuffle();
+    TalismanDeckController shuffle();
     TalismanDeckView createView();
 }

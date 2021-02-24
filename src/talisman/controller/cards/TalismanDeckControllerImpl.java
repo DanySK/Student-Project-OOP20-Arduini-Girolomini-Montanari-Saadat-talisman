@@ -18,14 +18,16 @@ public class TalismanDeckControllerImpl implements TalismanDeckController {
         drawnCard = deck.draw();
         if (drawnCard == null) {
             this.deck = TalismanDeckFactory.createDeck(this.deck.getType());
+            this.shuffle();
             drawnCard = deck.draw();
         }
         return drawnCard;
     }
 
     @Override
-    public void shuffle() {
+    public TalismanDeckController shuffle() {
         deck.shuffle();
+        return this;
     }
 
     @Override
