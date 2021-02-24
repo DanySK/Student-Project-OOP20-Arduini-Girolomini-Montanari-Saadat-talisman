@@ -216,6 +216,6 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
 
     @Override
     public List<Card> getCurrentCharacterCards() {
-        return Arrays.asList(Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory().listCards());
+        return List.copyOf(Controllers.getCharactersController().getCurrentPlayer().getCurrentCharacter().getInventory().listCards());
     }
 }
