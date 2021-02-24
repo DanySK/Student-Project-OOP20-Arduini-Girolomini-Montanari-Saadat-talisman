@@ -82,10 +82,8 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
      */
     private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
-        choiceButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
+        choiceButton.addActionListener(e -> {
+            try {
                 if (!textField.getText().equals("")) {
                     if (checkOpponent(Integer.parseInt(textField.getText()))) {
                         startFight(Integer.parseInt(textField.getText()));
@@ -95,8 +93,9 @@ public class OpponentChoiceWindowImpl extends JFrame implements OpponentChoiceWi
                 } else {
                     JOptionPane.showMessageDialog(null, "You have to choose one of the opponents before you continue.");
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "This opponent is not valid!.");
             }
-
         });
         panel.setBackground(Color.darkGray);
         panel.add(choiceButton);
