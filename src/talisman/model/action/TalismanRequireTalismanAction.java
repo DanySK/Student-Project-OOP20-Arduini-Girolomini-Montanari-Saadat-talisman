@@ -45,8 +45,7 @@ public class TalismanRequireTalismanAction extends TalismanActionImpl {
     public void apply() {
         final CharacterModelImpl character = Controllers.getCharactersController().getCurrentPlayer()
                 .getCurrentCharacter();
-        if (Arrays.stream(character.getInventory().listCards())
-                .anyMatch(c -> c.getName() == TalismanDeckFactory.TALISMAN)) {
+        if (character.getInventory().listCards().stream().anyMatch(c -> c.getName() == TalismanDeckFactory.TALISMAN)) {
             this.successAction.apply();
         } else {
             this.failedAction.apply();
