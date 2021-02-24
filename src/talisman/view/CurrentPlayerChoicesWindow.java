@@ -14,14 +14,21 @@ public interface CurrentPlayerChoicesWindow {
      * 
      * @param enabled if the player can pass
      */
-    void setCanPass(boolean enabled);
+    void setInteractible(boolean enabled);
+
+    /**
+     * Closes the window.
+     */
+    void closeWindow();
 
     /**
      * Shows the window used to display the player's choices.
      *
      * @param controller - the controller of the player's choices
+     * 
+     * @return the shown window
      */
-    static void show(final CurrentPlayerChoicesController controller) {
-        new CurrentPlayerChoicesWindowImpl(controller);
+    static CurrentPlayerChoicesWindow show(final CurrentPlayerChoicesController controller) {
+        return new CurrentPlayerChoicesWindowImpl(controller);
     }
 }
