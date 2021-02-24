@@ -90,7 +90,8 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         JPanel panel = new JPanel();
         LayoutManager layout = new GridBagLayout();
         panel.setLayout(layout);
-        JLabel title = new JLabel("It's your turn player " + controller.getCurrentPlayerIndex() + 1);
+        int index = controller.getCurrentPlayerIndex() + 1;
+        JLabel title = new JLabel("It's your turn player " + index);
         title.setForeground(Color.BLACK);
         this.infos.setForeground(Color.BLACK);
         this.rollResult.setForeground(Color.BLACK);
