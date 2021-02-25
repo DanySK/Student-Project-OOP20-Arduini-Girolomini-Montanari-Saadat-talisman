@@ -37,7 +37,7 @@ import talisman.view.GameWindow;
  */
 public final class GameSetupUtil {
     private static final int STARTING_GOLD = 1;
-    private static final boolean SHOW_DEBUG = true;
+    private static final boolean SHOW_DEBUG = false;
     private static final GameSetupUtil SINGLETON = new GameSetupUtil();
 
     private GameWindow mainWindow;
@@ -78,7 +78,6 @@ public final class GameSetupUtil {
             characters.add(character);
             Controllers.getCharactersController().addPlayer(character);
         }
-
         // Setup enemies
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Pitfiend"));
         EnemyInfos.addEnemy(new StrengthEnemy(1, "Wild Boar"));

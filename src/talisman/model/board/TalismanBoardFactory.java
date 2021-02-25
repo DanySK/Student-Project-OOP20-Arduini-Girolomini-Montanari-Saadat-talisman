@@ -47,14 +47,14 @@ public final class TalismanBoardFactory {
      * @return the create board model
      */
     public static TalismanBoard createDefaultBoardModel(final List<TalismanBoardPawn> startingPawns) {
+        // DISABLED SINCE THERE WAS NO TIME TO TEST IT IN BUILD
         // First i try to load from file
-        final Optional<TalismanBoard> loadedBoard = TalismanBoardSerializer.loadBoard();
-        if (loadedBoard.isPresent()) {
-            for (int i = 0; i < startingPawns.size(); i++) {
-                loadedBoard.get().addPawn(i, startingPawns.get(i));
-            }
-            return loadedBoard.get();
-        }
+        /*
+         * final Optional<TalismanBoard> loadedBoard =
+         * TalismanBoardSerializer.loadBoard(); if (loadedBoard.isPresent()) { for (int
+         * i = 0; i < startingPawns.size(); i++) { loadedBoard.get().addPawn(i,
+         * startingPawns.get(i)); } return loadedBoard.get(); }
+         */
         // If the loading fails (file not found, classes changed, etc.) then i create it
         // from scratch
         // All section are constructed in order top -> right -> bottom -> left, and
@@ -63,8 +63,9 @@ public final class TalismanBoardFactory {
                 TalismanBoardFactory.createMiddleSection(), TalismanBoardFactory.createInnerSection(),
                 TalismanBoardFactory.createCrownSection());
         final TalismanBoard createdBoard = TalismanBoard.createBoard(sections, startingPawns);
+        // DISABLED SINCE THERE WAS NO TIME TO TEST IT IN BUILD
         // After creation, before returning, i save it for future use
-        TalismanBoardSerializer.saveBoard(createdBoard);
+        // TalismanBoardSerializer.saveBoard(createdBoard);
         return createdBoard;
     }
 
@@ -287,7 +288,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final Collection<TalismanAction> actions) {
-        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, true), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, false), text, orientation, type,
                 actions);
     }
 
@@ -304,7 +305,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final TalismanAction action) {
-        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, true), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, false), text, orientation, type,
                 action);
     }
 }

@@ -1,6 +1,5 @@
 package talisman.model.action;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import talisman.Controllers;
