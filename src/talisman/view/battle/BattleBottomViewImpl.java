@@ -42,7 +42,7 @@ public class BattleBottomViewImpl extends JPanel implements BattleBottomView {
         this.firstRoll.setForeground(Color.BLACK);
         this.secondRoll = new JLabel("0");
         this.secondRoll.setForeground(Color.BLACK);
-        this.diceButton = new JButton(new ImageIcon("res/imgs/battle/diceButton.png"));
+        this.diceButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("imgs/battle/diceButton.png")));
         labels.add(new JLabel("Dice"));
         labels.add(new JLabel("Roll dice 1:"));
         labels.add(new JLabel("Roll dice 2:"));

@@ -45,8 +45,8 @@ public class BattleCenterViewImpl extends JPanel implements BattleCenterView {
         LayoutManager layout = new GridBagLayout();
         this.setLayout(layout);
         this.controller = controller;
-        this.attackButton = new JButton(new ImageIcon("res/imgs/battle/attackButton.png"));
-        this.fateButton = new JButton(new ImageIcon("res/imgs/battle/fateButton.png"));
+        this.attackButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("imgs/battle/attackButton.png")));
+        this.fateButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("imgs/battle/fateButton.png")));
         this.add(attackButton, this.setConstraints(1, 2, 1));
         this.attackButton.addActionListener(e -> {
             if (!controller.canRoll()) {
