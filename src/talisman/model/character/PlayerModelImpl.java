@@ -1,5 +1,6 @@
 package talisman.model.character;
 
+import talisman.Controllers;
 import talisman.model.quests.TalismanQuest;
 import talisman.model.quests.exceptions.NoActiveQuestException;
 
@@ -117,6 +118,9 @@ public class PlayerModelImpl implements PlayerModel {
 
             quest = null;
             talisman = true;
+
+            int index = Controllers.getCharactersController().getCurrentPlayer().getIndex();
+            Controllers.getBoardController().moveCharacterSection(index, 1, 8);
 
         } else {
 
