@@ -27,7 +27,7 @@ import talisman.model.character.CharacterModel;
 import talisman.model.character.PlayerModel;
 
 import talisman.util.DiceType;
-import talisman.util.Utils;
+import talisman.util.DiceUtils;
 
 import talisman.view.BattleWindow;
 import talisman.view.CurrentPlayerChoicesWindow;
@@ -77,7 +77,7 @@ public class CurrentPlayerChoicesControllerImpl implements CurrentPlayerChoicesC
      */
     @Override
     public int getDiceRoll() {
-        this.rollDice = Utils.rollDice(DiceType.SEVEN);
+        this.rollDice = DiceUtils.rollDice(DiceType.SIX);
         return this.rollDice;
     }
 

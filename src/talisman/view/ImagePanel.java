@@ -57,7 +57,7 @@ public class ImagePanel extends JPanel {
             // File not found, loading NO_IMAGE image
             try {
                 loadedImage = ImageIO
-                        .read(ClassLoader.getSystemResource(PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, false)));
+                        .read(ClassLoader.getSystemResource(PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME)));
             } catch (final IllegalArgumentException | IOException exi) {
                 // Shouldn't happen, since the file in "*_NO_IMAGE_PATH" should always exist
                 exi.printStackTrace();

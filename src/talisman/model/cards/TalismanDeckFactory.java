@@ -107,6 +107,6 @@ public final class TalismanDeckFactory {
 
     public static Card createCard(final String name, final String text, final String imageName, final CardType type,
             final Collection<TalismanAction> actions) {
-        return CardImpl.createCard(name, text, PathUtils.getPathToCard(type, imageName, true), type, actions);
+        return CardImpl.createCard(name, text, PathUtils.getPathToCard(type, imageName), type, actions);
     }
 }

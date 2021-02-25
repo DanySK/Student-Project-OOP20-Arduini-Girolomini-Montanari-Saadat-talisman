@@ -23,7 +23,7 @@ public final class TalismanBoardControllerFactory {
         for (int i = 0; i < playerCharacters.size(); i++) {
             final int iconIndex = Arrays.binarySearch(CharacterType.values(),
                     ((CharacterModelImpl) playerCharacters.get(i)).getType());
-            pawns.add(TalismanBoardPawn.createPawn(PathUtils.getPathToCharacterIcon(iconIndex, false), i));
+            pawns.add(TalismanBoardPawn.createPawn(PathUtils.getPathToCharacterIcon(iconIndex), i));
         }
         final TalismanBoard board = TalismanBoardFactory.createDefaultBoardModel(pawns);
         final TalismanBoardViewBuilder viewBuilder = new TalismanBoardViewBuilder();

@@ -11,7 +11,7 @@ import talisman.model.action.TalismanRollActionSection.ApplyResult;
 import talisman.model.character.CharacterModelImpl;
 
 import talisman.util.DiceType;
-import talisman.util.Utils;
+import talisman.util.DiceUtils;
 import talisman.view.TalismanRollActionResultWindow;
 
 /**
@@ -55,7 +55,7 @@ public class TalismanRollAction extends TalismanActionImpl {
      */
     public TalismanRollAction(final TalismanActionStatistic statistic,
             final List<TalismanRollActionSection> resultSections) {
-        this(DiceType.SEVEN, statistic, resultSections);
+        this(DiceType.SIX, statistic, resultSections);
     }
 
     /**
@@ -97,7 +97,7 @@ public class TalismanRollAction extends TalismanActionImpl {
      */
     @Override
     public void apply() {
-        this.lastResult = Utils.rollDice(this.diceType);
+        this.lastResult = DiceUtils.rollDice(this.diceType);
         int actualValue = this.getResult();
         final CharacterModelImpl playerStatistics = (CharacterModelImpl) Controllers.getCharactersController()
                 .getCurrentPlayer().getCurrentCharacter();
