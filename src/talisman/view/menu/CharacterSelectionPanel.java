@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import talisman.model.menu.PlayerInfo;
+
 import talisman.util.PathUtils;
 
 /**
@@ -79,8 +80,9 @@ public class CharacterSelectionPanel extends JPanel {
     }
 
     private JButton createCharacterButton(final int character) {
-        final String imagePath = PathUtils.getPathToCharacterIcon(character, true);
-        final JButton button = new JButton(new ImageIcon(imagePath));
+        final String imagePath = PathUtils.getPathToCharacterIcon(character, false);
+        final JButton button = new JButton();
+        button.setIcon(new ImageIcon(ClassLoader.getSystemResource(imagePath)));
         button.setText(PlayerInfo.Character.values()[character].toString());
         return button;
     }

@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.LayoutManager;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -49,17 +50,18 @@ public class ImagePanel extends JPanel {
      * @param imagePath the path to the image
      */
     public final void setImage(final String imagePath) {
-        File imageFile = new File(imagePath);
-        // If the image doesn't exist, then I default to the "image not found" image
-        if (!imageFile.exists() || !imageFile.isFile()) {
-            imageFile = new File(PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, true));
-        }
         Image loadedImage = null;
         try {
-            loadedImage = ImageIO.read(imageFile);
-        } catch (IOException e) {
-            // Shouldn't happen, since the file in "*_NO_IMAGE_PATH" should always exist
-            e.printStackTrace();
+            loadedImage = ImageIO.read(ClassLoader.getSystemResource(imagePath));
+        } catch (final IllegalArgumentException | IOException ex) {
+            // File not found, loading NO_IMAGE image
+            try {
+                loadedImage = ImageIO
+                        .read(ClassLoader.getSystemResource(PathUtils.getDevImagePath(PathUtils.NO_IMAGE_NAME, false)));
+            } catch (final IllegalArgumentException | IOException exi) {
+                // Shouldn't happen, since the file in "*_NO_IMAGE_PATH" should always exist
+                exi.printStackTrace();
+            }
         }
         this.backgroundImage = loadedImage;
         this.repaint();
