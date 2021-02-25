@@ -11,11 +11,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import talisman.model.cards.Card;
-
+/**
+ * A class with a method that creates a view of a list of cards.
+ * @author Abtin Saadat
+ */
 public class TalismanDeckViewImpl extends JPanel implements TalismanDeckView {
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private static final int MAX_SHOWN_CARDS = 2;
     private int index;
