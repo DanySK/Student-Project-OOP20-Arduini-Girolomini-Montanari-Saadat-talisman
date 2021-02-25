@@ -27,7 +27,7 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
     private JTextArea name;
 
     public TalismanCardViewImpl(final String imagePath, final String text, final String name) {
-        super(PathUtils.getDevImagePath("cardbg", true));
+        super(PathUtils.getDevImagePath("cardbg"));
         this.image = new ImagePanel(imagePath);
         final LayoutManager layout = new BoxLayout(this, BoxLayout.Y_AXIS);
         this.setLayout(layout);

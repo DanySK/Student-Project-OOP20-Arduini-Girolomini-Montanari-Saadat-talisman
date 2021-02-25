@@ -80,7 +80,7 @@ public class CharacterSelectionPanel extends JPanel {
     }
 
     private JButton createCharacterButton(final int character) {
-        final String imagePath = PathUtils.getPathToCharacterIcon(character, false);
+        final String imagePath = PathUtils.getPathToCharacterIcon(character);
         final JButton button = new JButton();
         button.setIcon(new ImageIcon(ClassLoader.getSystemResource(imagePath)));
         button.setText(PlayerInfo.Character.values()[character].toString());

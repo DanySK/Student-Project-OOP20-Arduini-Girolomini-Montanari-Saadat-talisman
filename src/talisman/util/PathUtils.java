@@ -13,10 +13,6 @@ public final class PathUtils {
     /**
      * The path to the images folder.
      */
-    public static final String RESOURCES_PATH = "res/";
-    /**
-     * The path to the images folder.
-     */
     public static final String IMAGES_PATH = "imgs/";
     /**
      * The path to the cells images folder.
@@ -48,51 +44,34 @@ public final class PathUtils {
      * 
      * @param type     the type of cell
      * @param name     the name of the cell
-     * @param resource should the path start with the resource folder?
      * @return the generated path
      */
-    public static String getPathToCell(final TalismanCellType type, final String name, final boolean resource) {
-        final StringBuilder path = new StringBuilder();
-        if (resource) {
-            path.append(PathUtils.RESOURCES_PATH);
-        }
-        path.append(PathUtils.CELLS_IMAGE_PATH + type.toString() + "_" + name + ".png");
-        return path.toString();
+    public static String getPathToCell(final TalismanCellType type, final String name) {
+        return PathUtils.CELLS_IMAGE_PATH + type.toString() + "_" + name + ".png";
     }
 
-    public static String getPathToCard(final CardType type, final String name, final boolean resource) {
-        String path = PathUtils.CARDS_IMAGE_PATH + type.toString() + "_" + name + ".png";
-        if (resource) {
-            path = PathUtils.RESOURCES_PATH + path;
-        }
-        return path;
+    public static String getPathToCard(final CardType type, final String name) {
+        return PathUtils.CARDS_IMAGE_PATH + type.toString() + "_" + name + ".png";
     }
 
     /**
      * Gets the path to a character icon.
      * 
      * @param character the character index
-     * @param resource should the path start with the resource folder?
      * @return the path to the image
      */
-    public static String getPathToCharacterIcon(final int character, final boolean resource) {
-        final StringBuilder path = new StringBuilder();
-        if (resource) {
-            path.append(PathUtils.RESOURCES_PATH);
-        }
-        path.append(PathUtils.CHARACTER_ICONS_IMAGE_PATH + character + ".png");
-        return path.toString();
+    public static String getPathToCharacterIcon(final int character) {
+        return PathUtils.CHARACTER_ICONS_IMAGE_PATH + character + ".png";
     }
 
     /**
      * Gets a developer placeholder texture by its name.
      * 
      * @param imageName the image name
-     * @param resource  should the path start with the resource folder?
      * @return the image path
      */
-    public static String getDevImagePath(final String imageName, final boolean resource) {
-        return PathUtils.getDevImagePath(imageName, ".png", resource);
+    public static String getDevImagePath(final String imageName) {
+        return PathUtils.getDevImagePath(imageName, ".png");
     }
 
     /**
@@ -100,14 +79,9 @@ public final class PathUtils {
      * 
      * @param imageName the image name
      * @param extension the image file extension
-     * @param resource  should the path start with the resource folder?
      * @return the image path
      */
-    public static String getDevImagePath(final String imageName, final String extension, final boolean resource) {
-        String path = PathUtils.IMAGES_PATH + "dev/" + imageName + extension;
-        if (resource) {
-            path = PathUtils.RESOURCES_PATH + path;
-        }
-        return path;
+    public static String getDevImagePath(final String imageName, final String extension) {
+        return PathUtils.IMAGES_PATH + "dev/" + imageName + extension;
     }
 }
