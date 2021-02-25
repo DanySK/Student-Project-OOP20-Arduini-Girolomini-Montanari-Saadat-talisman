@@ -215,7 +215,7 @@ public final class TalismanBoardFactory {
                         Set.of(new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH),
                                 new TalismanDrawCardAction(DeckType.ADVENTURE))),
                 TalismanBoardFactory.createCell("Temple", "Temple", CellType.DOWN, TalismanCellType.ZONE,
-                        new TalismanRollAction(DiceType.DOUBLE_SEVEN, TalismanActionStatistic.NONE, List.of(
+                        new TalismanRollAction(DiceType.DOUBLE_SIX, TalismanActionStatistic.NONE, List.of(
                                 new TalismanRollActionSection(3,
                                         new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH)),
                                 new TalismanRollActionSection(5, new TalismanSkipTurnAction()),
@@ -288,7 +288,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final Collection<TalismanAction> actions) {
-        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, false), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName), text, orientation, type,
                 actions);
     }
 
@@ -305,7 +305,7 @@ public final class TalismanBoardFactory {
      */
     public static TalismanBoardCell createCell(final String imageName, final String text, final CellType orientation,
             final TalismanCellType type, final TalismanAction action) {
-        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName, false), text, orientation, type,
+        return TalismanBoardCell.createCell(PathUtils.getPathToCell(type, imageName), text, orientation, type,
                 action);
     }
 }

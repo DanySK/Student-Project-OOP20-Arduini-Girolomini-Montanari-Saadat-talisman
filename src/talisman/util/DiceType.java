@@ -1,20 +1,30 @@
 package talisman.util;
 
+/**
+ * Used to specifty the type of dices used.
+ * 
+ * @author Alberto Arduini
+ *
+ */
 public enum DiceType {
+    /**
+     * 
+     */
+    SIX(6, 1), DOUBLE_SIX(12, 2);
 
-    SEVEN,
-    DOUBLE_SEVEN;
+    private final int max;
+    private final int min;
 
-    public int getFaces(){
+    DiceType(final int max, final int min) {
+        this.max = max;
+        this.min = min;
+    }
 
-        switch (this) {
+    public int getMinValue() {
+        return this.min;
+    }
 
-            case SEVEN:
-                return 7;
-            case DOUBLE_SEVEN:
-                return 14;
-            default:
-                return 0;
-        }
+    public int getFaces() {
+        return this.max;
     }
 }

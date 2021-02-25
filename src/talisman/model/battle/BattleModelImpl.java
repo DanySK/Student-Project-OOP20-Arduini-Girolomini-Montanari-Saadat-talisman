@@ -1,7 +1,7 @@
 package talisman.model.battle;
 
 import talisman.util.DiceType;
-import talisman.util.Utils;
+import talisman.util.DiceUtils;
 
 /**
  * Implementation of the model of the battle.
@@ -39,9 +39,9 @@ public class BattleModelImpl implements BattleModel {
     @Override
     public void diceRoll(final int character) {
         if (character == 1) {
-            this.firstDice = Utils.rollDice(DiceType.SEVEN);
+            this.firstDice = DiceUtils.rollDice(DiceType.SIX);
         } else {
-            this.secondDice = Utils.rollDice(DiceType.SEVEN);
+            this.secondDice = DiceUtils.rollDice(DiceType.SIX);
         }
     }
 
