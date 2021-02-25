@@ -60,13 +60,6 @@ public class TalismanCardViewImpl extends ImagePanel implements TalismanCardView
         this.setPreferredSize(size);
         this.setMaximumSize(size);
         this.setBorder(BorderFactory.createLineBorder(Color.white, 5));
-        /*
-         * JButton button = new JButton("Click 0"); button.addActionListener(new
-         * ActionListener(){
-         * 
-         * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
-         * method stub button.setText("Wow"); } }); this.add(button);
-         */
     }
 
     /**
