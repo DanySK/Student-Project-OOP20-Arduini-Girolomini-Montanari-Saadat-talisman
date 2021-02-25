@@ -1,12 +1,12 @@
 package talisman.controller.board;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
 import talisman.Controllers;
+
 import talisman.controller.cards.TalismanCardController;
+
 import talisman.model.action.ActionEndedListener;
 import talisman.model.board.TalismanBoard;
 import talisman.model.board.TalismanBoardCell;
@@ -18,7 +18,9 @@ import talisman.model.cards.CardImpl;
 import talisman.model.cards.CardType;
 import talisman.model.character.CharacterModelImpl;
 import talisman.model.character.PlayerModel;
+
 import talisman.util.GameSetupUtil;
+
 import talisman.view.board.TalismanBoardView;
 import talisman.view.cards.TalismanCardView;
 
@@ -114,8 +116,13 @@ public final class TalismanBoardControllerImpl
     public void tryCollectCurrentCellCard() {
         final Optional<Card> card = this.removeCurrentCellCard();
         card.ifPresent((c) -> {
-            final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
-            ((CharacterModelImpl) player.getCurrentCharacter()).getInventory().addCard((CardImpl) c);
+            // I don't want to collect enemy cards
+            if (c.getType() != CardType.ENEMY) {
+                final PlayerModel player = Controllers.getCharactersController().getCurrentPlayer();
+                final CardImpl talismanCard = (CardImpl) c;
+                ((CharacterModelImpl) player.getCurrentCharacter()).getInventory().addCard(talismanCard);
+                talismanCard.getActions().stream().forEach(a -> a.apply());
+            }
         });
     }
 

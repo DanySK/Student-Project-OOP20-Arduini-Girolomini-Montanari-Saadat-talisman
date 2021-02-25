@@ -19,7 +19,7 @@ public class TalismanModifyStatisticAction extends TalismanAmountAction {
     private final TalismanActionStatistic statistic;
 
     /**
-     * Create a new pay gold action.
+     * Create a new modify statistic action.
      * 
      * @param amount    how much the statistic will be modified
      * @param statistic
