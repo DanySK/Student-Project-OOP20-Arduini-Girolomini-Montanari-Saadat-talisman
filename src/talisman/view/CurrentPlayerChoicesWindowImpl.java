@@ -49,7 +49,7 @@ public class CurrentPlayerChoicesWindowImpl extends JFrame implements CurrentPla
         final BorderLayout layout = new BorderLayout();
         this.setLayout(layout);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.diceButton = new JButton(new ImageIcon("res/imgs/battle/diceButton.png"));
+        this.diceButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("imgs/battle/diceButton.png")));
         this.passTurnButton = new JButton("Pass");
         this.moveButton = new JButton("Move");
         this.cellEventButton = new JButton("Event");
