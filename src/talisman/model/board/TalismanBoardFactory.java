@@ -80,7 +80,7 @@ public final class TalismanBoardFactory {
                                 new TalismanRollAction(4, TalismanActionStatistic.FAITH,
                                         new TalismanModifyStatisticAction(1, TalismanActionStatistic.CRAFT),
                                         new TalismanEmptyAction())))),
-                TalismanBoardFactory.createCell("Fields_Top", "Fields", CellType.UP, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Top", "Fields", CellType.UP, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Graveyard", "Graveyard", CellType.UP, TalismanCellType.ZONE,
                         new TalismanRollAction(4, TalismanActionStatistic.NONE,
@@ -98,7 +98,7 @@ public final class TalismanBoardFactory {
                                 new TalismanModifyStatisticAction(1, TalismanActionStatistic.HEALTH),
                                 new TalismanModifyStatisticAction(-1, TalismanActionStatistic.HEALTH))),
                 // Right column (top -> bottom)
-                TalismanBoardFactory.createCell("Fields_Right", "Fields", CellType.RIGHT, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Right", "Fields", CellType.RIGHT, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Crags", "Crags", CellType.RIGHT, TalismanCellType.ZONE,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
@@ -113,7 +113,7 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Woods_Right", "Woods", CellType.RIGHT, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
-                TalismanBoardFactory.createCell("Fields_Right", "Fields", CellType.RIGHT, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Right", "Fields", CellType.RIGHT, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 // Bottom row (left <- right)
                 TalismanBoardFactory.createCell("City", "City", CellType.DOWN, TalismanCellType.ZONE,
@@ -130,11 +130,11 @@ public final class TalismanBoardFactory {
                                                 new TalismanModifyStatisticAction(1, TalismanActionStatistic.CRAFT)))),
                                 new TalismanPayAction(1,
                                         new TalismanModifyStatisticAction(2, TalismanActionStatistic.HEALTH))))),
-                TalismanBoardFactory.createCell("Fields_Bottom", "Fields", CellType.DOWN, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Bottom", "Fields", CellType.DOWN, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Hills_Bottom", "Hills", CellType.DOWN, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
-                TalismanBoardFactory.createCell("Fields_Bottom", "Plains", CellType.DOWN, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Bottom", "Plains", CellType.DOWN, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Woods_Bottom", "Woods", CellType.DOWN, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
@@ -152,7 +152,7 @@ public final class TalismanBoardFactory {
                                         new TalismanRollActionSection(5, new TalismanEmptyAction()),
                                         new TalismanRollActionSection(6, new TalismanMoveAction(1, 12))))),
                 // Left column (bottom -> up)
-                TalismanBoardFactory.createCell("Woods_Left", "Fields", CellType.LEFT, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Left", "Fields", CellType.LEFT, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Woods_Left", "Forest", CellType.LEFT, TalismanCellType.BIOME,
                         new TalismanRollAction(TalismanActionStatistic.NONE,
@@ -167,7 +167,7 @@ public final class TalismanBoardFactory {
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
                 TalismanBoardFactory.createCell("Ruins", "Ruins", CellType.LEFT, TalismanCellType.ZONE,
                         new TalismanDrawCardAction(DeckType.ADVENTURE)),
-                TalismanBoardFactory.createCell("Fields_Left", "Fields", CellType.LEFT, TalismanCellType.BIOME,
+                TalismanBoardFactory.createCell("FIelds_Left", "Fields", CellType.LEFT, TalismanCellType.BIOME,
                         new TalismanDrawCardAction(DeckType.ADVENTURE))));
     }
 
