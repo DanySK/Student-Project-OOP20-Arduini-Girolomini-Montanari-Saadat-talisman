@@ -3,3 +3,5 @@ doc/
 *.class
 *.log
 *.tal
+build/
+.gradle/
